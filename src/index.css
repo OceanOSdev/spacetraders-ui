@@ -4,10 +4,6 @@
   font-weight: 400;
 
   color: rgba(235, 245, 255, 0.92);
-  background:
-    radial-gradient(circle at top, rgba(0, 180, 255, 0.12), transparent 35%),
-    linear-gradient(180deg, #07111f 0%, #04070d 100%);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -41,7 +37,11 @@ body,
 body {
   min-width: 320px;
   color: var(--text);
-  background-color: var(--bg);
+  background:
+    radial-gradient(circle at top, rgba(0, 180, 255, 0.12), transparent 35%),
+    linear-gradient(180deg, #07111f 0%, #04070d 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body::before {
