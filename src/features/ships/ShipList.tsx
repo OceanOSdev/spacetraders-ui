@@ -46,12 +46,17 @@ export function ShipList() {
             label='Fuel'
             value={ship.fuel.current}
             max={ship.fuel.capacity}
+            warningThresholdPercent={35}
+            dangergThresholdPercent={15}
           />
           <TelemetryBar
             label='Cargo'
             value={ship.cargo.units}
             max={ship.cargo.capacity}
             color='green'
+            warningThresholdPercent={75}
+            dangergThresholdPercent={95}
+            invertThresholds
           />
         </button>
       </li >
