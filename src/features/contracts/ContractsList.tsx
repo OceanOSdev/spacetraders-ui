@@ -1,9 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { ContractStatusPill } from "../../components/ui/ContractStatusPill";
+import { CountdownText } from "../../components/ui/CountdownText";
 import { EmptyState } from "../../components/ui/EmptyState";
 import { ErrorState } from "../../components/ui/ErrorState";
 import { LoadingState } from "../../components/ui/LoadingState";
 import { Panel } from "../../components/ui/Panel";
 import { PanelTitle } from "../../components/ui/PanelTitle";
+import { PayoutBadge } from "../../components/ui/PayoutBadge";
 import { StatusText } from "../../components/ui/StatusText";
 import { useGetContractsQuery } from "../../services/spacetradersApi";
 import { setSelectedContractId } from "./contractsUiSlice";
@@ -40,17 +43,31 @@ export function ContractsList() {
                 className={`ship-button${isSelected ? ' selected' : ''}`}
                 onClick={() => dispatch(setSelectedContractId(contract.id))}
               >
-                <div className='contract-type'>{contract.type}</div>
-                <div className='contract-meta'>ID: {contract.id}</div>
-                <div className='contract-meta'>
-                  Accepted: {contract.accepted ? 'Yes' : 'No'}
-                </div>
-                <div className='contract-meta'>
-                  Fulfilled: {contract.fulfilled ? 'Yes' : 'No'}
+                <div className='contract-card-top'>
+                  <div className='contract-card-heading'>
+                    <div className='contract-type'>{contract.type}</div>
+                    <div className='contract-meta'>ID: {contract.id.slice(0, 9)}...</div>
+                  </div>
+
+                  <ContractStatusPill
+                    accepted={contract.accepted}
+                    fulfilled={contract.fulfilled}
+                  />
                 </div>
 
-                <div className='contract-meta'>
-                  Deliveries: {contract.terms.deliver.length}
+                <div className='contract-card-meta'>
+                  <CountdownText isoDate={contract.terms.deadline} />
+                </div>
+
+                <div className='payout-row'>
+                  <PayoutBadge
+                    label='On Accept'
+                    amount={contract.terms.payment.onAccepted}
+                  />
+                  <PayoutBadge
+                    label='On Fulfill'
+                    amount={contract.terms.payment.onFulfilled}
+                  />
                 </div>
               </button>
             </li>

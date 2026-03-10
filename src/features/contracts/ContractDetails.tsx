@@ -9,6 +9,10 @@ import { PanelTitle } from "../../components/ui/PanelTitle";
 import { StatusText } from "../../components/ui/StatusText";
 import { StatCard } from "../../components/ui/StatCard";
 import { ShipSelector } from "../../components/ui/ShipSelector";
+import { ContractStatusPill } from "../../components/ui/ContractStatusPill";
+import { CountdownText } from "../../components/ui/CountdownText";
+import { PayoutBadge } from "../../components/ui/PayoutBadge";
+import { ProgressBar } from "../../components/ui/ProgressBar";
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
@@ -55,15 +59,28 @@ export function ContractDetails() {
       <PanelTitle>Contract Briefing</PanelTitle>
       {isFetching && <StatusText>Refreshing contract...</StatusText>}
 
-      <div className='detail-grid'>
+      <div className='contract-inline-pill-row'>
+        <ContractStatusPill
+          accepted={contract.accepted}
+          fulfilled={contract.fulfilled}
+        />
+        <CountdownText isoDate={contract.terms.deadline} prefix='Deadline:' />
+      </div>
+
+      <div className='detail-grid' style={{ marginTop: '1rem' }}>
         <StatCard label='Type' value={contract.type} />
-        <StatCard label='Accepted' value={contract.accepted ? 'Yes' : 'No'} />
-        <StatCard label='Fulfilled' value={contract.fulfilled ? 'Yes' : 'No'} />
         <StatCard label='Expires' value={contract.expiration} />
-        <StatCard label='Deadline' value={contract.terms.deadline} />
-        <StatCard
-          label='Payout'
-          value={`${contract.terms.payment.onAccepted} + ${contract.terms.payment.onFulfilled}`}
+        <StatCard label='Deliveries' value={contract.terms.deliver.length} />
+      </div>
+
+      <div className='payout-row'>
+        <PayoutBadge
+          label='Accept Payout'
+          amount={contract.terms.payment.onAccepted}
+        />
+        <PayoutBadge
+          label='Fulfill Payout'
+          amount={contract.terms.payment.onFulfilled}
         />
       </div>
 
@@ -73,20 +90,29 @@ export function ContractDetails() {
         {contract.terms.deliver.length === 0 ? (
           <p>No delivery terms listed.</p>
         ) : (
-          <ul className='contract-delivery-list'>
+          <div className='contract-delivery-stack'>
             {contract.terms.deliver.map((item) => (
-              <li
-                className='contract-delivery-item'
+              <div
+                className='contract-delivery-panel'
                 key={`${item.tradeSymbol}-${item.destinationSymbol}`}
               >
-                <strong>{item.tradeSymbol}</strong>
-                <span>
-                  {item.unitsFulfilled}/{item.unitsRequired}
-                </span>
-                <span>{item.destinationSymbol}</span>
-              </li>
+                <div className='contract-deliver-header'>
+                  <div className='contract-delivery-title'>{item.tradeSymbol}</div>
+                  <div className='contract-delivery-destination'>
+                    &rarr; {item.destinationSymbol}
+                  </div>
+                </div>
+
+                <ProgressBar
+                  label='Fulfillment'
+                  value={item.unitsFulfilled}
+                  max={item.unitsRequired}
+                  color='amber'
+                  size='md'
+                />
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
 
