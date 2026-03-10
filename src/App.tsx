@@ -1,6 +1,7 @@
 import { useAppDispatch } from "./app/hooks";
 import { AuthGate } from "./features/auth/AuthGate";
 import { clearToken } from "./features/auth/authSlice";
+import { ShipsPage } from "./features/ships/ShipsPage";
 import { useGetAgentQuery } from './services/spacetradersApi'
 
 function AgentDashboard() {
@@ -53,6 +54,8 @@ function AgentDashboard() {
         <p><strong>Credits:</strong> {agent.credits.toLocaleString()}</p>
         <p><strong>Ships:</strong> {agent.shipCount}</p>
       </section>
+
+      <ShipsPage />
     </div>
   );
 }
