@@ -66,38 +66,49 @@ export function ContractDetails() {
         />
       </div>
 
-      <div className='ship-telemetry-section'>
+      <div className='contract-section'>
         <PanelTitle as='h3'>Delivery Terms</PanelTitle>
 
         {contract.terms.deliver.length === 0 ? (
           <p>No delivery terms listed.</p>
         ) : (
-          <ul className='inventory-list'>
+          <ul className='contract-delivery-list'>
             {contract.terms.deliver.map((item) => (
-              <li key={`${item.tradeSymbol}-${item.destinationSymbol}`}>
-                {item.tradeSymbol}: {item.unitsFulfilled}/{item.unitsRequired} &rarr; {item.destinationSymbol}
+              <li
+                className='contract-delivery-item'
+                key={`${item.tradeSymbol}-${item.destinationSymbol}`}
+              >
+                <strong>{item.tradeSymbol}</strong>
+                <span>
+                  {item.unitsFulfilled}/{item.unitsRequired}
+                </span>
+                <span>{item.destinationSymbol}</span>
               </li>
             ))}
           </ul>
         )}
       </div>
 
-      <div className='ship-inventory-section'>
+      <div className='contract-section contract-actions'>
         <PanelTitle as='h3'>Actions</PanelTitle>
 
         {!contract.accepted && (
-          <button onClick={handleAccept} disabled={isAccepting}>
+          <button
+            className='contract-button contract-button-primary'
+            onClick={handleAccept}
+            disabled={isAccepting}
+          >
             {isAccepting ? 'Accepting...' : 'Accept Contract'}
           </button>
         )}
 
-        <div style={{ marginTop: '1rem' }}>
-          <label htmlFor='negotiate-ship'>Negotiate with ship:</label>
+        <div className='contract-negotiate-new'>
+          {/* <label htmlFor='negotiate-ship'>Negotiate with ship:</label> */}
           <select
             id='negotiate-ship'
+            className='contract-select'
             value={negotiateShip}
             onChange={(e) => setNegotiateShip(e.target.value)}
-            style={{ marginLeft: '0.75rem' }}
           >
             <option value=''>Select ship</option>
             {shipsData?.data.map((ship) => (

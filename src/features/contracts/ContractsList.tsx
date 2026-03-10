@@ -40,16 +40,16 @@ export function ContractsList() {
                 className={`ship-button${isSelected ? ' selected' : ''}`}
                 onClick={() => dispatch(setSelectedContractId(contract.id))}
               >
-                <div className='ship-symbol'>{contract.type}</div>
-                <div className='ship-meta'>ID: {contract.id}</div>
-                <div className='ship-meta'>
+                <div className='contract-type'>{contract.type}</div>
+                <div className='contract-meta'>ID: {contract.id}</div>
+                <div className='contract-meta'>
                   Accepted: {contract.accepted ? 'Yes' : 'No'}
                 </div>
-                <div className='ship-meta'>
+                <div className='contract-meta'>
                   Fulfilled: {contract.fulfilled ? 'Yes' : 'No'}
                 </div>
 
-                <div className='ship-meta'>
+                <div className='contract-meta'>
                   Deliveries: {contract.terms.deliver.length}
                 </div>
               </button>

@@ -425,3 +425,79 @@
   gap: 0.6rem;
   align-items: center;
 }
+
+.contract-meta {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.contract-type {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  letter-spacing: 0.04em;
+}
+
+.contract-delivery-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contract-delivery-item {
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  background: rgba(7, 14, 23, 0.7);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.contract-delivery-item strong {
+  color: var(--accent);
+}
+
+.contract-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.contract-button {
+  width: fit-content;
+}
+
+.contract-button-primary {
+  border-color: rgba(89, 216, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(89, 216, 255, 0.15),
+    0 0 22px rgba(89, 216, 255, 0.16);
+}
+
+.contract-button-primary:hover {
+  border-color: rgba(89, 216, 255, 0.7);
+}
+
+.contract-negotiate-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.contract-select {
+  border: 1px solid var(--border);
+  background: rgba(5, 12, 22, 0.9);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.45rem 0.6rem;
+}
+
+.contract-section {
+  margin-top: 1.25rem;
+}
