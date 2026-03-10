@@ -6,6 +6,7 @@ type TelemetryBarProps = {
   warningThresholdPercent?: number
   dangergThresholdPercent?: number
   invertThresholds?: boolean
+  size?: 'sm' | 'md'
 }
 
 export function TelemetryBar({
@@ -16,6 +17,7 @@ export function TelemetryBar({
   warningThresholdPercent,
   dangergThresholdPercent,
   invertThresholds = false,
+  size = 'sm'
 }: TelemetryBarProps) {
   const percent = max === 0 ? 0 : Math.round((value / max) * 100);
 
@@ -35,7 +37,7 @@ export function TelemetryBar({
   }
 
   return (
-    <div className='telemetry'>
+    <div className={`telemetry telemetry-${size}`}>
       <div className='telemetry-header'>
         <span className='telemetry-label'>{label}</span>
         <span className='telemetry-value'>

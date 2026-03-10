@@ -6,6 +6,7 @@ import { Panel } from "../../components/ui/Panel";
 import { PanelTitle } from "../../components/ui/PanelTitle";
 import { StatCard } from "../../components/ui/StatCard";
 import { StatusText } from "../../components/ui/StatusText";
+import { TelemetryBar } from "../../components/ui/TelemetryBar";
 import { useGetShipQuery } from "../../services/spacetradersApi";
 import type { ShipCargoItem } from "../../types/ships";
 
@@ -66,11 +67,32 @@ export function ShipDetails() {
         <StatCard label='Waypoint' value={ship.nav.waypointSymbol} />
         <StatCard label='Status' value={ship.nav.status} />
         <StatCard label='Flight Mode' value={ship.nav.flightMode} />
-        <StatCard label='Fuel' value={`${ship.fuel.current} / ${ship.fuel.capacity}`} />
-        <StatCard label='Cargo' value={`${ship.cargo.units} / ${ship.cargo.capacity}`} />
       </div>
 
-      <div style={{ marginTop: '1rem' }}>
+      <div className='ship-telemetry-section'>
+        <PanelTitle as='h3'>Resource Telemetry</PanelTitle>
+
+        <TelemetryBar
+          label='Fuel'
+          value={ship.fuel.current}
+          max={ship.fuel.capacity}
+          warningThresholdPercent={35}
+          dangergThresholdPercent={15}
+          size='md'
+        />
+
+        <TelemetryBar
+          label='Cargo'
+          value={ship.cargo.units}
+          max={ship.cargo.capacity}
+          warningThresholdPercent={75}
+          dangergThresholdPercent={95}
+          invertThresholds
+          size='md'
+        />
+      </div>
+
+      <div className='ship-inventory-section'>
         <PanelTitle as='h3'>Inventory</PanelTitle>
         <ShipInventory inventory={ship.cargo.inventory} />
       </div>

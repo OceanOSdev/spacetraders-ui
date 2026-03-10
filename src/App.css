@@ -322,6 +322,14 @@
   margin-top: 0.75rem;
 }
 
+.ship-telemetry-section {
+  margin-top: 1.25rem;
+}
+
+.ship-inventory-section {
+  margin-top: 1.25rem;
+}
+
 @keyframes telemetry-danger-pulse {
   0%,
   100% {
@@ -330,4 +338,17 @@
   50% {
     filter: brightness(1.35);
   }
+}
+
+.telemetry-sm .telemetry-bar {
+  height: 10px;
+}
+
+.telemetry-md .telemetry-bar {
+  height: 14px;
+}
+
+.telemetry-md .telemetry-header {
+  font-size: 0.92rem;
+  margin-bottom: 0.35rem;
 }
