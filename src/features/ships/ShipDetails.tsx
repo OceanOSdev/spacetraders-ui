@@ -5,6 +5,7 @@ import { LoadingState } from "../../components/ui/LoadingState";
 import { Panel } from "../../components/ui/Panel";
 import { PanelTitle } from "../../components/ui/PanelTitle";
 import { StatCard } from "../../components/ui/StatCard";
+import { StatusPill } from "../../components/ui/StatusPill";
 import { StatusText } from "../../components/ui/StatusText";
 import { TelemetryBar } from "../../components/ui/TelemetryBar";
 import { useGetShipQuery } from "../../services/spacetradersApi";
@@ -65,8 +66,15 @@ export function ShipDetails() {
         <StatCard label='Symbol' value={ship.symbol} />
         <StatCard label='System' value={ship.nav.systemSymbol} />
         <StatCard label='Waypoint' value={ship.nav.waypointSymbol} />
-        <StatCard label='Status' value={ship.nav.status} />
-        <StatCard label='Flight Mode' value={ship.nav.flightMode} />
+      </div>
+
+      <div className='detail-status-row'>
+        <PanelTitle as='h3'>Operation Status</PanelTitle>
+
+        <div className='status-pair'>
+          <StatusPill status={ship.nav.status} />
+          <StatusPill status={ship.nav.flightMode} />
+        </div>
       </div>
 
       <div className='ship-telemetry-section'>
