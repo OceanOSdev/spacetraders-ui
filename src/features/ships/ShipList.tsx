@@ -5,6 +5,7 @@ import { LoadingState } from "../../components/ui/LoadingState";
 import { Panel } from "../../components/ui/Panel";
 import { PanelTitle } from "../../components/ui/PanelTitle";
 import { StatusText } from "../../components/ui/StatusText";
+import { TelemetryBar } from "../../components/ui/TelemetryBar";
 import { useGetShipsQuery } from "../../services/spacetradersApi";
 import type { Ship } from "../../types/ships";
 import { setSelectedShipSymbol } from "./shipsUiSlice";
@@ -41,8 +42,17 @@ export function ShipList() {
         >
           <div className='ship-symbol'>{ship.symbol}</div>
           <div className='ship-meta'>Waypoint: {ship.nav.waypointSymbol}</div>
-          <div className='ship-meta'>Fuel: {ship.fuel.current} / {ship.fuel.capacity}</div>
-          <div className='ship-meta'>Cargo: {ship.cargo.units} / {ship.cargo.capacity}</div>
+          <TelemetryBar
+            label='Fuel'
+            value={ship.fuel.current}
+            max={ship.fuel.capacity}
+          />
+          <TelemetryBar
+            label='Cargo'
+            value={ship.cargo.units}
+            max={ship.cargo.capacity}
+            color='green'
+          />
         </button>
       </li >
     );

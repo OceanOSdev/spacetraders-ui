@@ -200,3 +200,64 @@
     align-items: stretch;
   }
 }
+
+.telemetry {
+  margin-top: 0.6rem;
+}
+
+.telemetry-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.telemetry-label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.telemetry-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 6px;
+  background: rgba(7, 14, 23, 0.9);
+  border: 1px solid rgba(89, 216, 255, 0.15);
+  overflow: hidden;
+}
+
+.telemetry-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 200ms ease;
+}
+
+/* color variants */
+
+.telemetry-cyan .telemetry-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(80, 210, 255, 0.9),
+    rgba(140, 240, 255, 0.95)
+  );
+  box-shadow: 0 0 10px rgba(80, 210, 255, 0.45);
+}
+
+.telemetry-green .telemetry-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(114, 241, 184, 0.9),
+    rgba(170, 255, 220, 0.95)
+  );
+  box-shadow: 0 0 10px rgba(114, 241, 184, 0.45);
+}
+
+.telemetry-amber .telemetry-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 200, 120, 0.9),
+    rgba(255, 230, 170, 0.95)
+  );
+  box-shadow: 0 0 10px rgba(255, 200, 120, 0.45);
+}
