@@ -89,42 +89,48 @@ export function ContractDetails() {
         )}
       </div>
 
-      <div className='contract-section contract-actions'>
+      <div className='contract-section'>
         <PanelTitle as='h3'>Actions</PanelTitle>
 
-        {!contract.accepted && (
-          <button
-            className='contract-button contract-button-primary'
-            onClick={handleAccept}
-            disabled={isAccepting}
-          >
-            {isAccepting ? 'Accepting...' : 'Accept Contract'}
-          </button>
-        )}
+        <div className='contract-actions'>
+          {!contract.accepted && (
+            <div className='contract-action-group'>
+              <div className='contract-action-label'>Accept current contract</div>
+              <button
+                className='contract-button contract-button-primary'
+                onClick={handleAccept}
+                disabled={isAccepting}
+              >
+                {isAccepting ? 'Accepting...' : 'Accept Contract'}
+              </button>
+            </div>
+          )}
 
-        <div className='contract-negotiate-new'>
-          {/* <label htmlFor='negotiate-ship'>Negotiate with ship:</label> */}
-          <select
-            id='negotiate-ship'
-            className='contract-select'
-            value={negotiateShip}
-            onChange={(e) => setNegotiateShip(e.target.value)}
-          >
-            <option value=''>Select ship</option>
-            {shipsData?.data.map((ship) => (
-              <option key={ship.symbol} value={ship.symbol}>
-                {ship.symbol}
-              </option>
-            ))}
-          </select>
+          <div className='contract-action-group'>
+            <div className='contract-action-label'>Negotiate new contract</div>
+            <div className='contract-negotiate-row'>
+              <select
+                className='contract-select'
+                value={negotiateShip}
+                onChange={(e) => setNegotiateShip(e.target.value)}
+              >
+                <option value=''>Select ship</option>
+                {shipsData?.data.map((ship) => (
+                  <option key={ship.symbol} value={ship.symbol}>
+                    {ship.symbol}
+                  </option>
+                ))}
+              </select>
 
-          <button
-            onClick={handleNegotiate}
-            disabled={!negotiateShip || isNegotiating}
-            style={{ marginLeft: '0.75rem' }}
-          >
-            {isNegotiating ? 'Negotiating...' : 'Negotiate New Contract'}
-          </button>
+              <button
+                onClick={handleNegotiate}
+                disabled={!negotiateShip || isNegotiating}
+                style={{ marginLeft: '0.75rem' }}
+              >
+                {isNegotiating ? 'Negotiating...' : 'Negotiate New Contract'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </Panel>
