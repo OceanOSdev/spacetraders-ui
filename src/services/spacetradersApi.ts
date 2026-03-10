@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { AgentResponse } from '../types/spacetaders'
 import type { AuthState } from '../types/auth'
 import type { GetShipResponse, GetShipsResponse } from '../types/ships'
+import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from '../types/contracts'
 
 type ApiRootState = {
   auth: AuthState
@@ -27,7 +28,7 @@ export const spacetradersApi = createApi({
     },
   }),
 
-  tagTypes: ['Agent', 'Ships', 'Ship'],
+  tagTypes: ['Agent', 'Ships', 'Ship', 'Contracts', 'Contract'] as const,
 
   endpoints: (builder) => ({
     // Fetch the agent profile
@@ -58,7 +59,51 @@ export const spacetradersApi = createApi({
     getShip: builder.query<GetShipResponse, string>({
       query: (shipSymbol) => `my/ships/${shipSymbol}`,
       providesTags: (_result, _error, shipSymbol) => [
-        { type: 'Ship', id: shipSymbol },
+        { type: 'Ship' as const, id: shipSymbol },
+      ],
+    }),
+
+    getContracts: builder.query<GetContractsResponse, void>({
+      query: () => 'my/contracts',
+      providesTags: (result) =>
+        result
+          ? [
+            { type: 'Contracts' as const },
+            ...result.data.map((contract) => ({
+              type: 'Contract' as const,
+              id: contract.id,
+            })),
+          ]
+          : [{ type: 'Contracts' as const }],
+    }),
+
+    getContract: builder.query<GetContractResponse, string>({
+      query: (contractId) => `my/contracts/${contractId}`,
+      providesTags: (_result, _error, contractId) => [
+        { type: 'Contract' as const, id: contractId },
+      ],
+    }),
+
+    acceptContract: builder.mutation<AcceptContractResponse, string>({
+      query: (contractId) => ({
+        url: `my/contracts/${contractId}/accept`,
+        method: 'POST',
+      }),
+      invalidatesTags: (_result, _error, contractId) => [
+        { type: 'Contracts' as const },
+        { type: 'Contract' as const, id: contractId },
+        { type: 'Agent' as const },
+      ],
+    }),
+
+    negotiateContract: builder.mutation<NegotiateContractResponse, string>({
+      query: (shipSymbol) => ({
+        url: `my/ships/${shipSymbol}/negotiate/contract`,
+        method: 'POST',
+      }),
+      invalidatesTags: [
+        { type: 'Contracts' as const },
+        { type: 'Agent' as const },
       ],
     }),
   }),
@@ -68,4 +113,8 @@ export const {
   useGetAgentQuery,
   useGetShipsQuery,
   useGetShipQuery,
+  useGetContractsQuery,
+  useGetContractQuery,
+  useAcceptContractMutation,
+  useNegotiateContractMutation,
 } = spacetradersApi;

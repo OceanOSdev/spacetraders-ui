@@ -110,6 +110,12 @@
   text-align: left;
   border-radius: 14px;
   padding: 0.9rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+
+  align-items: stretch;
 }
 
 .ship-button.selected {
@@ -424,4 +430,387 @@
   flex-wrap: wrap;
   gap: 0.6rem;
   align-items: center;
+}
+
+.contract-meta {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.contract-type {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  letter-spacing: 0.04em;
+}
+
+.contract-delivery-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contract-delivery-item {
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  background: rgba(7, 14, 23, 0.7);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.contract-delivery-item strong {
+  color: var(--accent);
+}
+
+.contract-actions {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.contract-action-group {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(7, 14, 23, 0.45);
+}
+
+.contract-action-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.contract-button {
+  width: fit-content;
+  min-height: 42px;
+}
+
+.contract-button-primary {
+  border-color: rgba(89, 216, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(89, 216, 255, 0.15),
+    0 0 22px rgba(89, 216, 255, 0.16);
+}
+
+.contract-button-primary:hover {
+  border-color: rgba(89, 216, 255, 0.7);
+}
+
+.contract-negotiate-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.contract-section {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 720px) {
+  .contract-negotiate-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contract-button {
+    width: 100%;
+  }
+}
+
+.ship-selector {
+  position: relative;
+  width: 100%;
+}
+
+.ship-selector.is-disabled {
+  opacity: 0.6;
+}
+
+.ship-selector-trigger {
+  width: 100%;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(10, 20, 33, 0.96), rgba(6, 12, 22, 0.96));
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  box-shadow:
+    inset 0 0 0 1px rgba(89, 216, 255, 0.03),
+    0 0 0 1px rgba(89, 216, 255, 0.04);
+}
+
+.ship-selector-trigger:hover {
+  border-color: var(--border-strong);
+}
+
+.ship-selector.is-open .ship-selector-trigger {
+  border-color: var(--border-strong);
+  box-shadow:
+    0 0 0 1px rgba(89, 216, 255, 0.16),
+    0 0 24px rgba(89, 216, 255, 0.14);
+}
+
+.ship-selector-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ship-selector-value.is-placeholder {
+  color: rgba(170, 200, 220, 0.55);
+}
+
+.ship-selector-chevron {
+  flex: 0 0 auto;
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  transition: transform 160ms ease;
+}
+
+.ship-selector.is-open .ship-selector-chevron {
+  transform: rotate(180deg);
+}
+
+.ship-selector-menu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(11, 19, 31, 0.98), rgba(7, 12, 20, 0.98));
+  box-shadow:
+    0 0 0 1px rgba(89, 216, 255, 0.1),
+    0 0 28px rgba(89, 216, 255, 0.16);
+  backdrop-filter: blur(8px);
+  padding: 0.35rem;
+}
+
+.ship-selector-option {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  box-shadow: none;
+}
+
+.ship-selector-option:hover,
+.ship-selector-option.is-highlighted {
+  border-color: rgba(89, 216, 255, 0.2);
+  background: rgba(89, 216, 255, 0.08);
+  transform: none;
+}
+
+.ship-selector-option.is-selected {
+  border-color: rgba(89, 216, 255, 0.3);
+  background: rgba(89, 216, 255, 0.12);
+}
+
+.ship-selector-check {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.ship-selector-empty {
+  padding: 0.85rem 0.75rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.progress-block {
+  margin-top: 0.55rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.progress-label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.progress-value {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+
+.progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(89, 216, 255, 0.15);
+  background: rgba(7, 14, 23, 0.9);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.35);
+}
+
+.progress-md .progress-bar {
+  height: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 220ms ease;
+}
+
+.progress-bar-cyan .progress-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(80, 210, 255, 0.9),
+    rgba(140, 240, 255, 0.95)
+  );
+  box-shadow: 0 0 10px rgba(80, 210, 255, 0.45);
+}
+
+.progress-bar-green .progress-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(114, 241, 184, 0.9),
+    rgba(170, 255, 220, 0.95)
+  );
+  box-shadow: 0 0 10px rgba(114, 241, 184, 0.45);
+}
+
+.progress-bar-amber .progress-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 200, 120, 0.9),
+    rgba(255, 230, 170, 0.95)
+  );
+  box-shadow: 0 0 10px rgba(255, 200, 120, 0.45);
+}
+
+.payout-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.payout-badge {
+  min-width: 150px;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(89, 216, 255, 0.18);
+  background: rgba(7, 14, 23, 0.72);
+}
+
+.payout-badge-label {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.payout-badge-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.contract-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.contract-meta {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.contract-card-top .status-pill {
+  flex: 0 0 auto;
+}
+
+.contract-card-heading {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.contract-card-meta {
+  margin-top: 0.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.countdown-text {
+  font-size: 0.82rem;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+}
+
+.countdown-text.is-expired {
+  color: var(--danger);
+}
+
+.contract-inline-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.contract-delivery-stack {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+}
+
+.contract-delivery-panel {
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  background: rgba(7, 14, 23, 0.7);
+}
+
+.contract-delivery-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.45rem;
+}
+
+.contract-delivery-title {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.contract-delivery-destination {
+  font-size: 0.88rem;
+  color: var(--muted);
 }
