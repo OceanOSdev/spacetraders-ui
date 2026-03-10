@@ -1,12 +1,13 @@
-import { useState, type SubmitEventHandler } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { setToken } from "./authSlice";
+import { MutedText } from "../../components/ui/MutedText";
 
 export function TokenForm() {
   const dispatch = useAppDispatch();
   const [tokenInput, setTokenInput] = useState('');
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = event => {
+  const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const trimmed = tokenInput.trim();
@@ -19,21 +20,22 @@ export function TokenForm() {
   }
 
   return (
-    <div style={{ maxWidth: 500, margin: '3rem auto', padding: '1rem' }}>
-      <h1>SpaceTraders Dashboard</h1>
-      <p>Paste your agent token to begin.</p>
+    <div className='auth-shell'>
+      <div className='panel auth-panel'>
+        <h1 className='auth-title'>SpaceTraders Fleet Console Login</h1>
+        <MutedText>Authenticate with your agent token to begin.</MutedText>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          value={tokenInput}
-          onChange={(e) => setTokenInput(e.target.value)}
-          placeholder="SpaceTraders token"
-          style={{ width: '100%', padding: '0.75rem', marginBottom: '0.75rem' }}
-        />
+        <form className='auth-form' onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={tokenInput}
+            onChange={(e) => setTokenInput(e.target.value)}
+            placeholder="SpaceTraders token"
+          />
 
-        <button type="submit">Save token</button>
-      </form>
+          <button type="submit">Authorize</button>
+        </form>
+      </div>
     </div>
   );
 

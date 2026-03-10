@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { AgentResponse } from '../types/spacetaders'
 import type { AuthState } from '../types/auth'
+import type { GetShipResponse, GetShipsResponse } from '../types/ships'
 
 type ApiRootState = {
   auth: AuthState
@@ -26,14 +27,45 @@ export const spacetradersApi = createApi({
     },
   }),
 
-  tagTypes: ['Agent'],
+  tagTypes: ['Agent', 'Ships', 'Ship'],
 
   endpoints: (builder) => ({
+    // Fetch the agent profile
     getAgent: builder.query<AgentResponse, void>({
       query: () => 'my/agent',
       providesTags: ['Agent'],
     }),
+
+    // Fetch the user's ships
+    getShips: builder.query<GetShipsResponse, void>({
+      query: () => 'my/ships',
+
+      // Mark this query as providing the "Ships" list tag,
+      // and also provide per-ship tags for individual invalidation later.
+      providesTags: (result) => {
+        if (!result) {
+          return [{ type: 'Ships' as const }];
+        }
+
+        return [
+          { type: 'Ships' as const },
+          ...result.data.map((ship) => ({ type: 'Ship' as const, id: ship.symbol })),
+        ];
+      },
+    }),
+
+    // Fetch details for one particular ship.
+    getShip: builder.query<GetShipResponse, string>({
+      query: (shipSymbol) => `my/ships/${shipSymbol}`,
+      providesTags: (_result, _error, shipSymbol) => [
+        { type: 'Ship', id: shipSymbol },
+      ],
+    }),
   }),
 });
 
-export const { useGetAgentQuery } = spacetradersApi;
+export const {
+  useGetAgentQuery,
+  useGetShipsQuery,
+  useGetShipQuery,
+} = spacetradersApi;
