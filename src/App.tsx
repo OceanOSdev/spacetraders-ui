@@ -2,16 +2,13 @@ import type { ReactNode } from "react";
 import { useAppDispatch } from "./app/hooks";
 import { AuthGate } from "./features/auth/AuthGate";
 import { clearToken } from "./features/auth/authSlice";
-import { ShipsPage } from "./features/ships/ShipsPage";
 import { useGetAgentQuery } from './services/spacetradersApi'
-import { Panel } from "./components/ui/Panel";
-import { PanelTitle } from "./components/ui/PanelTitle";
 import { StatusText } from "./components/ui/StatusText";
-import { StatCard } from "./components/ui/StatCard";
 import { LoadingState } from "./components/ui/LoadingState";
 import { ErrorState } from "./components/ui/ErrorState";
 import { EmptyState } from "./components/ui/EmptyState";
-import { ContractsPage } from "./features/contracts/ContractsPage";
+import { AppSidebar } from "./features/navigation/AppSidebar";
+import { AppContent } from "./features/navigation/AppContent";
 
 type AppShellProps = {
   children: ReactNode
@@ -78,20 +75,13 @@ function AgentDashboard() {
 
       {isFetching && <StatusText>Refreshing...</StatusText>}
 
-      <Panel>
-        <PanelTitle>Agent Summary</PanelTitle>
+      <div className='app-layout'>
+        <AppSidebar />
+        <main className='app-main'>
+          <AppContent agent={agent} />
+        </main>
+      </div>
 
-        <div className='info-grid'>
-          <StatCard label='Agent' value={agent.symbol} />
-          <StatCard label='Headquarters' value={agent.headquarters} />
-          <StatCard label='Credits' value={agent.credits.toLocaleString()} />
-          <StatCard label='Ships' value={agent.shipCount} />
-        </div>
-      </Panel>
-
-      <ShipsPage />
-      <div style={{ height: '1rem' }} />
-      <ContractsPage />
     </AppShell>
   );
 }
