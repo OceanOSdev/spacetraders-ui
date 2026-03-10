@@ -13,6 +13,7 @@ import { ContractStatusPill } from "../../components/ui/ContractStatusPill";
 import { CountdownText } from "../../components/ui/CountdownText";
 import { PayoutBadge } from "../../components/ui/PayoutBadge";
 import { ProgressBar } from "../../components/ui/ProgressBar";
+import { formatLocalDateTime } from "../../utils/time";
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
@@ -69,7 +70,10 @@ export function ContractDetails() {
 
       <div className='detail-grid' style={{ marginTop: '1rem' }}>
         <StatCard label='Type' value={contract.type} />
-        <StatCard label='Expires' value={contract.expiration} />
+        <StatCard
+          label='Expires'
+          value={formatLocalDateTime(contract.expiration)}
+        />
         <StatCard label='Deliveries' value={contract.terms.deliver.length} />
       </div>
 
