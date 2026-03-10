@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useAppDispatch } from "./app/hooks";
+import { AuthGate } from "./features/auth/AuthGate";
+import { clearToken } from "./features/auth/authSlice";
+import { useGetAgentQuery } from './services/spacetradersApi'
 
-function App() {
-  const [count, setCount] = useState(0)
+function AgentDashboard() {
+  const dispatch = useAppDispatch();
+
+  const { data, error, isLoading, isFetching } = useGetAgentQuery();
+
+  if (isLoading) {
+    return <p>Loading agent data...</p>;
+  }
+
+  // Really simple error handling for now
+  if (error) {
+    return (
+      <div>
+        <h2>Could not load agent data.</h2>
+        <p>Your token may be invalid.</p>
+        <button onClick={() => dispatch(clearToken())}>Clear Token</button>
+      </div>
+    );
+  }
+
+  // Avoid crashing if data is missing
+  if (!data) {
+    return <p>No data found.</p>;
+  }
+
+  const agent = data.data;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ maxWidth: 700, margin: '2rem auto', padding: '1rem' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>SpaceTraders Dashboard</h1>
+        <button onClick={() => dispatch(clearToken())}>Clear token</button>
+      </header>
+
+      {isFetching && <p>Refreshing...</p>}
+
+      <section
+        style={{
+          border: '1px solid #ccc',
+          borderRadius: 8,
+          padding: '1rem',
+          marginTop: '1rem',
+        }}
+      >
+        <h2>Agent Summary</h2>
+        <p><strong>Symbol:</strong> {agent.symbol}</p>
+        <p><strong>Headquarters:</strong> {agent.headquarters}</p>
+        <p><strong>Credits:</strong> {agent.credits.toLocaleString()}</p>
+        <p><strong>Ships:</strong> {agent.shipCount}</p>
+      </section>
+    </div>
+  );
 }
 
-export default App
+export default function App() {
+  return (
+    <AuthGate>
+      <AgentDashboard />
+    </AuthGate>
+  );
+}
