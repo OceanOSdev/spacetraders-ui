@@ -3,15 +3,7 @@ import { ShipList } from "./ShipList";
 
 export function ShipsPage() {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '320px 1fr',
-        gap: '1rem',
-        alignItems: 'start',
-        marginTop: '1rem',
-      }}
-    >
+    <div className='dashboard-grid'>
       <ShipList />
       <ShipDetails />
     </div>

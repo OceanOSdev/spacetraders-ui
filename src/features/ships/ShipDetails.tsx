@@ -1,4 +1,11 @@
 import { useAppSelector } from "../../app/hooks";
+import { EmptyState } from "../../components/ui/EmptyState";
+import { ErrorState } from "../../components/ui/ErrorState";
+import { LoadingState } from "../../components/ui/LoadingState";
+import { Panel } from "../../components/ui/Panel";
+import { PanelTitle } from "../../components/ui/PanelTitle";
+import { StatCard } from "../../components/ui/StatCard";
+import { StatusText } from "../../components/ui/StatusText";
 import { useGetShipQuery } from "../../services/spacetradersApi";
 import type { ShipCargoItem } from "../../types/ships";
 
@@ -12,7 +19,7 @@ function ShipInventory({ inventory }: InventoryProps) {
   }
 
   return (
-    <ul>
+    <ul className='inventory-list'>
       {inventory.map((item) => (
         <li key={item.symbol}>
           {item.symbol}: {item.units}
@@ -31,46 +38,42 @@ export function ShipDetails() {
   });
 
   if (!selectedShipSymbol) {
-    return <p>Select a ship to see details.</p>;
+    return <EmptyState title='Ship Details' message='Select a ship to see details.' />;
   }
 
   if (isLoading) {
-    return <p>Loading ship details...</p>;
+    return <LoadingState title='Ship Details' message='Loading ship telemetry...' />;
   }
 
   if (error) {
-    return <p>Could not load ship details.</p>;
+    return <ErrorState title='Ship Details' message='Could not load ship details.' />;
   }
 
   if (!data) {
-    return <p>No ship details found.</p>;
+    return <EmptyState title='Ship Details' message='No ship details found.' />;
   }
 
   const ship = data.data;
 
   return (
-    <section>
-      <h2>Ship Details</h2>
-      {isFetching && <p>Refreshing ship...</p>}
+    <Panel>
+      <PanelTitle>Ship Details</PanelTitle>
+      {isFetching && <StatusText>Refreshing ship...</StatusText>}
 
-      <div
-        style={{
-          border: '1px solid #ccc',
-          borderRadius: 8,
-          padding: '1rem',
-        }}
-      >
-        <p><strong>Symbol:</strong> {ship.symbol}</p>
-        <p><strong>System:</strong> {ship.nav.systemSymbol}</p>
-        <p><strong>Waypoint:</strong> {ship.nav.waypointSymbol}</p>
-        <p><strong>Status:</strong> {ship.nav.status}</p>
-        <p><strong>Flight Mode:</strong> {ship.nav.flightMode}</p>
-        <p><strong>Fuel:</strong> {ship.fuel.current} / {ship.fuel.capacity}</p>
-        <p><strong>Cargo:</strong>{ship.cargo.units} / {ship.cargo.capacity}</p>
+      <div className='detail-grid'>
+        <StatCard label='Symbol' value={ship.symbol} />
+        <StatCard label='System' value={ship.nav.systemSymbol} />
+        <StatCard label='Waypoint' value={ship.nav.waypointSymbol} />
+        <StatCard label='Status' value={ship.nav.status} />
+        <StatCard label='Flight Mode' value={ship.nav.flightMode} />
+        <StatCard label='Fuel' value={`${ship.fuel.current} / ${ship.fuel.capacity}`} />
+        <StatCard label='Cargo' value={`${ship.cargo.units} / ${ship.cargo.capacity}`} />
+      </div>
 
-        <h3>Inventory</h3>
+      <div style={{ marginTop: '1rem' }}>
+        <PanelTitle as='h3'>Inventory</PanelTitle>
         <ShipInventory inventory={ship.cargo.inventory} />
       </div>
-    </section>
+    </Panel>
   );
 }

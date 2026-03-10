@@ -1,4 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { EmptyState } from "../../components/ui/EmptyState";
+import { ErrorState } from "../../components/ui/ErrorState";
+import { LoadingState } from "../../components/ui/LoadingState";
+import { Panel } from "../../components/ui/Panel";
+import { PanelTitle } from "../../components/ui/PanelTitle";
+import { StatusText } from "../../components/ui/StatusText";
 import { useGetShipsQuery } from "../../services/spacetradersApi";
 import type { Ship } from "../../types/ships";
 import { setSelectedShipSymbol } from "./shipsUiSlice";
@@ -7,19 +13,18 @@ import { setSelectedShipSymbol } from "./shipsUiSlice";
 export function ShipList() {
   const dispatch = useAppDispatch();
   const selectedShipSymbol = useAppSelector((state) => state.shipsUi.selectedShipSymbol);
-
   const { data, error, isLoading, isFetching } = useGetShipsQuery();
 
   if (isLoading) {
-    return <p>Loading ships...</p>;
+    return <LoadingState title='Fleet Registry' message='Loading ship registry...' />;
   }
 
   if (error) {
-    return <p>Could not load ships.</p>;
+    return <ErrorState title='Fleet Registry' message='Could not load ships.' />;
   }
 
   if (!data || data.data.length === 0) {
-    return <p>No ships found.</p>;
+    return <EmptyState title='Fleet Registry' message='No ships found.' />;
   }
 
   type ShipItemProps = {
@@ -28,37 +33,26 @@ export function ShipList() {
   }
 
   function ShipItem({ ship, isSelected }: ShipItemProps) {
-
     return (
-      <li key={ship.symbol} style={{ marginBottom: '0.75rem' }}>
+      <li className='ship-list-item' key={ship.symbol}>
         <button
           onClick={() => dispatch(setSelectedShipSymbol(ship.symbol))}
-          style={{
-            width: '100%',
-            textAlign: 'left',
-            padding: '0.75rem',
-            border: '1px solid #ccc',
-            borderRadius: 8,
-            background: isSelected ? '#f0f0f0' : 'white',
-            cursor: 'pointer',
-          }}
+          className={`ship-button${isSelected ? ' selected' : ''}`}
         >
-          <div>
-            <strong>{ship.symbol}</strong>
-          </div>
-          <div>Waypoint: {ship.nav.waypointSymbol}</div>
-          <div>Fuel: {ship.fuel.current} / {ship.fuel.capacity}</div>
-          <div>Cargo: {ship.cargo.units} / {ship.cargo.capacity}</div>
+          <div className='ship-symbol'>{ship.symbol}</div>
+          <div className='ship-meta'>Waypoint: {ship.nav.waypointSymbol}</div>
+          <div className='ship-meta'>Fuel: {ship.fuel.current} / {ship.fuel.capacity}</div>
+          <div className='ship-meta'>Cargo: {ship.cargo.units} / {ship.cargo.capacity}</div>
         </button>
       </li >
     );
   }
   return (
-    <section>
-      <h2>Ships</h2>
-      {isFetching && <p>Refreshing ships...</p>}
+    <Panel>
+      <PanelTitle>Ships</PanelTitle>
+      {isFetching && <StatusText>Refreshing ships...</StatusText>}
 
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+      <ul className='ship-list'>
         {data.data.map((ship) => {
           const isSelected = ship.symbol === selectedShipSymbol;
           return <ShipItem
@@ -67,6 +61,6 @@ export function ShipList() {
           />;
         })}
       </ul>
-    </section>
+    </Panel>
   );
 }
