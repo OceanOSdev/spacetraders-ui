@@ -11,6 +11,7 @@ import { StatCard } from "./components/ui/StatCard";
 import { LoadingState } from "./components/ui/LoadingState";
 import { ErrorState } from "./components/ui/ErrorState";
 import { EmptyState } from "./components/ui/EmptyState";
+import { ContractsPage } from "./features/contracts/ContractsPage";
 
 type AppShellProps = {
   children: ReactNode
@@ -89,6 +90,8 @@ function AgentDashboard() {
       </Panel>
 
       <ShipsPage />
+      <div style={{ height: '1rem' }} />
+      <ContractsPage />
     </AppShell>
   );
 }
