@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { useAppSelector } from "../../app/hooks";
-import { useAcceptContractMutation, useGetContractQuery, useGetShipsQuery, useNegotiateContractMutation } from "../../services/spacetradersApi";
-import { EmptyState } from "../../components/ui/EmptyState";
-import { LoadingState } from "../../components/ui/LoadingState";
-import { ErrorState } from "../../components/ui/ErrorState";
-import { Panel } from "../../components/ui/Panel";
-import { PanelTitle } from "../../components/ui/PanelTitle";
-import { StatusText } from "../../components/ui/StatusText";
-import { StatCard } from "../../components/ui/StatCard";
-import { ShipSelector } from "../../components/ui/ShipSelector";
-import { ContractStatusPill } from "../../components/ui/ContractStatusPill";
-import { CountdownText } from "../../components/ui/CountdownText";
-import { PayoutBadge } from "../../components/ui/PayoutBadge";
-import { ProgressBar } from "../../components/ui/ProgressBar";
-import { formatLocalDateTime } from "../../utils/time";
+import { useAppSelector } from "../../../app/hooks";
+import { useAcceptContractMutation, useGetContractQuery, useGetShipsQuery, useNegotiateContractMutation } from "../../../services/spacetradersApi";
+import { EmptyState } from "../../../components/ui/EmptyState";
+import { LoadingState } from "../../../components/ui/LoadingState";
+import { ErrorState } from "../../../components/ui/ErrorState";
+import { Panel } from "../../../components/ui/Panel";
+import { PanelTitle } from "../../../components/ui/PanelTitle";
+import { StatusText } from "../../../components/ui/StatusText";
+import { StatCard } from "../../../components/ui/StatCard";
+import { ContractStatusPill } from "./ContractStatusPill";
+import { CountdownText } from "../../../components/ui/CountdownText";
+import { formatLocalDateTime } from "../../../utils/time";
+import { PayoutBadge } from "./PayoutBadge";
+import { ProgressBar } from "../../../components/ui/ProgressBar";
+import { ShipSelector } from "../../ships/components/ShipSelector";
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
@@ -100,7 +100,7 @@ export function ContractDetails() {
                 className='contract-delivery-panel'
                 key={`${item.tradeSymbol}-${item.destinationSymbol}`}
               >
-                <div className='contract-deliver-header'>
+                <div className='contract-delivery-header'>
                   <div className='contract-delivery-title'>{item.tradeSymbol}</div>
                   <div className='contract-delivery-destination'>
                     &rarr; {item.destinationSymbol}

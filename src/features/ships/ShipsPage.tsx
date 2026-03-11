@@ -1,5 +1,5 @@
-import { ShipDetails } from "./ShipDetails";
-import { ShipList } from "./ShipList";
+import { ShipDetails } from "./components/ShipDetails";
+import { ShipList } from "./components/ShipList";
 
 export function ShipsPage() {
   return (
