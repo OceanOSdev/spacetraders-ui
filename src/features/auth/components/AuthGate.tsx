@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { useAppSelector } from "../../app/hooks"
+import { useAppSelector } from "../../../app/hooks"
 import { TokenForm } from "./TokenForm";
 
 type AuthGateProps = {

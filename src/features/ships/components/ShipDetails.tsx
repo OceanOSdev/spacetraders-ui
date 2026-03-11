@@ -1,15 +1,15 @@
-import { useAppSelector } from "../../app/hooks";
-import { EmptyState } from "../../components/ui/EmptyState";
-import { ErrorState } from "../../components/ui/ErrorState";
-import { LoadingState } from "../../components/ui/LoadingState";
-import { Panel } from "../../components/ui/Panel";
-import { PanelTitle } from "../../components/ui/PanelTitle";
-import { StatCard } from "../../components/ui/StatCard";
-import { StatusPill } from "../../components/ui/StatusPill";
-import { StatusText } from "../../components/ui/StatusText";
-import { TelemetryBar } from "../../components/ui/TelemetryBar";
-import { useGetShipQuery } from "../../services/spacetradersApi";
-import type { ShipCargoItem } from "../../types/ships";
+import { useAppSelector } from "../../../app/hooks";
+import { EmptyState } from "../../../components/ui/EmptyState";
+import { ErrorState } from "../../../components/ui/ErrorState";
+import { LoadingState } from "../../../components/ui/LoadingState";
+import { Panel } from "../../../components/ui/Panel";
+import { PanelTitle } from "../../../components/ui/PanelTitle";
+import { StatCard } from "../../../components/ui/StatCard";
+import { StatusText } from "../../../components/ui/StatusText";
+import { TelemetryBar } from "../../../components/ui/TelemetryBar";
+import { useGetShipQuery } from "../../../services/spacetradersApi";
+import type { ShipCargoItem } from "../../../types/ships";
+import { ShipStatusPill } from "./ShipStatusPill";
 
 type InventoryProps = {
   inventory: ShipCargoItem[]
@@ -72,8 +72,8 @@ export function ShipDetails() {
         <PanelTitle as='h3'>Operation Status</PanelTitle>
 
         <div className='status-pair'>
-          <StatusPill status={ship.nav.status} />
-          <StatusPill status={ship.nav.flightMode} />
+          <ShipStatusPill status={ship.nav.status} />
+          <ShipStatusPill status={ship.nav.flightMode} />
         </div>
       </div>
 

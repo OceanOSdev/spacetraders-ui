@@ -1,15 +1,15 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { EmptyState } from "../../components/ui/EmptyState";
-import { ErrorState } from "../../components/ui/ErrorState";
-import { LoadingState } from "../../components/ui/LoadingState";
-import { Panel } from "../../components/ui/Panel";
-import { PanelTitle } from "../../components/ui/PanelTitle";
-import { StatusPill } from "../../components/ui/StatusPill";
-import { StatusText } from "../../components/ui/StatusText";
-import { TelemetryBar } from "../../components/ui/TelemetryBar";
-import { useGetShipsQuery } from "../../services/spacetradersApi";
-import type { Ship } from "../../types/ships";
-import { setSelectedShipSymbol } from "./shipsUiSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { EmptyState } from "../../../components/ui/EmptyState";
+import { ErrorState } from "../../../components/ui/ErrorState";
+import { LoadingState } from "../../../components/ui/LoadingState";
+import { Panel } from "../../../components/ui/Panel";
+import { PanelTitle } from "../../../components/ui/PanelTitle";
+import { StatusText } from "../../../components/ui/StatusText";
+import { TelemetryBar } from "../../../components/ui/TelemetryBar";
+import { useGetShipsQuery } from "../../../services/spacetradersApi";
+import type { Ship } from "../../../types/ships";
+import { ShipStatusPill } from "./ShipStatusPill";
+import { setSelectedShipSymbol } from "../shipsUiSlice";
 
 
 export function ShipList() {
@@ -45,7 +45,7 @@ export function ShipList() {
           <div className='ship-meta'>Waypoint: {ship.nav.waypointSymbol}</div>
 
           <div className='ship-status-row'>
-            <StatusPill status={ship.nav.status} />
+            <ShipStatusPill status={ship.nav.status} />
           </div>
 
           <TelemetryBar

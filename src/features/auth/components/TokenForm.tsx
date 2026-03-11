@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import { setToken } from "./authSlice";
-import { MutedText } from "../../components/ui/MutedText";
+import { useAppDispatch } from "../../../app/hooks";
+import { setToken } from "../authSlice";
+import { MutedText } from "../../../components/ui/MutedText";
 
 export function TokenForm() {
   const dispatch = useAppDispatch();

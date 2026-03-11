@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import { cn } from '../../utils/cn'
 
 type PanelProps = {
   children: ReactNode
@@ -14,7 +15,7 @@ export function Panel({
   const Component = as;
 
   return (
-    <Component className={`panel ${className}`.trim()}>
+    <Component className={cn('panel', className)}>
       {children}
     </Component>
   )

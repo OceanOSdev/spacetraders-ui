@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 import { useAppDispatch } from "./app/hooks";
-import { AuthGate } from "./features/auth/AuthGate";
+import { AuthGate } from "./features/auth/components/AuthGate";
 import { clearToken } from "./features/auth/authSlice";
 import { useGetAgentQuery } from './services/spacetradersApi'
 import { StatusText } from "./components/ui/StatusText";
 import { LoadingState } from "./components/ui/LoadingState";
 import { ErrorState } from "./components/ui/ErrorState";
 import { EmptyState } from "./components/ui/EmptyState";
-import { AppSidebar } from "./features/navigation/AppSidebar";
-import { AppContent } from "./features/navigation/AppContent";
+import { AppSidebar } from "./features/navigation/components/AppSidebar";
+import { AppContent } from "./features/navigation/components/AppContent";
 
 type AppShellProps = {
   children: ReactNode

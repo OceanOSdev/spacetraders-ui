@@ -1,5 +1,5 @@
-import { ContractDetails } from "./ContractDetails";
-import { ContractsList } from "./ContractsList";
+import { ContractDetails } from "./components/ContractDetails";
+import { ContractsList } from "./components/ContractsList";
 
 export function ContractsPage() {
   return (
