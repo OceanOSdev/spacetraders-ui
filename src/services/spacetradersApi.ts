@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { AgentResponse } from '../types/spacetaders'
+import type { AgentResponse } from '../types/spacetraders'
 import type { AuthState } from '../types/auth'
 import type { GetShipResponse, GetShipsResponse } from '../types/ships'
 import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from '../types/contracts'
