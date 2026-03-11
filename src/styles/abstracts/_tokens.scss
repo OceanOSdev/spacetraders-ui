@@ -1,0 +1,100 @@
+$font-sans: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+$font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+$line-height-base: 1.5;
+$font-weight-base: 400;
+
+$color-text: rgba(235, 245, 255, 0.92);
+$color-muted: rgba(170, 200, 220, 0.72);
+
+$color-bg: #04070d;
+$color-bg-top: #07111f;
+
+$color-panel: rgba(10, 18, 30, 0.82);
+$color-panel-strong: rgba(8, 14, 24, 0.95);
+$color-panel-soft: rgba(7, 14, 23, 0.75);
+$color-panel-softer: rgba(7, 14, 23, 0.7);
+$color-panel-subtle: rgba(7, 14, 23, 0.45);
+
+$color-border: rgba(99, 203, 255, 0.28);
+$color-border-strong: rgba(99, 203, 255, 0.55);
+$color-border-soft: rgba(89, 216, 255, 0.16);
+
+$color-accent: #59d8ff;
+$color-accent-strong: #8ef0ff;
+
+$color-danger: #ff6b8a;
+$color-success: #72f1b8;
+$color-warning: #ffd38a;
+
+$color-danger-soft: #ff8ca3;
+$color-neutral-pill: #b8c7d9;
+
+$shadow-panel:
+  0 0 0 1px rgba(89, 216, 255, 0.08),
+  0 0 24px rgba(0, 170, 255, 0.12);
+
+$shadow-panel-active:
+  0 0 0 1px rgba(89, 216, 255, 0.22),
+  0 0 26px rgba(89, 216, 255, 0.18);
+
+$shadow-danger:
+  0 0 0 1px rgba(255, 107, 138, 0.16),
+  0 0 24px rgba(255, 107, 138, 0.16);
+
+$radius-sm: 10px;
+$radius-md: 12px;
+$radius-lg: 14px;
+$radius-xl: 18px;
+$radius-pill: 999px;
+
+$space-1: 0.25rem;
+$space-2: 0.35rem;
+$space-3: 0.5rem;
+$space-4: 0.75rem;
+$space-5: 0.85rem;
+$space-6: 1rem;
+$space-7: 1.25rem;
+$space-8: 1.5rem;
+$space-9: 2rem;
+
+$transition-fast: 120ms ease;
+$transition-med: 160ms ease;
+$transition-slow: 220ms ease;
+
+$blur-panel: blur(8px);
+
+$max-width-app: 1180px;
+
+$color-grid-line: rgba(255, 255, 255, 0.018);
+
+$color-placeholder: rgba(170, 200, 220, 0.55);
+
+$color-cyan-fill-start: rgba(80, 210, 255, 0.9);
+$color-cyan-fill-end: rgba(140, 240, 255, 0.95);
+$color-cyan-fill-shadow: rgba(80, 210, 255, 0.45);
+
+$color-green-fill-start: rgba(114, 241, 184, 0.9);
+$color-green-fill-end: rgba(170, 255, 220, 0.95);
+$color-green-fill-shadow: rgba(114, 241, 184, 0.45);
+
+$color-amber-fill-start: rgba(255, 200, 120, 0.9);
+$color-amber-fill-end: rgba(255, 230, 170, 0.95);
+$color-amber-fill-shadow: rgba(255, 200, 120, 0.45);
+
+$color-warning-fill-start: rgba(255, 180, 80, 0.95);
+$color-warning-fill-end: rgba(255, 225, 120, 0.98);
+$color-warning-fill-shadow: rgba(255, 190, 90, 0.5);
+
+$color-danger-fill-start: rgba(255, 90, 120, 0.95);
+$color-danger-fill-end: rgba(255, 140, 160, 0.98);
+$color-danger-fill-shadow: rgba(255, 90, 120, 0.6);
+
+$color-active-surface-top: rgba(16, 34, 48, 0.98);
+$color-active-surface-bottom: rgba(8, 16, 28, 0.96);
+
+$color-overlay-cyan-soft: rgba(89, 216, 255, 0.08);
+$color-overlay-cyan-mid: rgba(89, 216, 255, 0.12);
+$color-overlay-cyan-strong: rgba(89, 216, 255, 0.35);
+
+$color-scanline: rgba(255, 255, 255, 0.2);

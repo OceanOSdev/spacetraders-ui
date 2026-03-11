@@ -1,0 +1,44 @@
+@use '../abstracts/tokens' as t;
+
+.auth-shell {
+  max-width: 540px;
+  margin: 6rem auto;
+  padding: 1rem;
+}
+
+.auth-panel {
+  padding: 1.25rem;
+}
+
+.auth-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: t.$color-accent-strong;
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.muted-text {
+  color: t.$color-muted;
+}
+
+.status-text {
+  font-size: 0.92rem;
+  color: t.$color-accent;
+}
+
+.danger-button {
+  border-color: rgba(255, 107, 138, 0.38);
+}
+
+.danger-button:hover {
+  border-color: rgba(255, 107, 138, 0.7);
+  box-shadow: t.$shadow-danger;
+}
+

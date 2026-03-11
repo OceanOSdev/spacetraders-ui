@@ -1,0 +1,77 @@
+@use '../abstracts/tokens' as t;
+@use '../abstracts/mixins' as m;
+
+.panel {
+  position: relative;
+  padding: 1rem;
+
+  @include m.glass-panel(
+    rgba(11, 19, 31, 0.9), 
+    rgba(7, 12, 20, 0.92),
+    t.$radius-xl
+  );
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: t.$radius-xl;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(89, 216, 255, 0.08),
+    transparent 20%,
+    transparent 80%,
+    rgba(89, 216, 255, 0.06)
+  );
+}
+
+.panel-title {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: t.$color-accent;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+}
+
+.stat-card {
+  padding: 0.85rem;
+  border-radius: t.$radius-lg;
+
+  @include m.soft-panel(t.$color-panel-soft, t.$color-border-soft);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: t.$color-muted;
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: t.$color-text;
+}
+
+@media (max-width: 860px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

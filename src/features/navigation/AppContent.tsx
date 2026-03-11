@@ -4,7 +4,7 @@ import { ShipsPage } from '../ships/ShipsPage'
 import { Panel } from '../../components/ui/Panel'
 import { PanelTitle } from '../../components/ui/PanelTitle'
 import { StatCard } from '../../components/ui/StatCard'
-import type { Agent } from '../../types/spacetaders'
+import type { Agent } from '../../types/spacetraders'
 
 type OverviewHeaderProps = {
   agent: Agent
