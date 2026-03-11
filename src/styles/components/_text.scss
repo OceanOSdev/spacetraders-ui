@@ -1,0 +1,11 @@
+@use '../abstracts/tokens' as t;
+
+.countdown-text {
+  font-size: 0.82rem;
+  color: t.$color-accent;
+  letter-spacing: 0.03em;
+}
+
+.countdown-text.is-expired {
+  color: t.$color-danger;
+}

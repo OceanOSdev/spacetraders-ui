@@ -1,0 +1,161 @@
+@use '../abstracts/tokens' as t;
+
+.contract-meta {
+  margin-top: 0.35rem;
+  color: t.$color-muted;
+  font-size: 0.9rem;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.contract-type {
+  font-size: 1rem;
+  font-weight: 700;
+  color: t.$color-accent-strong;
+  letter-spacing: 0.04em;
+}
+
+.contract-delivery-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contract-delivery-item {
+  padding: 0.65rem 0.75rem;
+  border-radius: t.$radius-sm;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  background: rgba(7, 14, 23, 0.7);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.contract-delivery-item strong {
+  color: t.$color-accent;
+}
+
+.contract-actions {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.contract-action-group {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  border-radius: t.$radius-lg;
+  background: rgba(7, 14, 23, 0.45);
+}
+
+.contract-action-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: t.$color-muted;
+}
+
+.contract-button {
+  width: fit-content;
+  min-height: 42px;
+}
+
+.contract-button-primary {
+  border-color: rgba(89, 216, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(89, 216, 255, 0.15),
+    0 0 22px rgba(89, 216, 255, 0.16);
+}
+
+.contract-button-primary:hover {
+  border-color: rgba(89, 216, 255, 0.7);
+}
+
+.contract-negotiate-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.contract-section {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 720px) {
+  .contract-negotiate-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contract-button {
+    width: 100%;
+  }
+}
+
+.contract-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.contract-card-top .status-pill {
+  flex: 0 0 auto;
+}
+
+.contract-card-heading {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.contract-card-meta {
+  margin-top: 0.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.contract-inline-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.contract-delivery-stack {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+}
+
+.contract-delivery-panel {
+  padding: 0.75rem;
+  border-radius: t.$radius-md;
+  border: 1px solid rgba(89, 216, 255, 0.12);
+  background: rgba(7, 14, 23, 0.7);
+}
+
+.contract-delivery-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.45rem;
+}
+
+.contract-delivery-title {
+  font-weight: 700;
+  color: t.$color-accent;
+}
+
+.contract-delivery-destination {
+  font-size: 0.88rem;
+  color: t.$color-muted;
+}
+

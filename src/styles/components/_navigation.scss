@@ -1,0 +1,38 @@
+@use '../abstracts/tokens.scss' as t;
+@use '../abstracts/mixins' as m;
+
+.app-sidebar {
+  padding: 1rem;
+}
+
+.app-sidebar-title {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.9rem;
+  color: t.$color-muted;
+}
+
+.app-sidebar-nav {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.app-sidebar-link {
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  border-radius: t.$radius-md;
+  padding: 0.75rem 0.9rem;
+}
+
+.app-sidebar-link.is-active {
+  @include m.active-glow-panel;
+  color: t.$color-accent-strong;
+}
+
+@media (max-width: 900px) {
+  .app-sidebar-nav {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}

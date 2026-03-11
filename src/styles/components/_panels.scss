@@ -1,0 +1,75 @@
+@use '../abstracts/tokens' as t;
+
+.panel {
+  position: relative;
+  background: linear-gradient(180deg, rgba(11, 19, 31, 0.9), rgba(7, 12, 20, 0.92));
+  border: 1px solid t.$color-border;
+  border-radius: t.$radius-xl;
+  padding: 1rem;
+  box-shadow: t.$shadow-panel;
+  backdrop-filter: t.$blur-panel;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: t.$radius-xl;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(89, 216, 255, 0.08),
+    transparent 20%,
+    transparent 80%,
+    rgba(89, 216, 255, 0.06)
+  );
+}
+
+.panel-title {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: t.$color-accent;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+}
+
+.stat-card {
+  background: rgba(7, 14, 23, 0.75);
+  border: 1px solid rgba(89, 216, 255, 0.16);
+  border-radius: 14px;
+  padding: 0.85rem;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: t.$color-muted;
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: t.$color-text;
+}
+
+@media (max-width: 860px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
