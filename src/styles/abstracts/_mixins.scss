@@ -4,8 +4,39 @@
   border-color: t.$color-border-strong;
   background: linear-gradient(
     180deg,
-    rgba(16, 34, 48, 0.98),
-    rgba(8, 16, 28, 0.96)
+    t.$color-active-surface-top,
+    t.$color-active-surface-bottom
   );
   box-shadow: t.$shadow-panel-active;
+}
+
+@mixin mono-readout {
+  font-family: t.$font-mono;
+}
+
+@mixin capsule {
+  border-radius: t.$radius-pill;
+}
+
+@mixin soft-panel($background: t.$color-panel-soft, $border: rgba(89, 216, 255, 0.12)) {
+  background: $background;
+  border: 1px solid $border;
+}
+
+@mixin fill-bar($start, $end, $shadow) {
+  background: linear-gradient(90deg, $start, $end);
+  box-shadow: 0 0 10px $shadow;
+}
+
+@mixin section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@mixin glass-panel($top, $bottom, $radius: t.$radius-xl) {
+  background: linear-gradient(180deg, $top, $bottom);
+  border: 1px solid t.$color-border;
+  border-radius: $radius;
+  box-shadow: t.$shadow-panel;
+  backdrop-filter: t.$blur-panel;
 }

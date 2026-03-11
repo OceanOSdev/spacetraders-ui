@@ -1,4 +1,5 @@
 @use '../abstracts/tokens' as t;
+@use '../abstracts/mixins' as m;
 
 .telemetry {
   margin-top: 0.6rem;
@@ -19,25 +20,30 @@
 }
 
 .telemetry-value {
-  font-family: t.$font-mono;
+  @include m.mono-readout;
 }
 
 .telemetry-bar {
   position: relative;
-  height: 10px;
-  border-radius: t.$radius-pill;
-  background: rgba(7, 14, 23, 0.9);
-  border: 1px solid rgba(89, 216, 255, 0.15);
   overflow: hidden;
+
+  height: 10px;
+  border: 1px solid rgba(89, 216, 255, 0.15);
+
+  background: rgba(7, 14, 23, 0.9);
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.35);
+
+  @include m.capsule;
 }
 
 .telemetry-fill {
-  height: 100%;
-  border-radius: t.$radius-pill;
-  transition: width t.$transition-slow;
   position: relative;
   z-index: 1;
+
+  height: 100%;
+  transition: width t.$transition-slow;
+
+  @include m.capsule;
 }
 
 .telemetry-scanline {
@@ -70,30 +76,27 @@
 /* base color variants */
 
 .telemetry-cyan .telemetry-fill {
-  background: linear-gradient(
-    90deg,
-    rgba(80, 210, 255, 0.9),
-    rgba(140, 240, 255, 0.95)
+  @include m.fill-bar(
+    t.$color-cyan-fill-start,
+    t.$color-cyan-fill-end,
+    t.$color-cyan-fill-shadow
   );
-  box-shadow: 0 0 10px rgba(80, 210, 255, 0.45);
 }
 
 .telemetry-green .telemetry-fill {
-  background: linear-gradient(
-    90deg,
-    rgba(114, 241, 184, 0.9),
-    rgba(170, 255, 220, 0.95)
+  @include m.fill-bar(
+    t.$color-green-fill-start,
+    t.$color-green-fill-end,
+    t.$color-green-fill-shadow
   );
-  box-shadow: 0 0 10px rgba(114, 241, 184, 0.45);
 }
 
 .telemetry-amber .telemetry-fill {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 200, 120, 0.9),
-    rgba(255, 230, 170, 0.95)
+  @include m.fill-bar(
+    t.$color-amber-fill-start,
+    t.$color-amber-fill-end,
+    t.$color-amber-fill-shadow
   );
-  box-shadow: 0 0 10px rgba(255, 200, 120, 0.45);
 }
 
 /* warning / danger override states */
@@ -101,19 +104,19 @@
 .telemetry-warning .telemetry-fill {
   background: linear-gradient(
     90deg,
-    rgba(255, 180, 80, 0.95),
-    rgba(255, 225, 120, 0.98)
+    t.$color-warning-fill-start,
+    t.$color-warning-fill-end
   );
-  box-shadow: 0 0 12px rgba(255, 190, 90, 0.5);
+  box-shadow: 0 0 12px t.$color-warning-fill-shadow;
 }
 
 .telemetry-danger .telemetry-fill {
   background: linear-gradient(
     90deg,
-    rgba(255, 90, 120, 0.95),
-    rgba(255, 140, 160, 0.98)
+    t.$color-danger-fill-start,
+    t.$color-danger-fill-end
   );
-  box-shadow: 0 0 14px rgba(255, 90, 120, 0.6);
+  box-shadow: 0 0 14px t.$color-danger-fill-shadow;
   animation: telemetry-danger-pulse 1s ease-in-out infinite;
 }
 

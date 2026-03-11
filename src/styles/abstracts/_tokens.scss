@@ -65,3 +65,36 @@ $transition-slow: 220ms ease;
 $blur-panel: blur(8px);
 
 $max-width-app: 1180px;
+
+$color-grid-line: rgba(255, 255, 255, 0.018);
+
+$color-placeholder: rgba(170, 200, 220, 0.55);
+
+$color-cyan-fill-start: rgba(80, 210, 255, 0.9);
+$color-cyan-fill-end: rgba(140, 240, 255, 0.95);
+$color-cyan-fill-shadow: rgba(80, 210, 255, 0.45);
+
+$color-green-fill-start: rgba(114, 241, 184, 0.9);
+$color-green-fill-end: rgba(170, 255, 220, 0.95);
+$color-green-fill-shadow: rgba(114, 241, 184, 0.45);
+
+$color-amber-fill-start: rgba(255, 200, 120, 0.9);
+$color-amber-fill-end: rgba(255, 230, 170, 0.95);
+$color-amber-fill-shadow: rgba(255, 200, 120, 0.45);
+
+$color-warning-fill-start: rgba(255, 180, 80, 0.95);
+$color-warning-fill-end: rgba(255, 225, 120, 0.98);
+$color-warning-fill-shadow: rgba(255, 190, 90, 0.5);
+
+$color-danger-fill-start: rgba(255, 90, 120, 0.95);
+$color-danger-fill-end: rgba(255, 140, 160, 0.98);
+$color-danger-fill-shadow: rgba(255, 90, 120, 0.6);
+
+$color-active-surface-top: rgba(16, 34, 48, 0.98);
+$color-active-surface-bottom: rgba(8, 16, 28, 0.96);
+
+$color-overlay-cyan-soft: rgba(89, 216, 255, 0.08);
+$color-overlay-cyan-mid: rgba(89, 216, 255, 0.12);
+$color-overlay-cyan-strong: rgba(89, 216, 255, 0.35);
+
+$color-scanline: rgba(255, 255, 255, 0.2);

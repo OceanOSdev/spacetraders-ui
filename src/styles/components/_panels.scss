@@ -1,13 +1,15 @@
 @use '../abstracts/tokens' as t;
+@use '../abstracts/mixins' as m;
 
 .panel {
   position: relative;
-  background: linear-gradient(180deg, rgba(11, 19, 31, 0.9), rgba(7, 12, 20, 0.92));
-  border: 1px solid t.$color-border;
-  border-radius: t.$radius-xl;
   padding: 1rem;
-  box-shadow: t.$shadow-panel;
-  backdrop-filter: t.$blur-panel;
+
+  @include m.glass-panel(
+    rgba(11, 19, 31, 0.9), 
+    rgba(7, 12, 20, 0.92),
+    t.$radius-xl
+  );
 }
 
 .panel::before {
@@ -48,10 +50,10 @@
 }
 
 .stat-card {
-  background: rgba(7, 14, 23, 0.75);
-  border: 1px solid rgba(89, 216, 255, 0.16);
-  border-radius: 14px;
   padding: 0.85rem;
+  border-radius: t.$radius-lg;
+
+  @include m.soft-panel(t.$color-panel-soft, t.$color-border-soft);
 }
 
 .stat-label {
