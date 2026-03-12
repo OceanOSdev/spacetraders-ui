@@ -4,10 +4,10 @@ import { ContractsList } from "./components/ContractsList";
 
 export function ContractsPage() {
   return (
-    <div className='dashboard-grid'>
-      <ContractsList />
-      <div style={{ rowGap: '1rem', display: 'grid' }}>
-        <ContractActionsPanel />
+    <div className='stack'>
+      <ContractActionsPanel />
+      <div className='dashboard-grid'>
+        <ContractsList />
         <ContractDetails />
       </div>
     </div>

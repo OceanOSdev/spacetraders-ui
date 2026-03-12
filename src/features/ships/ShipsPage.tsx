@@ -4,7 +4,7 @@ import { ShipList } from "./components/ShipList";
 
 export function ShipsPage() {
   return (
-    <div style={{ display: 'grid', rowGap: '1rem' }}>
+    <div className='stack'>
       <PurchaseShipPanel />
       <div className='dashboard-grid'>
         <ShipList />
