@@ -88,6 +88,7 @@ export const spacetradersApi = createApi({
       query: (contractId) => ({
         url: `my/contracts/${contractId}/accept`,
         method: 'POST',
+        body: {},
       }),
       invalidatesTags: (_result, _error, contractId) => [
         { type: 'Contracts' as const },
@@ -101,7 +102,6 @@ export const spacetradersApi = createApi({
         url: `my/ships/${shipSymbol}/negotiate/contract`,
         method: 'POST',
         body: {},
-        //headers: {'shipSymbol': shipSymbol},
       }),
       invalidatesTags: [
         { type: 'Contracts' as const },
