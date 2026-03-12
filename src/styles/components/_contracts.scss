@@ -38,6 +38,11 @@
   color: t.$color-accent;
 }
 
+.contract-actions-panel {
+  position: relative;
+  z-index: 5;
+}
+
 .contract-actions {
   display: grid;
   gap: 1rem;
