@@ -1,27 +1,17 @@
 import { spacetradersApi } from "../../services/spacetradersApi";
+import { entityTag, listTag, providesEntity, providesList } from "../../services/tagHelper";
 import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from "../../types/contracts";
 
 export const contractsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({
     getContracts: builder.query<GetContractsResponse, void>({
       query: () => 'my/contracts',
-      providesTags: (result) =>
-        result
-          ? [
-            { type: 'Contracts' as const },
-            ...result.data.map((contract) => ({
-              type: 'Contract' as const,
-              id: contract.id,
-            })),
-          ]
-          : [{ type: 'Contracts' as const }],
+      providesTags: () => providesList('Contracts')
     }),
 
     getContract: builder.query<GetContractResponse, string>({
       query: (contractId) => `my/contracts/${contractId}`,
-      providesTags: (_result, _error, contractId) => [
-        { type: 'Contract' as const, id: contractId },
-      ],
+      providesTags: (_result, _error, contractId) => providesEntity('Contract', contractId),
     }),
 
     acceptContract: builder.mutation<AcceptContractResponse, string>({
@@ -31,10 +21,10 @@ export const contractsApi = spacetradersApi.injectEndpoints({
         body: {},
       }),
       invalidatesTags: (_result, _error, contractId) => [
-        { type: 'Contracts' as const },
-        { type: 'Contract' as const, id: contractId },
-        { type: 'Agent' as const },
-      ],
+        listTag('Contracts'),
+        entityTag('Contract', contractId),
+        listTag('Agent'),
+      ]
     }),
 
     negotiateContract: builder.mutation<NegotiateContractResponse, string>({
@@ -44,8 +34,8 @@ export const contractsApi = spacetradersApi.injectEndpoints({
         body: {},
       }),
       invalidatesTags: [
-        { type: 'Contracts' as const },
-        { type: 'Agent' as const },
+        listTag('Contracts'),
+        listTag('Agent'),
       ],
     }),
   }),

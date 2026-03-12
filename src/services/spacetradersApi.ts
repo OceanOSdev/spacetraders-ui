@@ -27,7 +27,7 @@ export const spacetradersApi = createApi({
     },
   }),
 
-  tagTypes: ['Agent', 'Ships', 'Ship', 'Contracts', 'Contract'] as const,
+  tagTypes: ['Agent', 'Ships', 'Ship', 'Contracts', 'Contract', 'Waypoints', 'Waypoint'] as const,
 
   endpoints: (builder) => ({
     // Fetch the agent profile
