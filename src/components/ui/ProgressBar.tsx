@@ -6,7 +6,13 @@ type ProgressBarProps = {
   size?: 'sm' | 'md';
 };
 
-export function ProgressBar({ label, value, max, color = 'cyan', size = 'sm' }: ProgressBarProps) {
+export function ProgressBar({
+  label,
+  value,
+  max,
+  color = 'cyan',
+  size = 'sm',
+}: ProgressBarProps) {
   const percent = max <= 0 ? 0 : Math.min(100, Math.round((value / max) * 100));
 
   return (

@@ -4,7 +4,10 @@
 import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { StatusText } from '../../../components/ui/StatusText';
-import { useGetAgentQuery, useGetSystemWaypointsQuery } from '../../../services/spacetradersApi';
+import {
+  useGetAgentQuery,
+  useGetSystemWaypointsQuery,
+} from '../../../services/spacetradersApi';
 import { getSystemSymbolFromWaypointSymbol } from '../../../utils/spacetraders';
 import { useGetShipsQuery, usePurchaseShipMutation } from '../shipsApi';
 
@@ -24,12 +27,22 @@ function formatShipyardList(symbols: string[]): string {
 }
 
 export function PurchaseShipPanel() {
-  const { data: agentData, isLoading: isLoadingAgent, error: agentError } = useGetAgentQuery();
+  const {
+    data: agentData,
+    isLoading: isLoadingAgent,
+    error: agentError,
+  } = useGetAgentQuery();
 
-  const { data: shipsData, isLoading: isLoadingShips, error: shipsError } = useGetShipsQuery();
+  const {
+    data: shipsData,
+    isLoading: isLoadingShips,
+    error: shipsError,
+  } = useGetShipsQuery();
 
   const headquarters = agentData?.data.headquarters;
-  const systemSymbol = headquarters ? getSystemSymbolFromWaypointSymbol(headquarters) : undefined;
+  const systemSymbol = headquarters
+    ? getSystemSymbolFromWaypointSymbol(headquarters)
+    : undefined;
 
   const {
     data: waypointsData,
@@ -51,7 +64,9 @@ export function PurchaseShipPanel() {
   const shipyardSymbols = shipyards.map((waypoint) => waypoint.symbol);
 
   const eligibleShips =
-    shipsData?.data.filter((ship) => shipyardSymbols.includes(ship.nav.waypointSymbol)) ?? [];
+    shipsData?.data.filter((ship) =>
+      shipyardSymbols.includes(ship.nav.waypointSymbol),
+    ) ?? [];
 
   const purchaseWaypointSymbol = eligibleShips[0]?.nav.waypointSymbol;
   const hasShipyards = shipyards.length > 0;
@@ -75,7 +90,9 @@ export function PurchaseShipPanel() {
     <Panel>
       <PanelTitle>Fleet Expansion</PanelTitle>
 
-      {isLoadingAgent && <StatusText>Loading headquarters information...</StatusText>}
+      {isLoadingAgent && (
+        <StatusText>Loading headquarters information...</StatusText>
+      )}
 
       {agentError && <StatusText>Could not load agent information.</StatusText>}
 
@@ -95,18 +112,23 @@ export function PurchaseShipPanel() {
 
       {shipsError && <StatusText>Could not load fleet information</StatusText>}
 
-      {headquarters && !isLoadingWaypoints && !waypointsError && !hasShipyards && (
-        <StatusText>No shipyards found in {systemSymbol}</StatusText>
-      )}
+      {headquarters &&
+        !isLoadingWaypoints &&
+        !waypointsError &&
+        !hasShipyards && (
+          <StatusText>No shipyards found in {systemSymbol}</StatusText>
+        )}
 
       {hasShipyards && !purchaseWaypointSymbol && !isLoadingShips && (
         <>
           <StatusText>
-            Shipyards detected in {systemSymbol}: {formatShipyardList(shipyardSymbols)}
+            Shipyards detected in {systemSymbol}:{' '}
+            {formatShipyardList(shipyardSymbols)}
           </StatusText>
           <div style={{ marginTop: '0.75rem' }}>
             <StatusText>
-              Move one of yourr ships to a shipyard waypoint before purchasing a new ship.
+              Move one of yourr ships to a shipyard waypoint before purchasing a
+              new ship.
             </StatusText>
           </div>
         </>
@@ -114,7 +136,9 @@ export function PurchaseShipPanel() {
 
       {purchaseWaypointSymbol && (
         <>
-          <StatusText>A ship is currently at shipyard {purchaseWaypointSymbol}</StatusText>
+          <StatusText>
+            A ship is currently at shipyard {purchaseWaypointSymbol}
+          </StatusText>
 
           <div style={{ marginTop: '1rem' }}>
             <button onClick={handlePurchase} disabled={isPurchasing}>

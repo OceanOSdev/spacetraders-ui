@@ -13,11 +13,15 @@ import { PayoutBadge } from './PayoutBadge';
 
 export function ContractsList() {
   const dispatch = useAppDispatch();
-  const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
+  const selectedContractId = useAppSelector(
+    (s) => s.contractsUi.selectedContractId,
+  );
   const { data, error, isLoading, isFetching } = useGetContractsQuery();
 
   if (isLoading) {
-    return <LoadingState title='Contracts' message='Loading contract ledger...' />;
+    return (
+      <LoadingState title='Contracts' message='Loading contract ledger...' />
+    );
   }
 
   if (error) {
@@ -46,10 +50,15 @@ export function ContractsList() {
                 <div className='contract-card-top'>
                   <div className='contract-card-heading'>
                     <div className='contract-type'>{contract.type}</div>
-                    <div className='contract-meta'>ID: {contract.id.slice(0, 7)}...</div>
+                    <div className='contract-meta'>
+                      ID: {contract.id.slice(0, 7)}...
+                    </div>
                   </div>
 
-                  <ContractStatusPill accepted={contract.accepted} fulfilled={contract.fulfilled} />
+                  <ContractStatusPill
+                    accepted={contract.accepted}
+                    fulfilled={contract.fulfilled}
+                  />
                 </div>
 
                 <div className='contract-card-meta'>
@@ -57,8 +66,14 @@ export function ContractsList() {
                 </div>
 
                 <div className='payout-row'>
-                  <PayoutBadge label='On Accept' amount={contract.terms.payment.onAccepted} />
-                  <PayoutBadge label='On Fulfill' amount={contract.terms.payment.onFulfilled} />
+                  <PayoutBadge
+                    label='On Accept'
+                    amount={contract.terms.payment.onAccepted}
+                  />
+                  <PayoutBadge
+                    label='On Fulfill'
+                    amount={contract.terms.payment.onFulfilled}
+                  />
                 </div>
               </button>
             </li>

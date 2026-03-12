@@ -2,7 +2,11 @@
 
 @mixin active-glow-panel {
   border-color: t.$color-border-strong;
-  background: linear-gradient(180deg, t.$color-active-surface-top, t.$color-active-surface-bottom);
+  background: linear-gradient(
+    180deg,
+    t.$color-active-surface-top,
+    t.$color-active-surface-bottom
+  );
   box-shadow: t.$shadow-panel-active;
 }
 
@@ -14,7 +18,10 @@
   border-radius: t.$radius-pill;
 }
 
-@mixin soft-panel($background: t.$color-panel-soft, $border: rgba(89, 216, 255, 0.12)) {
+@mixin soft-panel(
+  $background: t.$color-panel-soft,
+  $border: rgba(89, 216, 255, 0.12)
+) {
   background: $background;
   border: 1px solid $border;
 }

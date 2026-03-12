@@ -1,5 +1,10 @@
 import { spacetradersApi } from '../../services/spacetradersApi';
-import { entityTag, listTag, providesEntity, providesList } from '../../services/tagHelper';
+import {
+  entityTag,
+  listTag,
+  providesEntity,
+  providesList,
+} from '../../services/tagHelper';
 import type {
   AcceptContractResponse,
   GetContractResponse,
@@ -16,7 +21,8 @@ export const contractsApi = spacetradersApi.injectEndpoints({
 
     getContract: builder.query<GetContractResponse, string>({
       query: (contractId) => `my/contracts/${contractId}`,
-      providesTags: (_result, _error, contractId) => providesEntity('Contract', contractId),
+      providesTags: (_result, _error, contractId) =>
+        providesEntity('Contract', contractId),
     }),
 
     acceptContract: builder.mutation<AcceptContractResponse, string>({

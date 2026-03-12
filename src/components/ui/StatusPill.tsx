@@ -9,6 +9,14 @@ type StatusPillProps = {
   className?: string;
 };
 
-export function StatusPill({ children, tone = 'gray', className }: StatusPillProps) {
-  return <span className={cn('status-pill', `status-pill-${tone}`, className)}>{children}</span>;
+export function StatusPill({
+  children,
+  tone = 'gray',
+  className,
+}: StatusPillProps) {
+  return (
+    <span className={cn('status-pill', `status-pill-${tone}`, className)}>
+      {children}
+    </span>
+  );
 }

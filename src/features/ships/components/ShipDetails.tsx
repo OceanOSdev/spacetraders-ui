@@ -33,23 +33,37 @@ function ShipInventory({ inventory }: InventoryProps) {
 }
 
 export function ShipDetails() {
-  const selectedShipSymbol = useAppSelector((state) => state.shipsUi.selectedShipSymbol);
+  const selectedShipSymbol = useAppSelector(
+    (state) => state.shipsUi.selectedShipSymbol,
+  );
 
   // If no ship is selected, skip the query entirely.
-  const { data, error, isLoading, isFetching } = useGetShipQuery(selectedShipSymbol ?? '', {
-    skip: !selectedShipSymbol,
-  });
+  const { data, error, isLoading, isFetching } = useGetShipQuery(
+    selectedShipSymbol ?? '',
+    {
+      skip: !selectedShipSymbol,
+    },
+  );
 
   if (!selectedShipSymbol) {
-    return <EmptyState title='Ship Details' message='Select a ship to see details.' />;
+    return (
+      <EmptyState
+        title='Ship Details'
+        message='Select a ship to see details.'
+      />
+    );
   }
 
   if (isLoading) {
-    return <LoadingState title='Ship Details' message='Loading ship telemetry...' />;
+    return (
+      <LoadingState title='Ship Details' message='Loading ship telemetry...' />
+    );
   }
 
   if (error) {
-    return <ErrorState title='Ship Details' message='Could not load ship details.' />;
+    return (
+      <ErrorState title='Ship Details' message='Could not load ship details.' />
+    );
   }
 
   if (!data) {

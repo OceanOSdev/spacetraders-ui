@@ -46,7 +46,11 @@ input {
 
 button {
   border: 1px solid t.$color-border;
-  background: linear-gradient(180deg, rgba(14, 28, 43, 0.95), rgba(8, 16, 28, 0.95));
+  background: linear-gradient(
+    180deg,
+    rgba(14, 28, 43, 0.95),
+    rgba(8, 16, 28, 0.95)
+  );
   color: t.$color-text;
   border-radius: t.$radius-sm;
   padding: 0.7rem 1rem;

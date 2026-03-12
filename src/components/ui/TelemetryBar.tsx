@@ -30,9 +30,15 @@ export function TelemetryBar({
     return percent <= threshold;
   };
 
-  if (dangergThresholdPercent !== undefined && exceedsThreshold(dangergThresholdPercent)) {
+  if (
+    dangergThresholdPercent !== undefined &&
+    exceedsThreshold(dangergThresholdPercent)
+  ) {
     stateClass = ' telemetry-danger';
-  } else if (warningThresholdPercent != undefined && exceedsThreshold(warningThresholdPercent)) {
+  } else if (
+    warningThresholdPercent != undefined &&
+    exceedsThreshold(warningThresholdPercent)
+  ) {
     stateClass = ' telemetry-warning';
   }
 

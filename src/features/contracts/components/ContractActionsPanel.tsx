@@ -10,7 +10,8 @@ export function ContractActionsPanel() {
   const [negotiateShip, setNegotiateShip] = useState('');
 
   const { data: shipsData, isFetching: isFetchingShips } = useGetShipsQuery();
-  const [negotiateContract, { isLoading: isNegotiating, error }] = useNegotiateContractMutation();
+  const [negotiateContract, { isLoading: isNegotiating, error }] =
+    useNegotiateContractMutation();
 
   async function handleNegotiate() {
     if (!negotiateShip) return;
@@ -53,7 +54,9 @@ export function ContractActionsPanel() {
             </button>
           </div>
 
-          {error && <StatusText>Could not negotiate a new contract.</StatusText>}
+          {error && (
+            <StatusText>Could not negotiate a new contract.</StatusText>
+          )}
         </div>
       </div>
     </Panel>

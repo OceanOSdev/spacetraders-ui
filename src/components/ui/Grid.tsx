@@ -9,9 +9,17 @@ type GridProps = {
   style?: CSSProperties;
 };
 
-export function Grid({ children, columns = 1, gap = '1rem', className, style }: GridProps) {
+export function Grid({
+  children,
+  columns = 1,
+  gap = '1rem',
+  className,
+  style,
+}: GridProps) {
   const gridTemplateColumns =
-    typeof columns === 'number' ? `repeat(${columns}, minmax(0, 1fr))` : columns;
+    typeof columns === 'number'
+      ? `repeat(${columns}, minmax(0, 1fr))`
+      : columns;
 
   return (
     <div

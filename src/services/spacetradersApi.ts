@@ -27,7 +27,15 @@ export const spacetradersApi = createApi({
     },
   }),
 
-  tagTypes: ['Agent', 'Ships', 'Ship', 'Contracts', 'Contract', 'Waypoints', 'Waypoint'] as const,
+  tagTypes: [
+    'Agent',
+    'Ships',
+    'Ship',
+    'Contracts',
+    'Contract',
+    'Waypoints',
+    'Waypoint',
+  ] as const,
 
   endpoints: (builder) => ({
     // Fetch the agent profile
@@ -56,5 +64,8 @@ export const spacetradersApi = createApi({
   }),
 });
 
-export const { useGetAgentQuery, useGetWaypointQuery, useGetSystemWaypointsQuery } =
-  spacetradersApi;
+export const {
+  useGetAgentQuery,
+  useGetWaypointQuery,
+  useGetSystemWaypointsQuery,
+} = spacetradersApi;

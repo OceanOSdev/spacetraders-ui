@@ -116,7 +116,9 @@ export function ShipSelector({
         aria-expanded={isOpen}
         disabled={disabled}
       >
-        <span className={`ship-selector-value${selectedOption ? '' : ' is-placeholder'}`}>
+        <span
+          className={`ship-selector-value${selectedOption ? '' : ' is-placeholder'}`}
+        >
           {selectedOption?.label ?? placeholder}
         </span>
         <span className='ship-selector-chevron' aria-hidden='true'>

@@ -18,7 +18,11 @@
   justify-content: space-between;
   gap: 0.75rem;
   border: 1px solid t.$color-border;
-  background: linear-gradient(180deg, rgba(10, 20, 33, 0.96), rgba(6, 12, 22, 0.96));
+  background: linear-gradient(
+    180deg,
+    rgba(10, 20, 33, 0.96),
+    rgba(6, 12, 22, 0.96)
+  );
   color: t.$color-text;
   border-radius: t.$radius-sm;
   padding: 0.7rem 0.85rem;
@@ -69,7 +73,11 @@
   overflow-y: auto;
   border: 1px solid t.$color-border-strong;
   border-radius: t.$radius-md;
-  background: linear-gradient(180deg, rgba(11, 19, 31, 0.98), rgba(7, 12, 20, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(11, 19, 31, 0.98),
+    rgba(7, 12, 20, 0.98)
+  );
   box-shadow:
     0 0 0 1px rgba(89, 216, 255, 0.1),
     0 0 28px rgba(89, 216, 255, 0.16);

@@ -7,7 +7,11 @@ type CountdownTextProps = {
   className?: string;
 };
 
-export function CountdownText({ isoDate, prefix, className }: CountdownTextProps) {
+export function CountdownText({
+  isoDate,
+  prefix,
+  className,
+}: CountdownTextProps) {
   const { text, expired } = getCountdownInfo(isoDate);
 
   return (

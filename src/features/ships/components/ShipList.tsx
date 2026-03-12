@@ -14,15 +14,21 @@ import { useGetShipsQuery } from '../shipsApi';
 
 export function ShipList() {
   const dispatch = useAppDispatch();
-  const selectedShipSymbol = useAppSelector((state) => state.shipsUi.selectedShipSymbol);
+  const selectedShipSymbol = useAppSelector(
+    (state) => state.shipsUi.selectedShipSymbol,
+  );
   const { data, error, isLoading, isFetching } = useGetShipsQuery();
 
   if (isLoading) {
-    return <LoadingState title='Fleet Registry' message='Loading ship registry...' />;
+    return (
+      <LoadingState title='Fleet Registry' message='Loading ship registry...' />
+    );
   }
 
   if (error) {
-    return <ErrorState title='Fleet Registry' message='Could not load ships.' />;
+    return (
+      <ErrorState title='Fleet Registry' message='Could not load ships.' />
+    );
   }
 
   if (!data || data.data.length === 0) {
@@ -76,7 +82,9 @@ export function ShipList() {
       <ul className='ship-list'>
         {data.data.map((ship) => {
           const isSelected = ship.symbol === selectedShipSymbol;
-          return <ShipItem key={ship.symbol} isSelected={isSelected} ship={ship} />;
+          return (
+            <ShipItem key={ship.symbol} isSelected={isSelected} ship={ship} />
+          );
         })}
       </ul>
     </Panel>

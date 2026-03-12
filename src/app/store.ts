@@ -14,7 +14,8 @@ export const store = configureStore({
     appView: appViewReducer,
     [spacetradersApi.reducerPath]: spacetradersApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(spacetradersApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(spacetradersApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

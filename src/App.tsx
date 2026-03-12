@@ -37,7 +37,10 @@ function AgentDashboard() {
           title='Authentication Failure'
           message='Your token may be invalid or expired.'
           action={
-            <button className='danger-button' onClick={() => dispatch(clearToken())}>
+            <button
+              className='danger-button'
+              onClick={() => dispatch(clearToken())}
+            >
               Clear Token
             </button>
           }
@@ -62,9 +65,14 @@ function AgentDashboard() {
       <header className='app-header'>
         <div>
           <h1 className='app-title'>SpaceTraders Fleet Console</h1>
-          <p className='app-subtitle'>Autonomous commerce and navigation interface</p>
+          <p className='app-subtitle'>
+            Autonomous commerce and navigation interface
+          </p>
         </div>
-        <button className='danger-button' onClick={() => dispatch(clearToken())}>
+        <button
+          className='danger-button'
+          onClick={() => dispatch(clearToken())}
+        >
           Clear token
         </button>
       </header>
