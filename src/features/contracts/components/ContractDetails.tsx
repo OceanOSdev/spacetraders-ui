@@ -136,30 +136,6 @@ export function ContractDetails() {
               </button>
             </div>
           )}
-
-          <div className='contract-action-group'>
-            <div className='contract-action-label'>Negotiate new contract</div>
-            <div className='contract-negotiate-row'>
-              <ShipSelector
-                value={negotiateShip}
-                onChange={setNegotiateShip}
-                options={
-                  shipsData?.data.map((ship) => ({
-                    value: ship.symbol,
-                    label: ship.symbol,
-                  })) ?? []
-                }
-                placeholder='Select ship'
-              />
-              <button
-                onClick={handleNegotiate}
-                disabled={!negotiateShip || isNegotiating}
-                style={{ marginLeft: '0.75rem' }}
-              >
-                {isNegotiating ? 'Negotiating...' : 'Negotiate New Contract'}
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </Panel>

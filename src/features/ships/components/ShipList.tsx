@@ -10,6 +10,7 @@ import { useGetShipsQuery } from "../../../services/spacetradersApi";
 import type { Ship } from "../../../types/ships";
 import { ShipStatusPill } from "./ShipStatusPill";
 import { setSelectedShipSymbol } from "../shipsUiSlice";
+import { cn } from "../../../utils/cn";
 
 
 export function ShipList() {
@@ -36,10 +37,10 @@ export function ShipList() {
 
   function ShipItem({ ship, isSelected }: ShipItemProps) {
     return (
-      <li className='ship-list-item' key={ship.symbol}>
+      <li className='ship-list-item'>
         <button
           onClick={() => dispatch(setSelectedShipSymbol(ship.symbol))}
-          className={`ship-button${isSelected ? ' selected' : ''}`}
+          className={cn('ship-button', isSelected && 'selected')}
         >
           <div className='ship-symbol'>{ship.symbol}</div>
           <div className='ship-meta'>Waypoint: {ship.nav.waypointSymbol}</div>
@@ -77,6 +78,7 @@ export function ShipList() {
         {data.data.map((ship) => {
           const isSelected = ship.symbol === selectedShipSymbol;
           return <ShipItem
+            key={ship.symbol}
             isSelected={isSelected}
             ship={ship}
           />;
