@@ -15,6 +15,10 @@ help:
 install: ## Install dependencies
 	$(NPM) install
 
+.PHONY: format
+format: ## Format code
+	$(NPM) run format
+
 .PHONY: dev
 dev: ## Run development server
 	$(NPM) run dev
