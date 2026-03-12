@@ -1,6 +1,3 @@
-// For now just hard code a mining ship
-// later on add ability to pick different
-
 import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { StatusText } from '../../../components/ui/StatusText';
@@ -11,6 +8,8 @@ import {
 import { getSystemSymbolFromWaypointSymbol } from '../../../utils/spacetraders';
 import { useGetShipsQuery, usePurchaseShipMutation } from '../shipsApi';
 
+// For now just hard code a mining ship
+// later on add ability to pick different
 // ship types
 const SHIP_TYPE = 'SHIP_MINING_DRONE';
 
