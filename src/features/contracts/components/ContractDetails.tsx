@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { useAcceptContractMutation, useGetContractQuery, useNegotiateContractMutation } from "../../../services/spacetradersApi";
 import { EmptyState } from "../../../components/ui/EmptyState";
 import { LoadingState } from "../../../components/ui/LoadingState";
 import { ErrorState } from "../../../components/ui/ErrorState";
@@ -13,22 +11,18 @@ import { CountdownText } from "../../../components/ui/CountdownText";
 import { formatLocalDateTime } from "../../../utils/time";
 import { PayoutBadge } from "./PayoutBadge";
 import { ProgressBar } from "../../../components/ui/ProgressBar";
-import { ShipSelector } from "../../ships/components/ShipSelector";
 import { Stack } from "../../../components/ui/Stack";
-import { useGetShipsQuery } from "../../ships/shipsApi";
+import { useGetContractQuery, useAcceptContractMutation } from "../contractsApi";
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
-  const [negotiateShip, setNegotiateShip] = useState('');
 
   const { data, error, isLoading, isFetching } = useGetContractQuery(
     selectedContractId ?? '',
     { skip: !selectedContractId },
   );
 
-  const { data: shipsData } = useGetShipsQuery();
   const [acceptContract, { isLoading: isAccepting }] = useAcceptContractMutation();
-  const [negotiateContract, { isLoading: isNegotiating }] = useNegotiateContractMutation();
 
   if (!selectedContractId) {
     return <EmptyState title="Contract Details" message="Select a contract to see details." />;
@@ -50,11 +44,6 @@ export function ContractDetails() {
 
   async function handleAccept() {
     await acceptContract(contract.id);
-  }
-
-  async function handleNegotiate() {
-    if (!negotiateShip) return;
-    await negotiateContract(negotiateShip);
   }
 
   return (

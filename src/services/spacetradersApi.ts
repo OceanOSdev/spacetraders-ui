@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { AgentResponse } from '../types/spacetraders'
 import type { AuthState } from '../types/auth'
-import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from '../types/contracts'
 import type { Waypoint } from '../types/waypoints'
 
 type ApiRootState = {
@@ -37,53 +36,6 @@ export const spacetradersApi = createApi({
       providesTags: ['Agent'],
     }),
 
-
-    getContracts: builder.query<GetContractsResponse, void>({
-      query: () => 'my/contracts',
-      providesTags: (result) =>
-        result
-          ? [
-            { type: 'Contracts' as const },
-            ...result.data.map((contract) => ({
-              type: 'Contract' as const,
-              id: contract.id,
-            })),
-          ]
-          : [{ type: 'Contracts' as const }],
-    }),
-
-    getContract: builder.query<GetContractResponse, string>({
-      query: (contractId) => `my/contracts/${contractId}`,
-      providesTags: (_result, _error, contractId) => [
-        { type: 'Contract' as const, id: contractId },
-      ],
-    }),
-
-    acceptContract: builder.mutation<AcceptContractResponse, string>({
-      query: (contractId) => ({
-        url: `my/contracts/${contractId}/accept`,
-        method: 'POST',
-        body: {},
-      }),
-      invalidatesTags: (_result, _error, contractId) => [
-        { type: 'Contracts' as const },
-        { type: 'Contract' as const, id: contractId },
-        { type: 'Agent' as const },
-      ],
-    }),
-
-    negotiateContract: builder.mutation<NegotiateContractResponse, string>({
-      query: (shipSymbol) => ({
-        url: `my/ships/${shipSymbol}/negotiate/contract`,
-        method: 'POST',
-        body: {},
-      }),
-      invalidatesTags: [
-        { type: 'Contracts' as const },
-        { type: 'Agent' as const },
-      ],
-    }),
-
     getWaypoint: builder.query<
       { data: Waypoint },
       { systemSymbol: string; waypointSymbol: string }
@@ -101,16 +53,11 @@ export const spacetradersApi = createApi({
         params: traits ? { traits } : undefined,
       }),
     }),
-
   }),
 });
 
 export const {
   useGetAgentQuery,
-  useGetContractsQuery,
-  useGetContractQuery,
-  useAcceptContractMutation,
-  useNegotiateContractMutation,
   useGetWaypointQuery,
   useGetSystemWaypointsQuery,
 } = spacetradersApi;
