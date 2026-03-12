@@ -46,7 +46,7 @@ export function ContractsList() {
                 <div className='contract-card-top'>
                   <div className='contract-card-heading'>
                     <div className='contract-type'>{contract.type}</div>
-                    <div className='contract-meta'>ID: {contract.id.slice(0, 9)}...</div>
+                    <div className='contract-meta'>ID: {contract.id.slice(0, 7)}...</div>
                   </div>
 
                   <ContractStatusPill
