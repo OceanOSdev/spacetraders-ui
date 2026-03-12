@@ -36,7 +36,7 @@ export function ShipList() {
 
   function ShipItem({ ship, isSelected }: ShipItemProps) {
     return (
-      <li className='ship-list-item' key={ship.symbol}>
+      <li className='ship-list-item'>
         <button
           onClick={() => dispatch(setSelectedShipSymbol(ship.symbol))}
           className={`ship-button${isSelected ? ' selected' : ''}`}
@@ -77,6 +77,7 @@ export function ShipList() {
         {data.data.map((ship) => {
           const isSelected = ship.symbol === selectedShipSymbol;
           return <ShipItem
+            key={ship.symbol}
             isSelected={isSelected}
             ship={ship}
           />;
