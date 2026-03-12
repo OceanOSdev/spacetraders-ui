@@ -115,7 +115,22 @@ export const spacetradersApi = createApi({
       { systemSymbol: string; waypointSymbol: string }
     >({
       query: ({ systemSymbol, waypointSymbol }) =>
-        `/systems/${systemSymbol}/waypoints/${waypointSymbol}`,
+        `systems/${systemSymbol}/waypoints/${waypointSymbol}`,
+    }),
+
+    purchaseShip: builder.mutation<
+      unknown, // unknown for now, will add type later
+      { shipType: string; waypointSymbol: string }
+    >({
+      query: ({ shipType, waypointSymbol }) => ({
+        url: 'my/ships',
+        method: 'POST',
+        body: {
+          shipType,
+          waypointSymbol,
+        },
+      }),
+      invalidatesTags: ['Ships', 'Agent'],
     }),
   }),
 });
@@ -128,4 +143,6 @@ export const {
   useGetContractQuery,
   useAcceptContractMutation,
   useNegotiateContractMutation,
+  useGetWaypointQuery,
+  usePurchaseShipMutation,
 } = spacetradersApi;
