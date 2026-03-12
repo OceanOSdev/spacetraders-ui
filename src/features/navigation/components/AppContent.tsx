@@ -42,9 +42,9 @@ type AppContentProps = {
 
 export function AppContent({ agent }: AppContentProps) {
   return (
-    <>
+    <div className='stack'>
       <OverviewHeader agent={agent} />
       <PageContent />
-    </>
+    </div>
   );
 }

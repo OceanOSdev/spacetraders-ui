@@ -3,6 +3,7 @@ import type { AgentResponse } from '../types/spacetraders'
 import type { AuthState } from '../types/auth'
 import type { GetShipResponse, GetShipsResponse } from '../types/ships'
 import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from '../types/contracts'
+import type { Waypoint } from '../types/waypoints'
 
 type ApiRootState = {
   auth: AuthState
@@ -108,6 +109,39 @@ export const spacetradersApi = createApi({
         { type: 'Agent' as const },
       ],
     }),
+
+    getWaypoint: builder.query<
+      { data: Waypoint },
+      { systemSymbol: string; waypointSymbol: string }
+    >({
+      query: ({ systemSymbol, waypointSymbol }) =>
+        `systems/${systemSymbol}/waypoints/${waypointSymbol}`,
+    }),
+
+    getSystemWaypoints: builder.query<
+      { data: Waypoint[] },
+      { systemSymbol: string, traits?: string }
+    >({
+      query: ({ systemSymbol, traits }) => ({
+        url: `systems/${systemSymbol}/waypoints`,
+        params: traits ? { traits } : undefined,
+      }),
+    }),
+
+    purchaseShip: builder.mutation<
+      unknown, // unknown for now, will add type later
+      { shipType: string; waypointSymbol: string }
+    >({
+      query: ({ shipType, waypointSymbol }) => ({
+        url: 'my/ships',
+        method: 'POST',
+        body: {
+          shipType,
+          waypointSymbol,
+        },
+      }),
+      invalidatesTags: ['Ships', 'Agent'],
+    }),
   }),
 });
 
@@ -119,4 +153,7 @@ export const {
   useGetContractQuery,
   useAcceptContractMutation,
   useNegotiateContractMutation,
+  useGetWaypointQuery,
+  useGetSystemWaypointsQuery,
+  usePurchaseShipMutation,
 } = spacetradersApi;

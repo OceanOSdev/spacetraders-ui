@@ -1,0 +1,11 @@
+@use '../abstracts/tokens' as t;
+
+.stack {
+  display: grid;
+  row-gap: t.$space-6;
+}
+
+.stack-lg {
+  display: grid;
+  row-gap: t.$space-7;
+}

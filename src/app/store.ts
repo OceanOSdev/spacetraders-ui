@@ -6,6 +6,7 @@ import shipsUiReducer from '../features/ships/shipsUiSlice'
 import { spacetradersApi } from '../services/spacetradersApi'
 
 export const store = configureStore({
+  devTools: true,
   reducer: {
     auth: authReducer,
     shipsUi: shipsUiReducer,
