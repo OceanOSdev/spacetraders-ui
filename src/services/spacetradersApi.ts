@@ -3,6 +3,7 @@ import type { AgentResponse } from '../types/spacetraders'
 import type { AuthState } from '../types/auth'
 import type { GetShipResponse, GetShipsResponse } from '../types/ships'
 import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from '../types/contracts'
+import type { Waypoint } from '../types/waypoints'
 
 type ApiRootState = {
   auth: AuthState
@@ -107,6 +108,14 @@ export const spacetradersApi = createApi({
         { type: 'Contracts' as const },
         { type: 'Agent' as const },
       ],
+    }),
+
+    getWaypoint: builder.query<
+      { data: Waypoint },
+      { systemSymbol: string; waypointSymbol: string }
+    >({
+      query: ({ systemSymbol, waypointSymbol }) =>
+        `/systems/${systemSymbol}/waypoints/${waypointSymbol}`,
     }),
   }),
 });
