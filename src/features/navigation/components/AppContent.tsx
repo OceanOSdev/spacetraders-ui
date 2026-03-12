@@ -5,6 +5,7 @@ import { Panel } from '../../../components/ui/Panel'
 import { PanelTitle } from '../../../components/ui/PanelTitle'
 import { StatCard } from '../../../components/ui/StatCard'
 import type { Agent } from '../../../types/spacetraders'
+import { Stack } from '../../../components/ui/Stack'
 
 type OverviewHeaderProps = {
   agent: Agent
@@ -42,9 +43,9 @@ type AppContentProps = {
 
 export function AppContent({ agent }: AppContentProps) {
   return (
-    <div className='stack'>
+    <Stack>
       <OverviewHeader agent={agent} />
       <PageContent />
-    </div>
+    </Stack>
   );
 }
