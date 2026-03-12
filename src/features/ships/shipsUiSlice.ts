@@ -1,12 +1,12 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 type ShipsUiState = {
-  selectedShipSymbol: string | null
-}
+  selectedShipSymbol: string | null;
+};
 
 const initialState: ShipsUiState = {
-  selectedShipSymbol: null
-}
+  selectedShipSymbol: null,
+};
 
 const shipsUiSlice = createSlice({
   name: 'shipsUi',

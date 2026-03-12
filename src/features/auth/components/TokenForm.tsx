@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
-import { setToken } from "../authSlice";
-import { MutedText } from "../../../components/ui/MutedText";
+import { useState } from 'react';
+import { useAppDispatch } from '../../../app/hooks';
+import { setToken } from '../authSlice';
+import { MutedText } from '../../../components/ui/MutedText';
 
 export function TokenForm() {
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ export function TokenForm() {
 
     dispatch(setToken(trimmed));
     setTokenInput('');
-  }
+  };
 
   return (
     <div className='auth-shell'>
@@ -27,16 +27,15 @@ export function TokenForm() {
 
         <form className='auth-form' onSubmit={handleSubmit}>
           <input
-            type="password"
+            type='password'
             value={tokenInput}
             onChange={(e) => setTokenInput(e.target.value)}
-            placeholder="SpaceTraders token"
+            placeholder='SpaceTraders token'
           />
 
-          <button type="submit">Authorize</button>
+          <button type='submit'>Authorize</button>
         </form>
       </div>
     </div>
   );
-
 }

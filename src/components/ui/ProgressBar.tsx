@@ -1,18 +1,12 @@
 type ProgressBarProps = {
-  label: string
-  value: number
-  max: number
-  color?: 'cyan' | 'green' | 'amber'
-  size?: 'sm' | 'md'
-}
+  label: string;
+  value: number;
+  max: number;
+  color?: 'cyan' | 'green' | 'amber';
+  size?: 'sm' | 'md';
+};
 
-export function ProgressBar({
-  label,
-  value,
-  max,
-  color = 'cyan',
-  size = 'sm',
-}: ProgressBarProps) {
+export function ProgressBar({ label, value, max, color = 'cyan', size = 'sm' }: ProgressBarProps) {
   const percent = max <= 0 ? 0 : Math.min(100, Math.round((value / max) * 100));
 
   return (

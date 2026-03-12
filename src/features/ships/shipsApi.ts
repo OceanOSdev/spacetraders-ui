@@ -1,6 +1,6 @@
-import { spacetradersApi } from "../../services/spacetradersApi";
-import { providesEntity, providesEntityList } from "../../services/tagHelper";
-import type { GetShipResponse, GetShipsResponse } from "../../types/ships";
+import { spacetradersApi } from '../../services/spacetradersApi';
+import { providesEntity, providesEntityList } from '../../services/tagHelper';
+import type { GetShipResponse, GetShipsResponse } from '../../types/ships';
 
 export const shipsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,7 +10,8 @@ export const shipsApi = spacetradersApi.injectEndpoints({
 
       // Mark this query as providing the "Ships" list tag,
       // and also provide per-ship tags for individual invalidation later.
-      providesTags: (result) => providesEntityList('Ships', 'Ship', result?.data, ship => ship.symbol),
+      providesTags: (result) =>
+        providesEntityList('Ships', 'Ship', result?.data, (ship) => ship.symbol),
     }),
 
     // Fetch details for one particular ship.
@@ -36,8 +37,4 @@ export const shipsApi = spacetradersApi.injectEndpoints({
   }),
 });
 
-export const {
-  useGetShipsQuery,
-  useGetShipQuery,
-  usePurchaseShipMutation,
-} = shipsApi;
+export const { useGetShipsQuery, useGetShipQuery, usePurchaseShipMutation } = shipsApi;

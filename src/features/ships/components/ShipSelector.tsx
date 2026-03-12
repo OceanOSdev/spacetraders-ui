@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type ShipOption = {
-  value: string
-  label: string
-}
+  value: string;
+  label: string;
+};
 
 type ShipSelectorProps = {
-  options: ShipOption[]
-  value: string
-  onChange: (value: string) => void
-  placeholder?: string
-  disabled?: boolean
-}
+  options: ShipOption[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+};
 
 export function ShipSelector({
   options,
@@ -41,7 +41,7 @@ export function ShipSelector({
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export function ShipSelector({
       case 'ArrowDown':
         event.preventDefault();
         if (!isOpen) {
-          setIsOpen(true)
+          setIsOpen(true);
           return;
         }
         setHighlightedIndex((index) => Math.min(index + 1, options.length - 1));
@@ -79,7 +79,7 @@ export function ShipSelector({
       case 'ArrowUp':
         event.preventDefault();
         if (!isOpen) {
-          setIsOpen(true)
+          setIsOpen(true);
           return;
         }
         setHighlightedIndex((index) => Math.max(index - 1, 0));
@@ -88,7 +88,7 @@ export function ShipSelector({
       case ' ':
         event.preventDefault();
         if (!isOpen) {
-          setIsOpen(true)
+          setIsOpen(true);
           return;
         }
         if (highlightedIndex >= 0 && highlightedIndex < options.length) {
@@ -108,26 +108,26 @@ export function ShipSelector({
       ref={containerRef}
     >
       <button
-        type="button"
-        className="ship-selector-trigger"
+        type='button'
+        className='ship-selector-trigger'
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        aria-haspopup="listbox"
+        aria-haspopup='listbox'
         aria-expanded={isOpen}
         disabled={disabled}
       >
         <span className={`ship-selector-value${selectedOption ? '' : ' is-placeholder'}`}>
           {selectedOption?.label ?? placeholder}
         </span>
-        <span className="ship-selector-chevron" aria-hidden="true">
+        <span className='ship-selector-chevron' aria-hidden='true'>
           ▼
         </span>
       </button>
 
       {isOpen && (
-        <div className="ship-selector-menu" role="listbox" ref={listRef}>
+        <div className='ship-selector-menu' role='listbox' ref={listRef}>
           {options.length === 0 ? (
-            <div className="ship-selector-empty">No ships available</div>
+            <div className='ship-selector-empty'>No ships available</div>
           ) : (
             options.map((option, index) => {
               const isSelected = option.value === value;
@@ -136,8 +136,8 @@ export function ShipSelector({
               return (
                 <button
                   key={option.value}
-                  type="button"
-                  role="option"
+                  type='button'
+                  role='option'
                   aria-selected={isSelected}
                   data-option-index={index}
                   className={
@@ -150,12 +150,12 @@ export function ShipSelector({
                 >
                   <span>{option.label}</span>
                   {isSelected && (
-                    <span className="ship-selector-check" aria-hidden="true">
+                    <span className='ship-selector-check' aria-hidden='true'>
                       ✓
                     </span>
                   )}
                 </button>
-              )
+              );
             })
           )}
         </div>

@@ -1,3 +1,3 @@
 export type AuthState = {
-  token: string
-}
+  token: string;
+};

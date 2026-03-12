@@ -1,14 +1,14 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 export type AppView = 'ships' | 'contracts';
 
 type AppViewState = {
-  activeView: AppView
-}
+  activeView: AppView;
+};
 
 const initialState: AppViewState = {
-  activeView: 'ships'
-}
+  activeView: 'ships',
+};
 
 const appViewSlice = createSlice({
   name: 'appView',

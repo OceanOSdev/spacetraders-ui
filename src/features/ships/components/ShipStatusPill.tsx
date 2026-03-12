@@ -1,8 +1,8 @@
-import { StatusPill, type StatusPillTone } from "../../../components/ui/StatusPill";
+import { StatusPill, type StatusPillTone } from '../../../components/ui/StatusPill';
 
 type ShipStatusPillProps = {
-  status: string
-}
+  status: string;
+};
 
 function normalizeStatus(status: string): string {
   return status.trim().toUpperCase();
@@ -31,9 +31,5 @@ function formatStatusLabel(status: string): string {
 }
 
 export function ShipStatusPill({ status }: ShipStatusPillProps) {
-  return (
-    <StatusPill tone={getStatusVariant(status)}>
-      {formatStatusLabel(status)}
-    </StatusPill>
-  );
+  return <StatusPill tone={getStatusVariant(status)}>{formatStatusLabel(status)}</StatusPill>;
 }

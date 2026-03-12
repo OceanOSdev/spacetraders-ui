@@ -1,17 +1,16 @@
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { EmptyState } from "../../../components/ui/EmptyState";
-import { ErrorState } from "../../../components/ui/ErrorState";
-import { LoadingState } from "../../../components/ui/LoadingState";
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { StatusText } from "../../../components/ui/StatusText";
-import { TelemetryBar } from "../../../components/ui/TelemetryBar";
-import type { Ship } from "../../../types/ships";
-import { ShipStatusPill } from "./ShipStatusPill";
-import { setSelectedShipSymbol } from "../shipsUiSlice";
-import { cn } from "../../../utils/cn";
-import { useGetShipsQuery } from "../shipsApi";
-
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { ErrorState } from '../../../components/ui/ErrorState';
+import { LoadingState } from '../../../components/ui/LoadingState';
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatusText } from '../../../components/ui/StatusText';
+import { TelemetryBar } from '../../../components/ui/TelemetryBar';
+import type { Ship } from '../../../types/ships';
+import { ShipStatusPill } from './ShipStatusPill';
+import { setSelectedShipSymbol } from '../shipsUiSlice';
+import { cn } from '../../../utils/cn';
+import { useGetShipsQuery } from '../shipsApi';
 
 export function ShipList() {
   const dispatch = useAppDispatch();
@@ -31,9 +30,9 @@ export function ShipList() {
   }
 
   type ShipItemProps = {
-    ship: Ship,
-    isSelected: boolean
-  }
+    ship: Ship;
+    isSelected: boolean;
+  };
 
   function ShipItem({ ship, isSelected }: ShipItemProps) {
     return (
@@ -66,7 +65,7 @@ export function ShipList() {
             invertThresholds
           />
         </button>
-      </li >
+      </li>
     );
   }
   return (
@@ -77,11 +76,7 @@ export function ShipList() {
       <ul className='ship-list'>
         {data.data.map((ship) => {
           const isSelected = ship.symbol === selectedShipSymbol;
-          return <ShipItem
-            key={ship.symbol}
-            isSelected={isSelected}
-            ship={ship}
-          />;
+          return <ShipItem key={ship.symbol} isSelected={isSelected} ship={ship} />;
         })}
       </ul>
     </Panel>

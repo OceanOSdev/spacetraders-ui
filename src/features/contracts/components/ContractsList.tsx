@@ -1,15 +1,15 @@
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { CountdownText } from "../../../components/ui/CountdownText";
-import { EmptyState } from "../../../components/ui/EmptyState";
-import { ErrorState } from "../../../components/ui/ErrorState";
-import { LoadingState } from "../../../components/ui/LoadingState";
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { StatusText } from "../../../components/ui/StatusText";
-import { useGetContractsQuery } from "../contractsApi";
-import { setSelectedContractId } from "../contractsUiSlice";
-import { ContractStatusPill } from "./ContractStatusPill";
-import { PayoutBadge } from "./PayoutBadge";
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { CountdownText } from '../../../components/ui/CountdownText';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { ErrorState } from '../../../components/ui/ErrorState';
+import { LoadingState } from '../../../components/ui/LoadingState';
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatusText } from '../../../components/ui/StatusText';
+import { useGetContractsQuery } from '../contractsApi';
+import { setSelectedContractId } from '../contractsUiSlice';
+import { ContractStatusPill } from './ContractStatusPill';
+import { PayoutBadge } from './PayoutBadge';
 
 export function ContractsList() {
   const dispatch = useAppDispatch();
@@ -49,10 +49,7 @@ export function ContractsList() {
                     <div className='contract-meta'>ID: {contract.id.slice(0, 7)}...</div>
                   </div>
 
-                  <ContractStatusPill
-                    accepted={contract.accepted}
-                    fulfilled={contract.fulfilled}
-                  />
+                  <ContractStatusPill accepted={contract.accepted} fulfilled={contract.fulfilled} />
                 </div>
 
                 <div className='contract-card-meta'>
@@ -60,14 +57,8 @@ export function ContractsList() {
                 </div>
 
                 <div className='payout-row'>
-                  <PayoutBadge
-                    label='On Accept'
-                    amount={contract.terms.payment.onAccepted}
-                  />
-                  <PayoutBadge
-                    label='On Fulfill'
-                    amount={contract.terms.payment.onFulfilled}
-                  />
+                  <PayoutBadge label='On Accept' amount={contract.terms.payment.onAccepted} />
+                  <PayoutBadge label='On Fulfill' amount={contract.terms.payment.onFulfilled} />
                 </div>
               </button>
             </li>

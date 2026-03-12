@@ -1,7 +1,7 @@
 export type CountdownInfo = {
-  text: string
-  expired: boolean
-}
+  text: string;
+  expired: boolean;
+};
 
 export function getCountdownInfo(isoDate: string): CountdownInfo {
   const target = new Date(isoDate).getTime();
@@ -47,4 +47,3 @@ export function getCountdownInfo(isoDate: string): CountdownInfo {
     expired: false,
   };
 }
-

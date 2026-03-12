@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { AgentResponse } from '../types/spacetraders'
-import type { AuthState } from '../types/auth'
-import type { Waypoint } from '../types/waypoints'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { AgentResponse } from '../types/spacetraders';
+import type { AuthState } from '../types/auth';
+import type { Waypoint } from '../types/waypoints';
 
 type ApiRootState = {
-  auth: AuthState
-}
+  auth: AuthState;
+};
 
 const BASE_URL = 'https://api.spacetraders.io/v2/';
 
@@ -19,7 +19,7 @@ export const spacetradersApi = createApi({
       const token = (getState() as ApiRootState).auth.token;
 
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
+        headers.set('Authorization', `Bearer ${token}`);
       }
 
       headers.set('Content-Type', 'application/json');
@@ -46,7 +46,7 @@ export const spacetradersApi = createApi({
 
     getSystemWaypoints: builder.query<
       { data: Waypoint[] },
-      { systemSymbol: string, traits?: string }
+      { systemSymbol: string; traits?: string }
     >({
       query: ({ systemSymbol, traits }) => ({
         url: `systems/${systemSymbol}/waypoints`,
@@ -56,8 +56,5 @@ export const spacetradersApi = createApi({
   }),
 });
 
-export const {
-  useGetAgentQuery,
-  useGetWaypointQuery,
-  useGetSystemWaypointsQuery,
-} = spacetradersApi;
+export const { useGetAgentQuery, useGetWaypointQuery, useGetSystemWaypointsQuery } =
+  spacetradersApi;

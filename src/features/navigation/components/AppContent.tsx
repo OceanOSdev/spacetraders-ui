@@ -1,15 +1,15 @@
-import { useAppSelector } from '../../../app/hooks'
-import { ContractsPage } from '../../contracts/ContractsPage'
-import { ShipsPage } from '../../ships/ShipsPage'
-import { Panel } from '../../../components/ui/Panel'
-import { PanelTitle } from '../../../components/ui/PanelTitle'
-import { StatCard } from '../../../components/ui/StatCard'
-import type { Agent } from '../../../types/spacetraders'
-import { Stack } from '../../../components/ui/Stack'
+import { useAppSelector } from '../../../app/hooks';
+import { ContractsPage } from '../../contracts/ContractsPage';
+import { ShipsPage } from '../../ships/ShipsPage';
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatCard } from '../../../components/ui/StatCard';
+import type { Agent } from '../../../types/spacetraders';
+import { Stack } from '../../../components/ui/Stack';
 
 type OverviewHeaderProps = {
-  agent: Agent
-}
+  agent: Agent;
+};
 
 function OverviewHeader({ agent }: OverviewHeaderProps) {
   return (
@@ -22,7 +22,7 @@ function OverviewHeader({ agent }: OverviewHeaderProps) {
         <StatCard label='Ships' value={agent.shipCount} />
       </div>
     </Panel>
-  )
+  );
 }
 
 const VIEW_COMPONENTS = {
@@ -34,12 +34,12 @@ function PageContent() {
   const activeView = useAppSelector((state) => state.appView.activeView);
   const View = VIEW_COMPONENTS[activeView];
 
-  return <View />
+  return <View />;
 }
 
 type AppContentProps = {
-  agent: Agent
-}
+  agent: Agent;
+};
 
 export function AppContent({ agent }: AppContentProps) {
   return (

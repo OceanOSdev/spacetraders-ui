@@ -1,43 +1,42 @@
-import { useAppSelector } from "../../../app/hooks";
-import { EmptyState } from "../../../components/ui/EmptyState";
-import { LoadingState } from "../../../components/ui/LoadingState";
-import { ErrorState } from "../../../components/ui/ErrorState";
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { StatusText } from "../../../components/ui/StatusText";
-import { StatCard } from "../../../components/ui/StatCard";
-import { ContractStatusPill } from "./ContractStatusPill";
-import { CountdownText } from "../../../components/ui/CountdownText";
-import { formatLocalDateTime } from "../../../utils/time";
-import { PayoutBadge } from "./PayoutBadge";
-import { ProgressBar } from "../../../components/ui/ProgressBar";
-import { Stack } from "../../../components/ui/Stack";
-import { useGetContractQuery, useAcceptContractMutation } from "../contractsApi";
+import { useAppSelector } from '../../../app/hooks';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { LoadingState } from '../../../components/ui/LoadingState';
+import { ErrorState } from '../../../components/ui/ErrorState';
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatusText } from '../../../components/ui/StatusText';
+import { StatCard } from '../../../components/ui/StatCard';
+import { ContractStatusPill } from './ContractStatusPill';
+import { CountdownText } from '../../../components/ui/CountdownText';
+import { formatLocalDateTime } from '../../../utils/time';
+import { PayoutBadge } from './PayoutBadge';
+import { ProgressBar } from '../../../components/ui/ProgressBar';
+import { Stack } from '../../../components/ui/Stack';
+import { useGetContractQuery, useAcceptContractMutation } from '../contractsApi';
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
 
-  const { data, error, isLoading, isFetching } = useGetContractQuery(
-    selectedContractId ?? '',
-    { skip: !selectedContractId },
-  );
+  const { data, error, isLoading, isFetching } = useGetContractQuery(selectedContractId ?? '', {
+    skip: !selectedContractId,
+  });
 
   const [acceptContract, { isLoading: isAccepting }] = useAcceptContractMutation();
 
   if (!selectedContractId) {
-    return <EmptyState title="Contract Details" message="Select a contract to see details." />;
+    return <EmptyState title='Contract Details' message='Select a contract to see details.' />;
   }
 
   if (isLoading) {
-    return <LoadingState title="Contract Details" message="Loading contract terms..." />;
+    return <LoadingState title='Contract Details' message='Loading contract terms...' />;
   }
 
   if (error) {
-    return <ErrorState title="Contract Details" message="Could not load contract details." />;
+    return <ErrorState title='Contract Details' message='Could not load contract details.' />;
   }
 
   if (!data) {
-    return <EmptyState title="Contract Details" message="No contract details found." />;
+    return <EmptyState title='Contract Details' message='No contract details found.' />;
   }
 
   const contract = data.data;
@@ -52,31 +51,19 @@ export function ContractDetails() {
       {isFetching && <StatusText>Refreshing contract...</StatusText>}
 
       <div className='contract-inline-pill-row'>
-        <ContractStatusPill
-          accepted={contract.accepted}
-          fulfilled={contract.fulfilled}
-        />
+        <ContractStatusPill accepted={contract.accepted} fulfilled={contract.fulfilled} />
         <CountdownText isoDate={contract.terms.deadline} prefix='Deadline:' />
       </div>
 
       <div className='detail-grid' style={{ marginTop: '1rem' }}>
         <StatCard label='Type' value={contract.type} />
-        <StatCard
-          label='Expires'
-          value={formatLocalDateTime(contract.expiration)}
-        />
+        <StatCard label='Expires' value={formatLocalDateTime(contract.expiration)} />
         <StatCard label='Deliveries' value={contract.terms.deliver.length} />
       </div>
 
       <div className='payout-row'>
-        <PayoutBadge
-          label='Accept Payout'
-          amount={contract.terms.payment.onAccepted}
-        />
-        <PayoutBadge
-          label='Fulfill Payout'
-          amount={contract.terms.payment.onFulfilled}
-        />
+        <PayoutBadge label='Accept Payout' amount={contract.terms.payment.onAccepted} />
+        <PayoutBadge label='Fulfill Payout' amount={contract.terms.payment.onFulfilled} />
       </div>
 
       <div className='contract-section'>

@@ -1,12 +1,17 @@
-import { spacetradersApi } from "../../services/spacetradersApi";
-import { entityTag, listTag, providesEntity, providesList } from "../../services/tagHelper";
-import type { AcceptContractResponse, GetContractResponse, GetContractsResponse, NegotiateContractResponse } from "../../types/contracts";
+import { spacetradersApi } from '../../services/spacetradersApi';
+import { entityTag, listTag, providesEntity, providesList } from '../../services/tagHelper';
+import type {
+  AcceptContractResponse,
+  GetContractResponse,
+  GetContractsResponse,
+  NegotiateContractResponse,
+} from '../../types/contracts';
 
 export const contractsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({
     getContracts: builder.query<GetContractsResponse, void>({
       query: () => 'my/contracts',
-      providesTags: () => providesList('Contracts')
+      providesTags: () => providesList('Contracts'),
     }),
 
     getContract: builder.query<GetContractResponse, string>({
@@ -24,7 +29,7 @@ export const contractsApi = spacetradersApi.injectEndpoints({
         listTag('Contracts'),
         entityTag('Contract', contractId),
         listTag('Agent'),
-      ]
+      ],
     }),
 
     negotiateContract: builder.mutation<NegotiateContractResponse, string>({
@@ -33,10 +38,7 @@ export const contractsApi = spacetradersApi.injectEndpoints({
         method: 'POST',
         body: {},
       }),
-      invalidatesTags: [
-        listTag('Contracts'),
-        listTag('Agent'),
-      ],
+      invalidatesTags: [listTag('Contracts'), listTag('Agent')],
     }),
   }),
 });

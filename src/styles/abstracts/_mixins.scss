@@ -2,11 +2,7 @@
 
 @mixin active-glow-panel {
   border-color: t.$color-border-strong;
-  background: linear-gradient(
-    180deg,
-    t.$color-active-surface-top,
-    t.$color-active-surface-bottom
-  );
+  background: linear-gradient(180deg, t.$color-active-surface-top, t.$color-active-surface-bottom);
   box-shadow: t.$shadow-panel-active;
 }
 

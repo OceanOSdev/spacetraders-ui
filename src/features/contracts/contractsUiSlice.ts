@@ -1,19 +1,19 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 type ContractsUiState = {
-  selectedContractId: string | null
-}
+  selectedContractId: string | null;
+};
 
 const initialState: ContractsUiState = {
-  selectedContractId: null
-}
+  selectedContractId: null,
+};
 
 const contractsUiSlice = createSlice({
   name: 'contractsUi',
   initialState,
   reducers: {
     setSelectedContractId(state, action: PayloadAction<string | null>) {
-      state.selectedContractId = action.payload
+      state.selectedContractId = action.payload;
     },
   },
 });

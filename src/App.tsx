@@ -1,24 +1,20 @@
-import type { ReactNode } from "react";
-import { useAppDispatch } from "./app/hooks";
-import { AuthGate } from "./features/auth/components/AuthGate";
-import { clearToken } from "./features/auth/authSlice";
-import { useGetAgentQuery } from './services/spacetradersApi'
-import { StatusText } from "./components/ui/StatusText";
-import { LoadingState } from "./components/ui/LoadingState";
-import { ErrorState } from "./components/ui/ErrorState";
-import { EmptyState } from "./components/ui/EmptyState";
-import { AppSidebar } from "./features/navigation/components/AppSidebar";
-import { AppContent } from "./features/navigation/components/AppContent";
+import type { ReactNode } from 'react';
+import { useAppDispatch } from './app/hooks';
+import { AuthGate } from './features/auth/components/AuthGate';
+import { clearToken } from './features/auth/authSlice';
+import { useGetAgentQuery } from './services/spacetradersApi';
+import { StatusText } from './components/ui/StatusText';
+import { LoadingState } from './components/ui/LoadingState';
+import { ErrorState } from './components/ui/ErrorState';
+import { EmptyState } from './components/ui/EmptyState';
+import { AppSidebar } from './features/navigation/components/AppSidebar';
+import { AppContent } from './features/navigation/components/AppContent';
 
 type AppShellProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 function AppShell({ children }: AppShellProps) {
-  return (
-    <div className='app-shell'>
-      {children}
-    </div>
-  );
+  return <div className='app-shell'>{children}</div>;
 }
 
 function AgentDashboard() {
@@ -81,7 +77,6 @@ function AgentDashboard() {
           <AppContent agent={agent} />
         </main>
       </div>
-
     </AppShell>
   );
 }

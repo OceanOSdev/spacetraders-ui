@@ -53,11 +53,7 @@
 }
 
 .progress-bar-cyan .progress-fill {
-  @include m.fill-bar(
-    t.$color-cyan-fill-start,
-    t.$color-cyan-fill-end,
-    t.$color-cyan-fill-shadow
-  );
+  @include m.fill-bar(t.$color-cyan-fill-start, t.$color-cyan-fill-end, t.$color-cyan-fill-shadow);
 }
 
 .progress-bar-green .progress-fill {

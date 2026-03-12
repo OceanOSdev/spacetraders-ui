@@ -1,20 +1,20 @@
-import { useAppSelector } from "../../../app/hooks";
-import { EmptyState } from "../../../components/ui/EmptyState";
-import { ErrorState } from "../../../components/ui/ErrorState";
-import { LoadingState } from "../../../components/ui/LoadingState";
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { Row } from "../../../components/ui/Row";
-import { StatCard } from "../../../components/ui/StatCard";
-import { StatusText } from "../../../components/ui/StatusText";
-import { TelemetryBar } from "../../../components/ui/TelemetryBar";
-import type { ShipCargoItem } from "../../../types/ships";
-import { useGetShipQuery } from "../shipsApi";
-import { ShipStatusPill } from "./ShipStatusPill";
+import { useAppSelector } from '../../../app/hooks';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { ErrorState } from '../../../components/ui/ErrorState';
+import { LoadingState } from '../../../components/ui/LoadingState';
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { Row } from '../../../components/ui/Row';
+import { StatCard } from '../../../components/ui/StatCard';
+import { StatusText } from '../../../components/ui/StatusText';
+import { TelemetryBar } from '../../../components/ui/TelemetryBar';
+import type { ShipCargoItem } from '../../../types/ships';
+import { useGetShipQuery } from '../shipsApi';
+import { ShipStatusPill } from './ShipStatusPill';
 
 type InventoryProps = {
-  inventory: ShipCargoItem[]
-}
+  inventory: ShipCargoItem[];
+};
 
 function ShipInventory({ inventory }: InventoryProps) {
   if (inventory.length === 0) {
@@ -37,7 +37,7 @@ export function ShipDetails() {
 
   // If no ship is selected, skip the query entirely.
   const { data, error, isLoading, isFetching } = useGetShipQuery(selectedShipSymbol ?? '', {
-    skip: !selectedShipSymbol
+    skip: !selectedShipSymbol,
   });
 
   if (!selectedShipSymbol) {

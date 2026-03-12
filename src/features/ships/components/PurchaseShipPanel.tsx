@@ -1,13 +1,12 @@
-
 // For now just hard code a mining ship
 // later on add ability to pick different
 
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { StatusText } from "../../../components/ui/StatusText";
-import { useGetAgentQuery, useGetSystemWaypointsQuery } from "../../../services/spacetradersApi";
-import { getSystemSymbolFromWaypointSymbol } from "../../../utils/spacetraders";
-import { useGetShipsQuery, usePurchaseShipMutation } from "../shipsApi";
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatusText } from '../../../components/ui/StatusText';
+import { useGetAgentQuery, useGetSystemWaypointsQuery } from '../../../services/spacetradersApi';
+import { getSystemSymbolFromWaypointSymbol } from '../../../utils/spacetraders';
+import { useGetShipsQuery, usePurchaseShipMutation } from '../shipsApi';
 
 // ship types
 const SHIP_TYPE = 'SHIP_MINING_DRONE';
@@ -25,22 +24,12 @@ function formatShipyardList(symbols: string[]): string {
 }
 
 export function PurchaseShipPanel() {
-  const {
-    data: agentData,
-    isLoading: isLoadingAgent,
-    error: agentError
-  } = useGetAgentQuery();
+  const { data: agentData, isLoading: isLoadingAgent, error: agentError } = useGetAgentQuery();
 
-  const {
-    data: shipsData,
-    isLoading: isLoadingShips,
-    error: shipsError,
-  } = useGetShipsQuery();
+  const { data: shipsData, isLoading: isLoadingShips, error: shipsError } = useGetShipsQuery();
 
   const headquarters = agentData?.data.headquarters;
-  const systemSymbol = headquarters
-    ? getSystemSymbolFromWaypointSymbol(headquarters)
-    : undefined;
+  const systemSymbol = headquarters ? getSystemSymbolFromWaypointSymbol(headquarters) : undefined;
 
   const {
     data: waypointsData,
@@ -56,15 +45,13 @@ export function PurchaseShipPanel() {
 
   const shipyards =
     waypointsData?.data.filter((waypoint) =>
-      waypoint.traits.some((trait) => trait.symbol === 'SHIPYARD')
+      waypoint.traits.some((trait) => trait.symbol === 'SHIPYARD'),
     ) ?? [];
 
   const shipyardSymbols = shipyards.map((waypoint) => waypoint.symbol);
 
   const eligibleShips =
-    shipsData?.data.filter((ship) =>
-      shipyardSymbols.includes(ship.nav.waypointSymbol),
-    ) ?? [];
+    shipsData?.data.filter((ship) => shipyardSymbols.includes(ship.nav.waypointSymbol)) ?? [];
 
   const purchaseWaypointSymbol = eligibleShips[0]?.nav.waypointSymbol;
   const hasShipyards = shipyards.length > 0;
@@ -88,13 +75,9 @@ export function PurchaseShipPanel() {
     <Panel>
       <PanelTitle>Fleet Expansion</PanelTitle>
 
-      {isLoadingAgent && (
-        <StatusText>Loading headquarters information...</StatusText>
-      )}
+      {isLoadingAgent && <StatusText>Loading headquarters information...</StatusText>}
 
-      {agentError && (
-        <StatusText>Could not load agent information.</StatusText>
-      )}
+      {agentError && <StatusText>Could not load agent information.</StatusText>}
 
       {!isLoadingAgent && !agentError && !headquarters && (
         <StatusText>Could not determine headquarters waypoint.</StatusText>
@@ -108,13 +91,9 @@ export function PurchaseShipPanel() {
         <StatusText>Could not load waypoints for {systemSymbol}.</StatusText>
       )}
 
-      {isLoadingShips && (
-        <StatusText>Loading fleet position...</StatusText>
-      )}
+      {isLoadingShips && <StatusText>Loading fleet position...</StatusText>}
 
-      {shipsError && (
-        <StatusText>Could not load fleet information</StatusText>
-      )}
+      {shipsError && <StatusText>Could not load fleet information</StatusText>}
 
       {headquarters && !isLoadingWaypoints && !waypointsError && !hasShipyards && (
         <StatusText>No shipyards found in {systemSymbol}</StatusText>
@@ -135,9 +114,7 @@ export function PurchaseShipPanel() {
 
       {purchaseWaypointSymbol && (
         <>
-          <StatusText>
-            A ship is currently at shipyard {purchaseWaypointSymbol}
-          </StatusText>
+          <StatusText>A ship is currently at shipyard {purchaseWaypointSymbol}</StatusText>
 
           <div style={{ marginTop: '1rem' }}>
             <button onClick={handlePurchase} disabled={isPurchasing}>
