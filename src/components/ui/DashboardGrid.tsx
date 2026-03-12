@@ -8,7 +8,11 @@ type DashboardGridProps = {
 
 export function DashboardGrid({ children, className }: DashboardGridProps) {
   return (
-    <Grid columns='320px 1fr' className={className}>
+    <Grid
+      columns='320px 1fr'
+      className={className}
+      style={{ alignItems: 'start' }}
+    >
       {children}
     </Grid>
   );

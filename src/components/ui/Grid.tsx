@@ -1,10 +1,11 @@
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
 
 type GridProps = {
   children: ReactNode
   columns?: number | string
   gap?: string
   className?: string
+  style?: CSSProperties
 }
 
 export function Grid({
@@ -12,6 +13,7 @@ export function Grid({
   columns = 1,
   gap = '1rem',
   className,
+  style,
 }: GridProps) {
   const gridTemplateColumns =
     typeof columns === 'number'
@@ -25,6 +27,7 @@ export function Grid({
         display: 'grid',
         gridTemplateColumns,
         gap,
+        ...style,
       }}
     >
       {children}
