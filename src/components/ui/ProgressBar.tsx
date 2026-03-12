@@ -1,10 +1,10 @@
 type ProgressBarProps = {
-  label: string
-  value: number
-  max: number
-  color?: 'cyan' | 'green' | 'amber'
-  size?: 'sm' | 'md'
-}
+  label: string;
+  value: number;
+  max: number;
+  color?: 'cyan' | 'green' | 'amber';
+  size?: 'sm' | 'md';
+};
 
 export function ProgressBar({
   label,

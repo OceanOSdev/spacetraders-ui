@@ -1,13 +1,13 @@
-import type { CSSProperties, ReactNode } from "react"
-import { getGapValue, type GapSize } from "./layoutTokens"
+import type { CSSProperties, ReactNode } from 'react';
+import { getGapValue, type GapSize } from './layoutTokens';
 
 type GridProps = {
-  children: ReactNode
-  columns?: number | string
-  gap?: GapSize | string
-  className?: string
-  style?: CSSProperties
-}
+  children: ReactNode;
+  columns?: number | string;
+  gap?: GapSize | string;
+  className?: string;
+  style?: CSSProperties;
+};
 
 export function Grid({
   children,

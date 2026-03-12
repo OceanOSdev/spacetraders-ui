@@ -1,13 +1,13 @@
 type TelemetryBarProps = {
-  label: string
-  value: number
-  max: number
-  color?: 'cyan' | 'green' | 'amber'
-  warningThresholdPercent?: number
-  dangergThresholdPercent?: number
-  invertThresholds?: boolean
-  size?: 'sm' | 'md'
-}
+  label: string;
+  value: number;
+  max: number;
+  color?: 'cyan' | 'green' | 'amber';
+  warningThresholdPercent?: number;
+  dangergThresholdPercent?: number;
+  invertThresholds?: boolean;
+  size?: 'sm' | 'md';
+};
 
 export function TelemetryBar({
   label,
@@ -17,7 +17,7 @@ export function TelemetryBar({
   warningThresholdPercent,
   dangergThresholdPercent,
   invertThresholds = false,
-  size = 'sm'
+  size = 'sm',
 }: TelemetryBarProps) {
   const percent = max === 0 ? 0 : Math.round((value / max) * 100);
 
@@ -28,11 +28,17 @@ export function TelemetryBar({
       return percent >= threshold;
     }
     return percent <= threshold;
-  }
+  };
 
-  if (dangergThresholdPercent !== undefined && exceedsThreshold(dangergThresholdPercent)) {
+  if (
+    dangergThresholdPercent !== undefined &&
+    exceedsThreshold(dangergThresholdPercent)
+  ) {
     stateClass = ' telemetry-danger';
-  } else if (warningThresholdPercent != undefined && exceedsThreshold(warningThresholdPercent)) {
+  } else if (
+    warningThresholdPercent != undefined &&
+    exceedsThreshold(warningThresholdPercent)
+  ) {
     stateClass = ' telemetry-warning';
   }
 
@@ -46,10 +52,7 @@ export function TelemetryBar({
       </div>
 
       <div className={`telemetry-bar telemetry-${color}${stateClass}`}>
-        <div
-          className='telemetry-fill'
-          style={{ width: `${percent}%` }}
-        />
+        <div className='telemetry-fill' style={{ width: `${percent}%` }} />
       </div>
     </div>
   );

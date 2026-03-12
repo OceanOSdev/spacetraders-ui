@@ -1,24 +1,20 @@
-import type { ReactNode } from "react";
-import { useAppDispatch } from "./app/hooks";
-import { AuthGate } from "./features/auth/components/AuthGate";
-import { clearToken } from "./features/auth/authSlice";
-import { useGetAgentQuery } from './services/spacetradersApi'
-import { StatusText } from "./components/ui/StatusText";
-import { LoadingState } from "./components/ui/LoadingState";
-import { ErrorState } from "./components/ui/ErrorState";
-import { EmptyState } from "./components/ui/EmptyState";
-import { AppSidebar } from "./features/navigation/components/AppSidebar";
-import { AppContent } from "./features/navigation/components/AppContent";
+import type { ReactNode } from 'react';
+import { useAppDispatch } from './app/hooks';
+import { AuthGate } from './features/auth/components/AuthGate';
+import { clearToken } from './features/auth/authSlice';
+import { useGetAgentQuery } from './services/spacetradersApi';
+import { StatusText } from './components/ui/StatusText';
+import { LoadingState } from './components/ui/LoadingState';
+import { ErrorState } from './components/ui/ErrorState';
+import { EmptyState } from './components/ui/EmptyState';
+import { AppSidebar } from './features/navigation/components/AppSidebar';
+import { AppContent } from './features/navigation/components/AppContent';
 
 type AppShellProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 function AppShell({ children }: AppShellProps) {
-  return (
-    <div className='app-shell'>
-      {children}
-    </div>
-  );
+  return <div className='app-shell'>{children}</div>;
 }
 
 function AgentDashboard() {
@@ -41,7 +37,10 @@ function AgentDashboard() {
           title='Authentication Failure'
           message='Your token may be invalid or expired.'
           action={
-            <button className='danger-button' onClick={() => dispatch(clearToken())}>
+            <button
+              className='danger-button'
+              onClick={() => dispatch(clearToken())}
+            >
               Clear Token
             </button>
           }
@@ -66,9 +65,14 @@ function AgentDashboard() {
       <header className='app-header'>
         <div>
           <h1 className='app-title'>SpaceTraders Fleet Console</h1>
-          <p className='app-subtitle'>Autonomous commerce and navigation interface</p>
+          <p className='app-subtitle'>
+            Autonomous commerce and navigation interface
+          </p>
         </div>
-        <button className='danger-button' onClick={() => dispatch(clearToken())}>
+        <button
+          className='danger-button'
+          onClick={() => dispatch(clearToken())}
+        >
           Clear token
         </button>
       </header>
@@ -81,7 +85,6 @@ function AgentDashboard() {
           <AppContent agent={agent} />
         </main>
       </div>
-
     </AppShell>
   );
 }

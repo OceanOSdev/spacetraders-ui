@@ -1,11 +1,11 @@
-import type { ReactNode } from "react"
-import { cn } from '../../utils/cn'
+import type { ReactNode } from 'react';
+import { cn } from '../../utils/cn';
 
 type PanelProps = {
-  children: ReactNode
-  className?: string
-  as?: 'section' | 'div' | 'article'
-}
+  children: ReactNode;
+  className?: string;
+  as?: 'section' | 'div' | 'article';
+};
 
 export function Panel({
   children,
@@ -14,9 +14,5 @@ export function Panel({
 }: PanelProps) {
   const Component = as;
 
-  return (
-    <Component className={cn('panel', className)}>
-      {children}
-    </Component>
-  )
+  return <Component className={cn('panel', className)}>{children}</Component>;
 }

@@ -1,16 +1,19 @@
-import { StatusPill, type StatusPillTone } from "../../../components/ui/StatusPill";
+import {
+  StatusPill,
+  type StatusPillTone,
+} from '../../../components/ui/StatusPill';
 
 type ContractStatusPillProps = {
-  accepted: boolean
-  fulfilled: boolean
-}
+  accepted: boolean;
+  fulfilled: boolean;
+};
 
 type ContractStatusLabel = 'Available' | 'Fulfilled' | 'Accepted';
 
 type ContractStatusVals = {
-  tone: StatusPillTone
-  label: ContractStatusLabel
-}
+  tone: StatusPillTone;
+  label: ContractStatusLabel;
+};
 
 function getContractStatusVals(
   accepted: boolean,
@@ -32,9 +35,5 @@ export function ContractStatusPill({
   fulfilled,
 }: ContractStatusPillProps) {
   const vals = getContractStatusVals(accepted, fulfilled);
-  return (
-    <StatusPill tone={vals.tone}>
-      {vals.label}
-    </StatusPill>
-  );
+  return <StatusPill tone={vals.tone}>{vals.label}</StatusPill>;
 }

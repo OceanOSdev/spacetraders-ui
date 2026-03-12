@@ -1,8 +1,11 @@
-import { StatusPill, type StatusPillTone } from "../../../components/ui/StatusPill";
+import {
+  StatusPill,
+  type StatusPillTone,
+} from '../../../components/ui/StatusPill';
 
 type ShipStatusPillProps = {
-  status: string
-}
+  status: string;
+};
 
 function normalizeStatus(status: string): string {
   return status.trim().toUpperCase();

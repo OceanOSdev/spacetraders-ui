@@ -1,11 +1,11 @@
-import type { ReactNode } from "react"
-import { cn } from '../../utils/cn'
+import type { ReactNode } from 'react';
+import { cn } from '../../utils/cn';
 
 type StatCardProps = {
-  label: ReactNode
-  value: ReactNode
-  className?: string
-}
+  label: ReactNode;
+  value: ReactNode;
+  className?: string;
+};
 
 export function StatCard({ label, value, className }: StatCardProps) {
   return (

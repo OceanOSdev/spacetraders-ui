@@ -1,11 +1,11 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AuthState } from '../../types/auth';
 
 // Try to restore a previously saved token from local storage
 // if possible
 const initialState: AuthState = {
   token: localStorage.getItem('spacetraders_token') ?? '',
-}
+};
 
 const authSlice = createSlice({
   name: 'auth',
@@ -26,4 +26,3 @@ const authSlice = createSlice({
 export const { setToken, clearToken } = authSlice.actions;
 
 export default authSlice.reducer;
-

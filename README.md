@@ -17,10 +17,10 @@ This project is a React + TypeScript frontend that allows you to view your agent
 
 ## Tech Stack
 
-- React  
-- TypeScript  
-- Vite  
-- Redux Toolkit / RTK Query  
+- React
+- TypeScript
+- Vite
+- Redux Toolkit / RTK Query
 - SpaceTraders API
 
 ---

@@ -1,23 +1,27 @@
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { CountdownText } from "../../../components/ui/CountdownText";
-import { EmptyState } from "../../../components/ui/EmptyState";
-import { ErrorState } from "../../../components/ui/ErrorState";
-import { LoadingState } from "../../../components/ui/LoadingState";
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { StatusText } from "../../../components/ui/StatusText";
-import { useGetContractsQuery } from "../contractsApi";
-import { setSelectedContractId } from "../contractsUiSlice";
-import { ContractStatusPill } from "./ContractStatusPill";
-import { PayoutBadge } from "./PayoutBadge";
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { CountdownText } from '../../../components/ui/CountdownText';
+import { EmptyState } from '../../../components/ui/EmptyState';
+import { ErrorState } from '../../../components/ui/ErrorState';
+import { LoadingState } from '../../../components/ui/LoadingState';
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatusText } from '../../../components/ui/StatusText';
+import { useGetContractsQuery } from '../contractsApi';
+import { setSelectedContractId } from '../contractsUiSlice';
+import { ContractStatusPill } from './ContractStatusPill';
+import { PayoutBadge } from './PayoutBadge';
 
 export function ContractsList() {
   const dispatch = useAppDispatch();
-  const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
+  const selectedContractId = useAppSelector(
+    (s) => s.contractsUi.selectedContractId,
+  );
   const { data, error, isLoading, isFetching } = useGetContractsQuery();
 
   if (isLoading) {
-    return <LoadingState title='Contracts' message='Loading contract ledger...' />;
+    return (
+      <LoadingState title='Contracts' message='Loading contract ledger...' />
+    );
   }
 
   if (error) {
@@ -46,7 +50,9 @@ export function ContractsList() {
                 <div className='contract-card-top'>
                   <div className='contract-card-heading'>
                     <div className='contract-type'>{contract.type}</div>
-                    <div className='contract-meta'>ID: {contract.id.slice(0, 7)}...</div>
+                    <div className='contract-meta'>
+                      ID: {contract.id.slice(0, 7)}...
+                    </div>
                   </div>
 
                   <ContractStatusPill

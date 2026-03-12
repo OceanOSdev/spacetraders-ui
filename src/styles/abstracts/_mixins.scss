@@ -18,7 +18,10 @@
   border-radius: t.$radius-pill;
 }
 
-@mixin soft-panel($background: t.$color-panel-soft, $border: rgba(89, 216, 255, 0.12)) {
+@mixin soft-panel(
+  $background: t.$color-panel-soft,
+  $border: rgba(89, 216, 255, 0.12)
+) {
   background: $background;
   border: 1px solid $border;
 }

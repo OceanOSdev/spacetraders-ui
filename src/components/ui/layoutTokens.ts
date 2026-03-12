@@ -1,6 +1,9 @@
 export type GapSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-export function getGapValue(gap: GapSize | string | undefined, fallback: string): string {
+export function getGapValue(
+  gap: GapSize | string | undefined,
+  fallback: string,
+): string {
   if (!gap) {
     return fallback;
   }

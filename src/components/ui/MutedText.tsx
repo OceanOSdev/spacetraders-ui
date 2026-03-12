@@ -1,9 +1,9 @@
-import type { ReactNode } from "react"
+import type { ReactNode } from 'react';
 
 type MutedTextProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export function MutedText({ children }: MutedTextProps) {
-  return <p className='muted-text'>{children}</p>
+  return <p className='muted-text'>{children}</p>;
 }

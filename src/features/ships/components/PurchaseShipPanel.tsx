@@ -1,13 +1,15 @@
-
 // For now just hard code a mining ship
 // later on add ability to pick different
 
-import { Panel } from "../../../components/ui/Panel";
-import { PanelTitle } from "../../../components/ui/PanelTitle";
-import { StatusText } from "../../../components/ui/StatusText";
-import { useGetAgentQuery, useGetSystemWaypointsQuery } from "../../../services/spacetradersApi";
-import { getSystemSymbolFromWaypointSymbol } from "../../../utils/spacetraders";
-import { useGetShipsQuery, usePurchaseShipMutation } from "../shipsApi";
+import { Panel } from '../../../components/ui/Panel';
+import { PanelTitle } from '../../../components/ui/PanelTitle';
+import { StatusText } from '../../../components/ui/StatusText';
+import {
+  useGetAgentQuery,
+  useGetSystemWaypointsQuery,
+} from '../../../services/spacetradersApi';
+import { getSystemSymbolFromWaypointSymbol } from '../../../utils/spacetraders';
+import { useGetShipsQuery, usePurchaseShipMutation } from '../shipsApi';
 
 // ship types
 const SHIP_TYPE = 'SHIP_MINING_DRONE';
@@ -28,7 +30,7 @@ export function PurchaseShipPanel() {
   const {
     data: agentData,
     isLoading: isLoadingAgent,
-    error: agentError
+    error: agentError,
   } = useGetAgentQuery();
 
   const {
@@ -56,7 +58,7 @@ export function PurchaseShipPanel() {
 
   const shipyards =
     waypointsData?.data.filter((waypoint) =>
-      waypoint.traits.some((trait) => trait.symbol === 'SHIPYARD')
+      waypoint.traits.some((trait) => trait.symbol === 'SHIPYARD'),
     ) ?? [];
 
   const shipyardSymbols = shipyards.map((waypoint) => waypoint.symbol);
@@ -92,9 +94,7 @@ export function PurchaseShipPanel() {
         <StatusText>Loading headquarters information...</StatusText>
       )}
 
-      {agentError && (
-        <StatusText>Could not load agent information.</StatusText>
-      )}
+      {agentError && <StatusText>Could not load agent information.</StatusText>}
 
       {!isLoadingAgent && !agentError && !headquarters && (
         <StatusText>Could not determine headquarters waypoint.</StatusText>
@@ -108,26 +108,27 @@ export function PurchaseShipPanel() {
         <StatusText>Could not load waypoints for {systemSymbol}.</StatusText>
       )}
 
-      {isLoadingShips && (
-        <StatusText>Loading fleet position...</StatusText>
-      )}
+      {isLoadingShips && <StatusText>Loading fleet position...</StatusText>}
 
-      {shipsError && (
-        <StatusText>Could not load fleet information</StatusText>
-      )}
+      {shipsError && <StatusText>Could not load fleet information</StatusText>}
 
-      {headquarters && !isLoadingWaypoints && !waypointsError && !hasShipyards && (
-        <StatusText>No shipyards found in {systemSymbol}</StatusText>
-      )}
+      {headquarters &&
+        !isLoadingWaypoints &&
+        !waypointsError &&
+        !hasShipyards && (
+          <StatusText>No shipyards found in {systemSymbol}</StatusText>
+        )}
 
       {hasShipyards && !purchaseWaypointSymbol && !isLoadingShips && (
         <>
           <StatusText>
-            Shipyards detected in {systemSymbol}: {formatShipyardList(shipyardSymbols)}
+            Shipyards detected in {systemSymbol}:{' '}
+            {formatShipyardList(shipyardSymbols)}
           </StatusText>
           <div style={{ marginTop: '0.75rem' }}>
             <StatusText>
-              Move one of yourr ships to a shipyard waypoint before purchasing a new ship.
+              Move one of yourr ships to a shipyard waypoint before purchasing a
+              new ship.
             </StatusText>
           </div>
         </>

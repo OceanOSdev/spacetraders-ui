@@ -1,7 +1,7 @@
 type PayoutBadgeProps = {
-  label: string
-  amount: number
-}
+  label: string;
+  amount: number;
+};
 
 export function PayoutBadge({ label, amount }: PayoutBadgeProps) {
   return (

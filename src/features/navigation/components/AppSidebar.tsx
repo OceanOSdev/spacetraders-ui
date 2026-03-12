@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { setActiveView, type AppView } from "../appViewSlice";
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { setActiveView, type AppView } from '../appViewSlice';
 
 const NAV_ITEMS: Array<{ label: string; value: AppView }> = [
   { label: 'Ships', value: 'ships' },

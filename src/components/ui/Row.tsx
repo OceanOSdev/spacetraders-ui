@@ -1,14 +1,14 @@
-import type { CSSProperties, ReactNode } from "react"
-import { getGapValue, type GapSize } from "./layoutTokens"
+import type { CSSProperties, ReactNode } from 'react';
+import { getGapValue, type GapSize } from './layoutTokens';
 
 type RowProps = {
-  children: ReactNode
-  gap?: GapSize | string
-  align?: 'start' | 'center' | 'end'
-  justify?: 'start' | 'center' | 'end' | 'between'
-  className?: string
-  style?: CSSProperties
-}
+  children: ReactNode;
+  gap?: GapSize | string;
+  align?: 'start' | 'center' | 'end';
+  justify?: 'start' | 'center' | 'end' | 'between';
+  className?: string;
+  style?: CSSProperties;
+};
 
 export function Row({
   children,
@@ -23,13 +23,13 @@ export function Row({
     center: 'center',
     end: 'flex-end',
     between: 'space-between',
-  }
+  };
 
   const alignMap = {
     start: 'flex-start',
     center: 'center',
     end: 'flex-end',
-  }
+  };
 
   return (
     <div
@@ -44,5 +44,5 @@ export function Row({
     >
       {children}
     </div>
-  )
+  );
 }

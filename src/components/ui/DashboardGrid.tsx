@@ -1,14 +1,14 @@
-import type { CSSProperties, ReactNode } from "react"
-import { Grid } from "./Grid";
-import type { GapSize } from "./layoutTokens";
+import type { CSSProperties, ReactNode } from 'react';
+import { Grid } from './Grid';
+import type { GapSize } from './layoutTokens';
 
 type DashboardGridProps = {
-  children: ReactNode
-  columns?: string | number
-  gap?: GapSize | string
-  className?: string
-  style?: CSSProperties
-}
+  children: ReactNode;
+  columns?: string | number;
+  gap?: GapSize | string;
+  className?: string;
+  style?: CSSProperties;
+};
 
 export function DashboardGrid({
   children,
