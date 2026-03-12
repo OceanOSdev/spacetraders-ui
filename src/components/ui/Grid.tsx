@@ -17,7 +17,7 @@ export function Grid({
 }: GridProps) {
   const gridTemplateColumns =
     typeof columns === 'number'
-      ? `repeat(${columns}, 1fr)`
+      ? `repeat(${columns}, minmax(0, 1fr))`
       : columns;
 
   return (
