@@ -8,8 +8,8 @@ import { Row } from "../../../components/ui/Row";
 import { StatCard } from "../../../components/ui/StatCard";
 import { StatusText } from "../../../components/ui/StatusText";
 import { TelemetryBar } from "../../../components/ui/TelemetryBar";
-import { useGetShipQuery } from "../../../services/spacetradersApi";
 import type { ShipCargoItem } from "../../../types/ships";
+import { useGetShipQuery } from "../shipsApi";
 import { ShipStatusPill } from "./ShipStatusPill";
 
 type InventoryProps = {
