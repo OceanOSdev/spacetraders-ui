@@ -118,6 +118,16 @@ export const spacetradersApi = createApi({
         `systems/${systemSymbol}/waypoints/${waypointSymbol}`,
     }),
 
+    getSystemWaypoints: builder.query<
+      { data: Waypoint[] },
+      { systemSymbol: string, traits?: string }
+    >({
+      query: ({ systemSymbol, traits }) => ({
+        url: `systems/${systemSymbol}/waypoints`,
+        params: traits ? { traits } : undefined,
+      }),
+    }),
+
     purchaseShip: builder.mutation<
       unknown, // unknown for now, will add type later
       { shipType: string; waypointSymbol: string }
@@ -144,5 +154,6 @@ export const {
   useAcceptContractMutation,
   useNegotiateContractMutation,
   useGetWaypointQuery,
+  useGetSystemWaypointsQuery,
   usePurchaseShipMutation,
 } = spacetradersApi;
