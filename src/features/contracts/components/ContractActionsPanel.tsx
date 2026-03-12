@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useGetShipsQuery, useNegotiateContractMutation } from "../../../services/spacetradersApi";
+import { useNegotiateContractMutation } from "../../../services/spacetradersApi";
 import { Panel } from "../../../components/ui/Panel";
 import { PanelTitle } from "../../../components/ui/PanelTitle";
 import { ShipSelector } from "../../ships/components/ShipSelector";
 import { StatusText } from "../../../components/ui/StatusText";
+import { useGetShipsQuery } from "../../ships/shipsApi";
 
 export function ContractActionsPanel() {
   const [negotiateShip, setNegotiateShip] = useState('');

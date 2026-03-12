@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { useAcceptContractMutation, useGetContractQuery, useGetShipsQuery, useNegotiateContractMutation } from "../../../services/spacetradersApi";
+import { useAcceptContractMutation, useGetContractQuery, useNegotiateContractMutation } from "../../../services/spacetradersApi";
 import { EmptyState } from "../../../components/ui/EmptyState";
 import { LoadingState } from "../../../components/ui/LoadingState";
 import { ErrorState } from "../../../components/ui/ErrorState";
@@ -15,6 +15,7 @@ import { PayoutBadge } from "./PayoutBadge";
 import { ProgressBar } from "../../../components/ui/ProgressBar";
 import { ShipSelector } from "../../ships/components/ShipSelector";
 import { Stack } from "../../../components/ui/Stack";
+import { useGetShipsQuery } from "../../ships/shipsApi";
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);

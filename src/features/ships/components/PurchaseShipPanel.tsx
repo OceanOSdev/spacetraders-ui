@@ -5,8 +5,9 @@
 import { Panel } from "../../../components/ui/Panel";
 import { PanelTitle } from "../../../components/ui/PanelTitle";
 import { StatusText } from "../../../components/ui/StatusText";
-import { useGetAgentQuery, useGetShipsQuery, useGetSystemWaypointsQuery, usePurchaseShipMutation } from "../../../services/spacetradersApi";
+import { useGetAgentQuery, useGetSystemWaypointsQuery } from "../../../services/spacetradersApi";
 import { getSystemSymbolFromWaypointSymbol } from "../../../utils/spacetraders";
+import { useGetShipsQuery, usePurchaseShipMutation } from "../shipsApi";
 
 // ship types
 const SHIP_TYPE = 'SHIP_MINING_DRONE';

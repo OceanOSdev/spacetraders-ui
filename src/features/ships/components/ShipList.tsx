@@ -6,11 +6,11 @@ import { Panel } from "../../../components/ui/Panel";
 import { PanelTitle } from "../../../components/ui/PanelTitle";
 import { StatusText } from "../../../components/ui/StatusText";
 import { TelemetryBar } from "../../../components/ui/TelemetryBar";
-import { useGetShipsQuery } from "../../../services/spacetradersApi";
 import type { Ship } from "../../../types/ships";
 import { ShipStatusPill } from "./ShipStatusPill";
 import { setSelectedShipSymbol } from "../shipsUiSlice";
 import { cn } from "../../../utils/cn";
+import { useGetShipsQuery } from "../shipsApi";
 
 
 export function ShipList() {
