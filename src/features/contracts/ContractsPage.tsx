@@ -1,3 +1,4 @@
+import { DashboardGrid } from "../../components/ui/DashboardGrid";
 import { Stack } from "../../components/ui/Stack";
 import { ContractActionsPanel } from "./components/ContractActionsPanel";
 import { ContractDetails } from "./components/ContractDetails";
@@ -7,10 +8,10 @@ export function ContractsPage() {
   return (
     <Stack>
       <ContractActionsPanel />
-      <div className='dashboard-grid'>
+      <DashboardGrid>
         <ContractsList />
         <ContractDetails />
-      </div>
+      </DashboardGrid>
     </Stack>
   );
 }

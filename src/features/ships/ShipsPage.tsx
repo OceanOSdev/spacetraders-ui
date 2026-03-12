@@ -1,3 +1,4 @@
+import { DashboardGrid } from "../../components/ui/DashboardGrid";
 import { Stack } from "../../components/ui/Stack";
 import { PurchaseShipPanel } from "./components/PurchaseShipPanel";
 import { ShipDetails } from "./components/ShipDetails";
@@ -7,10 +8,10 @@ export function ShipsPage() {
   return (
     <Stack>
       <PurchaseShipPanel />
-      <div className='dashboard-grid'>
+      <DashboardGrid>
         <ShipList />
         <ShipDetails />
-      </div>
+      </DashboardGrid>
     </Stack>
   );
 }
