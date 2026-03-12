@@ -43,3 +43,8 @@ export type GetShipsResponse = {
 export type GetShipResponse = {
   data: Ship
 }
+
+export type PurchaseShipRequest = {
+  shipType: string
+  waypointSymbol: string
+}
