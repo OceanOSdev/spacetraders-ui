@@ -4,6 +4,7 @@ import { ErrorState } from "../../../components/ui/ErrorState";
 import { LoadingState } from "../../../components/ui/LoadingState";
 import { Panel } from "../../../components/ui/Panel";
 import { PanelTitle } from "../../../components/ui/PanelTitle";
+import { Row } from "../../../components/ui/Row";
 import { StatCard } from "../../../components/ui/StatCard";
 import { StatusText } from "../../../components/ui/StatusText";
 import { TelemetryBar } from "../../../components/ui/TelemetryBar";
@@ -71,10 +72,10 @@ export function ShipDetails() {
       <div className='detail-status-row'>
         <PanelTitle as='h3'>Operation Status</PanelTitle>
 
-        <div className='status-pair'>
+        <Row gap='md'>
           <ShipStatusPill status={ship.nav.status} />
           <ShipStatusPill status={ship.nav.flightMode} />
-        </div>
+        </Row>
       </div>
 
       <div className='ship-telemetry-section'>

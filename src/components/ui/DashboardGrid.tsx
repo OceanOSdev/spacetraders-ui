@@ -1,17 +1,28 @@
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
 import { Grid } from "./Grid";
+import type { GapSize } from "./layoutTokens";
 
 type DashboardGridProps = {
   children: ReactNode
+  columns?: string | number
+  gap?: GapSize | string
   className?: string
+  style?: CSSProperties
 }
 
-export function DashboardGrid({ children, className }: DashboardGridProps) {
+export function DashboardGrid({
+  children,
+  columns = '320px minmax(0, 1fr)',
+  gap = 'md',
+  className,
+  style,
+}: DashboardGridProps) {
   return (
     <Grid
-      columns='320px minmax(0, 1fr)'
+      columns={columns}
       className={className}
-      style={{ alignItems: 'start' }}
+      gap={gap}
+      style={{ alignItems: 'start', ...style }}
     >
       {children}
     </Grid>

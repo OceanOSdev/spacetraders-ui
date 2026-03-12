@@ -14,6 +14,7 @@ import { formatLocalDateTime } from "../../../utils/time";
 import { PayoutBadge } from "./PayoutBadge";
 import { ProgressBar } from "../../../components/ui/ProgressBar";
 import { ShipSelector } from "../../ships/components/ShipSelector";
+import { Stack } from "../../../components/ui/Stack";
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector((s) => s.contractsUi.selectedContractId);
@@ -94,7 +95,7 @@ export function ContractDetails() {
         {contract.terms.deliver.length === 0 ? (
           <p>No delivery terms listed.</p>
         ) : (
-          <div className='contract-delivery-stack'>
+          <Stack style={{ marginTop: '0.85rem' }}>
             {contract.terms.deliver.map((item) => (
               <div
                 className='contract-delivery-panel'
@@ -116,7 +117,7 @@ export function ContractDetails() {
                 />
               </div>
             ))}
-          </div>
+          </Stack>
         )}
       </div>
 

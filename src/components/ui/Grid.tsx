@@ -1,9 +1,10 @@
 import type { CSSProperties, ReactNode } from "react"
+import { getGapValue, type GapSize } from "./layoutTokens"
 
 type GridProps = {
   children: ReactNode
   columns?: number | string
-  gap?: string
+  gap?: GapSize | string
   className?: string
   style?: CSSProperties
 }
@@ -26,7 +27,7 @@ export function Grid({
       style={{
         display: 'grid',
         gridTemplateColumns,
-        gap,
+        gap: getGapValue(gap, '1rem'),
         ...style,
       }}
     >

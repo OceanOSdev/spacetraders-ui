@@ -1,17 +1,28 @@
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
 import { cn } from "../../utils/cn"
-
-type StackGapSize = 'normal' | 'large';
+import { getGapValue, type GapSize } from "./layoutTokens"
 
 type StackProps = {
   children: ReactNode
-  gapSize?: StackGapSize
+  gap?: GapSize | string
   className?: string
+  style?: CSSProperties
 }
 
-export function Stack({ children, gapSize = 'normal', className }: StackProps) {
+export function Stack({
+  children,
+  gap = 'md',
+  className,
+  style,
+}: StackProps) {
   return (
-    <div className={cn(gapSize === 'normal' ? 'stack' : 'stack-lg', className)}>
+    <div
+      className={cn('stack', className)}
+      style={{
+        rowGap: getGapValue(gap, '1rem'),
+        ...style,
+      }}
+    >
       {children}
     </div>
   );

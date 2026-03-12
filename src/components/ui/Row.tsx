@@ -1,11 +1,13 @@
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
+import { getGapValue, type GapSize } from "./layoutTokens"
 
 type RowProps = {
   children: ReactNode
-  gap?: string
+  gap?: GapSize | string
   align?: 'start' | 'center' | 'end'
   justify?: 'start' | 'center' | 'end' | 'between'
   className?: string
+  style?: CSSProperties
 }
 
 export function Row({
@@ -14,6 +16,7 @@ export function Row({
   align = 'center',
   justify = 'start',
   className,
+  style,
 }: RowProps) {
   const justifyMap = {
     start: 'flex-start',
@@ -33,9 +36,10 @@ export function Row({
       className={className}
       style={{
         display: 'flex',
-        gap,
+        gap: getGapValue(gap, '0.75rem'),
         alignItems: alignMap[align],
         justifyContent: justifyMap[justify],
+        ...style,
       }}
     >
       {children}
