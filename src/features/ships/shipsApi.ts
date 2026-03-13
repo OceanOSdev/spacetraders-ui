@@ -1,5 +1,11 @@
 import { spacetradersApi } from '../../services/spacetradersApi';
-import { providesEntity, providesEntityList } from '../../services/tagHelper';
+import {
+  entityTag,
+  invalidatesTags,
+  listTag,
+  providesEntity,
+  providesEntityList,
+} from '../../services/tagHelper';
 import type { GetShipResponse, GetShipsResponse } from '../../types/ships';
 
 export const shipsApi = spacetradersApi.injectEndpoints({
@@ -40,8 +46,33 @@ export const shipsApi = spacetradersApi.injectEndpoints({
       }),
       invalidatesTags: ['Ships', 'Agent'],
     }),
+
+    orbitShip: builder.mutation<unknown, string>({
+      query: (shipSymbol) => ({
+        url: `my/ships/${shipSymbol}/orbit`,
+        method: 'POST',
+        body: {},
+      }),
+      invalidatesTags: (_result, _error, shipSymbol) =>
+        invalidatesTags(entityTag('Ship', shipSymbol), listTag('Ships')),
+    }),
+
+    dockShip: builder.mutation<unknown, string>({
+      query: (shipSymbol) => ({
+        url: `my/ships/${shipSymbol}/dock`,
+        method: 'POST',
+        body: {},
+      }),
+      invalidatesTags: (_result, _error, shipSymbol) =>
+        invalidatesTags(entityTag('Ship', shipSymbol), listTag('Ships')),
+    }),
   }),
 });
 
-export const { useGetShipsQuery, useGetShipQuery, usePurchaseShipMutation } =
-  shipsApi;
+export const {
+  useGetShipsQuery,
+  useGetShipQuery,
+  usePurchaseShipMutation,
+  useDockShipMutation,
+  useOrbitShipMutation,
+} = shipsApi;
