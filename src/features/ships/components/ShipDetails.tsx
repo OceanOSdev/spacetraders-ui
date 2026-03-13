@@ -10,6 +10,7 @@ import { StatusText } from '../../../components/ui/StatusText';
 import { TelemetryBar } from '../../../components/ui/TelemetryBar';
 import type { ShipCargoItem } from '../../../types/ships';
 import { useGetShipQuery } from '../shipsApi';
+import { ShipActionsPanel } from './ShipActionsPanel';
 import { ShipStatusPill } from './ShipStatusPill';
 
 type InventoryProps = {
@@ -114,6 +115,8 @@ export function ShipDetails() {
           size='md'
         />
       </div>
+
+      <ShipActionsPanel ship={ship} />
 
       <div className='ship-inventory-section'>
         <PanelTitle as='h3'>Inventory</PanelTitle>
