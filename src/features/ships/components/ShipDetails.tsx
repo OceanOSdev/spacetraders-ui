@@ -7,9 +7,11 @@ import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { Row } from '../../../components/ui/Row';
 import { StatCard } from '../../../components/ui/StatCard';
 import { StatusText } from '../../../components/ui/StatusText';
+import { useGetSystemWaypointsQuery } from '../../../services/spacetradersApi';
 import type { ShipCargoItem } from '../../../types/ships';
 import { useGetShipQuery } from '../shipsApi';
 import { ShipActionsPanel } from './ShipActionsPanel';
+import { ShipNavigationPanel } from './ShipNavigationPanel';
 import { ShipStatusPill } from './ShipStatusPill';
 import { ShipTelemetrySection } from './ShipTelemetrySection';
 
@@ -45,7 +47,19 @@ export function ShipDetails() {
       skip: !selectedShipSymbol,
     },
   );
+  const ship = data?.data;
+  const systemSymbol = ship?.nav.systemSymbol;
 
+  const { data: waypointsData } = useGetSystemWaypointsQuery(
+    {
+      systemSymbol: systemSymbol ?? '',
+    },
+    {
+      skip: !systemSymbol,
+    },
+  );
+
+  const navigationTargets = waypointsData?.data ?? [];
   if (!selectedShipSymbol) {
     return (
       <EmptyState
@@ -71,36 +85,35 @@ export function ShipDetails() {
     return <EmptyState title='Ship Details' message='No ship details found.' />;
   }
 
-  const ship = data.data;
-
   return (
     <Panel>
       <PanelTitle>Ship Details</PanelTitle>
       {isFetching && <StatusText>Refreshing ship...</StatusText>}
 
       <div className='detail-grid'>
-        <StatCard label='Symbol' value={ship.symbol} />
-        <StatCard label='System' value={ship.nav.systemSymbol} />
-        <StatCard label='Waypoint' value={ship.nav.waypointSymbol} />
+        <StatCard label='Symbol' value={ship!.symbol} />
+        <StatCard label='System' value={ship!.nav.systemSymbol} />
+        <StatCard label='Waypoint' value={ship!.nav.waypointSymbol} />
       </div>
 
       <div className='detail-status-row'>
         <PanelTitle as='h3'>Operation Status</PanelTitle>
 
         <Row gap='md'>
-          <ShipStatusPill status={ship.nav.status} />
-          <ShipStatusPill status={ship.nav.flightMode} />
+          <ShipStatusPill status={ship!.nav.status} />
+          <ShipStatusPill status={ship!.nav.flightMode} />
         </Row>
       </div>
 
-      <ShipTelemetrySection ship={ship} />
+      <ShipTelemetrySection ship={ship!} />
 
+      <ShipNavigationPanel ship={ship!} targets={navigationTargets} />
 
-      <ShipActionsPanel ship={ship} />
+      <ShipActionsPanel ship={ship!} />
 
       <div className='ship-inventory-section'>
         <PanelTitle as='h3'>Inventory</PanelTitle>
-        <ShipInventory inventory={ship.cargo.inventory} />
+        <ShipInventory inventory={ship!.cargo.inventory} />
       </div>
     </Panel>
   );
