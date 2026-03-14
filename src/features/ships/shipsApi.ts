@@ -81,6 +81,23 @@ export const shipsApi = spacetradersApi.injectEndpoints({
       invalidatesTags: (_result, _error, { shipSymbol }) =>
         invalidatesTags(listTag('Ships'), entityTag('Ship', shipSymbol)),
     }),
+
+    refuelShip: builder.mutation<
+      unknown,
+      { shipSymbol: string; fromCargo?: boolean }
+    >({
+      query: ({ shipSymbol, fromCargo = false }) => ({
+        url: `my/ships/${shipSymbol}/refuel`,
+        method: 'POST',
+        body: fromCargo ? { fromCargo: true } : {},
+      }),
+      invalidatesTags: (_result, _error, { shipSymbol }) =>
+        invalidatesTags(
+          entityTag('Ship', shipSymbol),
+          listTag('Ships'),
+          listTag('Agent'),
+        ),
+    }),
   }),
 });
 
@@ -91,4 +108,5 @@ export const {
   useDockShipMutation,
   useOrbitShipMutation,
   useNavigateShipMutation,
+  useRefuelShipMutation,
 } = shipsApi;

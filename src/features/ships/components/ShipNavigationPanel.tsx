@@ -49,7 +49,7 @@ export function ShipNavigationPanel({
         ) : (
           <>
             <label>
-              Destination
+              <div style={{ marginBottom: '0.5rem' }}>Destination</div>
               {/*TODO: maybe set marginTop: '0.5rem'?*/}
               <WaypointSelector
                 value={selectedTargetSymbol}
