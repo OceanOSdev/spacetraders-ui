@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { cn } from '../../utils/cn';
 import { getCountdownInfo } from '../../utils/countdown';
 
@@ -12,7 +13,19 @@ export function CountdownText({
   prefix,
   className,
 }: CountdownTextProps) {
-  const { text, expired } = getCountdownInfo(isoDate);
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  const { text, expired } = getCountdownInfo(isoDate, now);
 
   return (
     <span className={cn('countdown-text', expired && 'is-expired', className)}>

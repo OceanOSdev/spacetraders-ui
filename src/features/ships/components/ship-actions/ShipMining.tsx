@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { CountdownText } from '../../../../components/ui/CountdownText';
 import { PanelTitle } from '../../../../components/ui/PanelTitle';
 import { StatusText } from '../../../../components/ui/StatusText';
 import type { Ship } from '../../../../types/ships';
@@ -11,10 +13,29 @@ export function ShipMining({ ship }: ShipMiningProps) {
   const [extractResources, { isLoading, error }] =
     useExtractResourcesMutation();
 
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
   const isInOrbit = ship.nav.status === 'IN_ORBIT';
   const isCargoFull = ship.cargo.units >= ship.cargo.capacity;
-  const cooldownRemaining = ship.cooldown?.remainingSeconds ?? 0;
-  const isCoolingDown = cooldownRemaining > 0;
+
+  const cooldownExpiration = ship.cooldown?.expiration
+    ? new Date(ship.cooldown.expiration).getTime()
+    : null;
+
+  const isCoolingDown =
+    cooldownExpiration !== null && !Number.isNaN(cooldownExpiration)
+      ? cooldownExpiration > now
+      : false;
 
   const canExtract = isInOrbit && !isCargoFull && !isCoolingDown;
 
@@ -35,8 +56,8 @@ export function ShipMining({ ship }: ShipMiningProps) {
 
       {isCargoFull && <StatusText>Cargo hold is full.</StatusText>}
 
-      {isCoolingDown && (
-        <StatusText>Extraction cooldown: {cooldownRemaining}s</StatusText>
+      {isCoolingDown && ship.cooldown?.expiration && (
+        <CountdownText isoDate={ship.cooldown.expiration} prefix='Cooldown:' />
       )}
 
       {canExtract && (
