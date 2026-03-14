@@ -122,10 +122,7 @@ export const shipsApi = spacetradersApi.injectEndpoints({
         },
       }),
       invalidatesTags: (_result, _error, { shipSymbol }) =>
-        invalidatesTags(
-          listTag('Ships'),
-          entityTag('Ship', shipSymbol),
-        ),
+        invalidatesTags(listTag('Ships'), entityTag('Ship', shipSymbol)),
     }),
   }),
 });
