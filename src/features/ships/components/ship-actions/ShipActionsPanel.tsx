@@ -2,6 +2,7 @@ import { PanelTitle } from '../../../../components/ui/PanelTitle';
 import { Stack } from '../../../../components/ui/Stack';
 import type { Ship } from '../../../../types/ships';
 import { DockOrOrbitButton } from './DockOrOrbitButton';
+import { ShipMining } from './ShipMining';
 import { ShipRefuel } from './ShipRefuel';
 
 type ShipActionsPanelProps = {
@@ -16,6 +17,7 @@ export function ShipActionsPanel({ ship }: ShipActionsPanelProps) {
       <Stack gap='md' align='start'>
         <DockOrOrbitButton ship={ship} />
         <ShipRefuel ship={ship} />
+        <ShipMining ship={ship} />
       </Stack>
     </div>
   );

@@ -26,12 +26,20 @@ export type ShipCargo = {
   inventory: ShipCargoItem[];
 };
 
+export type ShipCooldown = {
+  shipSymbol: string;
+  totalSeconds: number;
+  remainingSeconds: number;
+  expiration: string;
+};
+
 // Minimal ship model for UI.
 export type Ship = {
   symbol: string;
   nav: ShipNav;
   fuel: ShipFuel;
   cargo: ShipCargo;
+  cooldown: ShipCooldown;
 };
 
 // Response for GET /my/ships
