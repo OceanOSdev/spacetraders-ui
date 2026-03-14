@@ -5,6 +5,11 @@ export type ShipNav = {
   waypointSymbol: string;
   status: string;
   flightMode: string;
+  route: ShipNavRoute;
+};
+
+export type ShipNavRoute = {
+  arrival: string;
 };
 
 // Fuel info for a ship.

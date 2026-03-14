@@ -12,28 +12,9 @@ import type { ShipCargoItem } from '../../../types/ships';
 import { useGetShipQuery } from '../shipsApi';
 import { ShipActionsPanel } from './ship-actions/ShipActionsPanel';
 import { ShipNavigationPanel } from './ship-navigation/ShipNavigationPanel';
+import { ShipInventory } from './ShipInventory';
 import { ShipStatusPill } from './ShipStatusPill';
 import { ShipTelemetrySection } from './ShipTelemetrySection';
-
-type InventoryProps = {
-  inventory: ShipCargoItem[];
-};
-
-function ShipInventory({ inventory }: InventoryProps) {
-  if (inventory.length === 0) {
-    return <p>No cargo.</p>;
-  }
-
-  return (
-    <ul className='inventory-list'>
-      {inventory.map((item) => (
-        <li key={item.symbol}>
-          {item.symbol}: {item.units}
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 export function ShipDetails() {
   const selectedShipSymbol = useAppSelector(
@@ -41,7 +22,7 @@ export function ShipDetails() {
   );
 
   // If no ship is selected, skip the query entirely.
-  const { data, error, isLoading, isFetching } = useGetShipQuery(
+  const { data, error, isLoading, isFetching, refetch } = useGetShipQuery(
     selectedShipSymbol ?? '',
     {
       skip: !selectedShipSymbol,
@@ -107,13 +88,17 @@ export function ShipDetails() {
 
       <ShipTelemetrySection ship={ship!} />
 
-      <ShipNavigationPanel ship={ship!} targets={navigationTargets} />
+      <ShipNavigationPanel
+        ship={ship!}
+        refetchShip={refetch}
+        targets={navigationTargets}
+      />
 
       <ShipActionsPanel ship={ship!} />
 
       <div className='ship-inventory-section'>
         <PanelTitle as='h3'>Inventory</PanelTitle>
-        <ShipInventory inventory={ship!.cargo.inventory} />
+        <ShipInventory ship={ship!} />
       </div>
     </Panel>
   );
