@@ -98,6 +98,16 @@ export const shipsApi = spacetradersApi.injectEndpoints({
           listTag('Agent'),
         ),
     }),
+
+    extractResources: builder.mutation<unknown, string>({
+      query: (shipSymbol) => ({
+        url: `my/ships/${shipSymbol}/extract`,
+        method: 'POST',
+        body: {},
+      }),
+      invalidatesTags: (_result, _error, shipSymbol) =>
+        invalidatesTags(entityTag('Ship', shipSymbol), listTag('Ships')),
+    }),
   }),
 });
 
@@ -109,4 +119,5 @@ export const {
   useOrbitShipMutation,
   useNavigateShipMutation,
   useRefuelShipMutation,
+  useExtractResourcesMutation,
 } = shipsApi;
