@@ -7,11 +7,11 @@ import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { Row } from '../../../components/ui/Row';
 import { StatCard } from '../../../components/ui/StatCard';
 import { StatusText } from '../../../components/ui/StatusText';
-import { TelemetryBar } from '../../../components/ui/TelemetryBar';
 import type { ShipCargoItem } from '../../../types/ships';
 import { useGetShipQuery } from '../shipsApi';
 import { ShipActionsPanel } from './ShipActionsPanel';
 import { ShipStatusPill } from './ShipStatusPill';
+import { ShipTelemetrySection } from './ShipTelemetrySection';
 
 type InventoryProps = {
   inventory: ShipCargoItem[];
@@ -93,28 +93,8 @@ export function ShipDetails() {
         </Row>
       </div>
 
-      <div className='ship-telemetry-section'>
-        <PanelTitle as='h3'>Resource Telemetry</PanelTitle>
+      <ShipTelemetrySection ship={ship} />
 
-        <TelemetryBar
-          label='Fuel'
-          value={ship.fuel.current}
-          max={ship.fuel.capacity}
-          warningThresholdPercent={35}
-          dangergThresholdPercent={15}
-          size='md'
-        />
-
-        <TelemetryBar
-          label='Cargo'
-          value={ship.cargo.units}
-          max={ship.cargo.capacity}
-          warningThresholdPercent={75}
-          dangergThresholdPercent={95}
-          invertThresholds
-          size='md'
-        />
-      </div>
 
       <ShipActionsPanel ship={ship} />
 
