@@ -108,6 +108,25 @@ export const shipsApi = spacetradersApi.injectEndpoints({
       invalidatesTags: (_result, _error, shipSymbol) =>
         invalidatesTags(entityTag('Ship', shipSymbol), listTag('Ships')),
     }),
+
+    jettisonCargo: builder.mutation<
+      unknown,
+      { shipSymbol: string; symbol: string; units: number }
+    >({
+      query: ({ shipSymbol, symbol, units }) => ({
+        url: `my/ships/${shipSymbol}/jettison`,
+        method: 'POST',
+        body: {
+          symbol,
+          units,
+        },
+      }),
+      invalidatesTags: (_result, _error, { shipSymbol }) =>
+        invalidatesTags(
+          listTag('Ships'),
+          entityTag('Ship', shipSymbol),
+        ),
+    }),
   }),
 });
 
@@ -120,4 +139,5 @@ export const {
   useNavigateShipMutation,
   useRefuelShipMutation,
   useExtractResourcesMutation,
+  useJettisonCargoMutation,
 } = shipsApi;
