@@ -5,6 +5,7 @@ import { useNavigateShipMutation } from '../shipsApi';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { Stack } from '../../../components/ui/Stack';
 import { StatusText } from '../../../components/ui/StatusText';
+import { WaypointSelector } from './WaypointSelector';
 
 type ShipNavigationPanelProps = {
   ship: Ship;
@@ -17,9 +18,6 @@ export function ShipNavigationPanel({
 }: ShipNavigationPanelProps) {
   const [selectedTargetSymbol, setSelectedTargetSymbol] = useState('');
   const [navigateShip, { isLoading, error }] = useNavigateShipMutation();
-
-  const selectedTarget =
-    targets.find((target) => target.symbol === selectedTargetSymbol) ?? null;
 
   const isInTransit = ship.nav.status === 'IN_TRANSIT';
   const isAlreadyAtTarget =
@@ -52,21 +50,13 @@ export function ShipNavigationPanel({
           <>
             <label>
               Destination
-              <select
+              {/*TODO: maybe set marginTop: '0.5rem'?*/}
+              <WaypointSelector
                 value={selectedTargetSymbol}
-                onChange={(event) =>
-                  setSelectedTargetSymbol(event.target.value)
-                }
+                onChange={(event) => setSelectedTargetSymbol(event)}
                 disabled={isInTransit || isLoading}
-                style={{ display: 'block', width: '100%', marginTop: '0.5rem' }}
-              >
-                <option value=''>Select a destination</option>
-                {targets.map((target) => (
-                  <option key={target.symbol} value={target.symbol}>
-                    {target.symbol} ({target.type})
-                  </option>
-                ))}
-              </select>
+                targets={targets}
+              />
             </label>
 
             {isAlreadyAtTarget && (
