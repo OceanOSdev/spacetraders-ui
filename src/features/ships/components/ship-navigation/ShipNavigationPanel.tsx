@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import type { Ship } from '../../../types/ships';
-import type { Waypoint } from '../../../types/waypoints';
-import { useNavigateShipMutation } from '../shipsApi';
-import { PanelTitle } from '../../../components/ui/PanelTitle';
-import { Stack } from '../../../components/ui/Stack';
-import { StatusText } from '../../../components/ui/StatusText';
+import type { Ship } from '../../../../types/ships';
+import type { Waypoint } from '../../../../types/waypoints';
+import { useNavigateShipMutation } from '../../shipsApi';
+import { PanelTitle } from '../../../../components/ui/PanelTitle';
+import { Stack } from '../../../../components/ui/Stack';
+import { StatusText } from '../../../../components/ui/StatusText';
 import { WaypointSelector } from './WaypointSelector';
 
 type ShipNavigationPanelProps = {

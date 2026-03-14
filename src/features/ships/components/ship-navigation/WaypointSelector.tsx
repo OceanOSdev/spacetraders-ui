@@ -1,5 +1,5 @@
-import { Selector } from '../../../components/ui/Selector';
-import type { Waypoint } from '../../../types/waypoints';
+import { Selector } from '../../../../components/ui/Selector';
+import type { Waypoint } from '../../../../types/waypoints';
 
 type WaypointSelectorProps = {
   targets: Waypoint[];
@@ -20,7 +20,7 @@ export function WaypointSelector({
     <Selector
       options={targets.map((target) => ({
         value: target.symbol,
-        label: `${target.symbol} (${target.type})`,
+        label: `${target.symbol} (${target.type})`
       }))}
       value={value}
       onChange={onChange}
