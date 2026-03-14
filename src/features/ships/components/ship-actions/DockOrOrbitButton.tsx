@@ -1,6 +1,6 @@
 import { StatusText } from '../../../../components/ui/StatusText';
 import type { Ship } from '../../../../types/ships';
-import { useOrbitShipMutation, useDockShipMutation } from '../../shipsApi';
+import { useOrbitShipMutation, useDockShipMutation } from '../../api/shipsApi';
 
 type DockOrOrbitButtonProps = {
   ship: Ship;

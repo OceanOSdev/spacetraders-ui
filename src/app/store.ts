@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
 import contractsUiReducer from '../features/contracts/store/contractsUiSlice';
 import appViewReducer from '../features/navigation/appViewSlice';
-import shipsUiReducer from '../features/ships/shipsUiSlice';
+import shipsUiReducer from '../features/ships/store/shipsUiSlice';
 import { spacetradersApi } from '../services/spacetradersApi';
 
 export const store = configureStore({

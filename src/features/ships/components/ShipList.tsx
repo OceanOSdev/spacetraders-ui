@@ -8,9 +8,9 @@ import { StatusText } from '../../../components/ui/StatusText';
 import { TelemetryBar } from '../../../components/ui/TelemetryBar';
 import type { Ship } from '../../../types/ships';
 import { ShipStatusPill } from './ShipStatusPill';
-import { setSelectedShipSymbol } from '../shipsUiSlice';
+import { setSelectedShipSymbol } from '../store/shipsUiSlice';
 import { cn } from '../../../utils/cn';
-import { useGetShipsQuery } from '../shipsApi';
+import { useGetShipsQuery } from '../api/shipsApi';
 
 export function ShipList() {
   const dispatch = useAppDispatch();

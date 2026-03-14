@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StatusText } from '../../../components/ui/StatusText';
 import type { Ship } from '../../../types/ships';
-import { useJettisonCargoMutation } from '../shipsApi';
+import { useJettisonCargoMutation } from '../api/shipsApi';
 
 type InventoryProps = {
   ship: Ship;

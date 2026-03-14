@@ -3,7 +3,7 @@ import { CountdownText } from '../../../../components/ui/CountdownText';
 import { PanelTitle } from '../../../../components/ui/PanelTitle';
 import { StatusText } from '../../../../components/ui/StatusText';
 import type { Ship } from '../../../../types/ships';
-import { useExtractResourcesMutation } from '../../shipsApi';
+import { useExtractResourcesMutation } from '../../api/shipsApi';
 
 type ShipMiningProps = {
   ship: Ship;

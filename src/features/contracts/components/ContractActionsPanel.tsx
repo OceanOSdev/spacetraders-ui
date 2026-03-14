@@ -3,7 +3,7 @@ import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { ShipSelector } from '../../ships/components/ShipSelector';
 import { StatusText } from '../../../components/ui/StatusText';
-import { useGetShipsQuery } from '../../ships/shipsApi';
+import { useGetShipsQuery } from '../../ships/api/shipsApi';
 import { useNegotiateContractMutation } from '../api/contractsApi';
 
 export function ContractActionsPanel() {
