@@ -4,7 +4,7 @@ import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { ShipSelector } from '../../ships/components/ShipSelector';
 import { StatusText } from '../../../components/ui/StatusText';
 import { useGetShipsQuery } from '../../ships/shipsApi';
-import { useNegotiateContractMutation } from '../contractsApi';
+import { useNegotiateContractMutation } from '../api/contractsApi';
 
 export function ContractActionsPanel() {
   const [negotiateShip, setNegotiateShip] = useState('');

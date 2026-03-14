@@ -15,7 +15,7 @@ import { Stack } from '../../../components/ui/Stack';
 import {
   useGetContractQuery,
   useAcceptContractMutation,
-} from '../contractsApi';
+} from '../api/contractsApi';
 
 export function ContractDetails() {
   const selectedContractId = useAppSelector(
