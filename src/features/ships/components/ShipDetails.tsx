@@ -7,30 +7,14 @@ import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { Row } from '../../../components/ui/Row';
 import { StatCard } from '../../../components/ui/StatCard';
 import { StatusText } from '../../../components/ui/StatusText';
-import { TelemetryBar } from '../../../components/ui/TelemetryBar';
+import { useGetSystemWaypointsQuery } from '../../../services/spacetradersApi';
 import type { ShipCargoItem } from '../../../types/ships';
 import { useGetShipQuery } from '../shipsApi';
+import { ShipActionsPanel } from './ship-actions/ShipActionsPanel';
+import { ShipNavigationPanel } from './ship-navigation/ShipNavigationPanel';
+import { ShipInventory } from './ShipInventory';
 import { ShipStatusPill } from './ShipStatusPill';
-
-type InventoryProps = {
-  inventory: ShipCargoItem[];
-};
-
-function ShipInventory({ inventory }: InventoryProps) {
-  if (inventory.length === 0) {
-    return <p>No cargo.</p>;
-  }
-
-  return (
-    <ul className='inventory-list'>
-      {inventory.map((item) => (
-        <li key={item.symbol}>
-          {item.symbol}: {item.units}
-        </li>
-      ))}
-    </ul>
-  );
-}
+import { ShipTelemetrySection } from './ShipTelemetrySection';
 
 export function ShipDetails() {
   const selectedShipSymbol = useAppSelector(
@@ -38,13 +22,25 @@ export function ShipDetails() {
   );
 
   // If no ship is selected, skip the query entirely.
-  const { data, error, isLoading, isFetching } = useGetShipQuery(
+  const { data, error, isLoading, isFetching, refetch } = useGetShipQuery(
     selectedShipSymbol ?? '',
     {
       skip: !selectedShipSymbol,
     },
   );
+  const ship = data?.data;
+  const systemSymbol = ship?.nav.systemSymbol;
 
+  const { data: waypointsData } = useGetSystemWaypointsQuery(
+    {
+      systemSymbol: systemSymbol ?? '',
+    },
+    {
+      skip: !systemSymbol,
+    },
+  );
+
+  const navigationTargets = waypointsData?.data ?? [];
   if (!selectedShipSymbol) {
     return (
       <EmptyState
@@ -70,54 +66,39 @@ export function ShipDetails() {
     return <EmptyState title='Ship Details' message='No ship details found.' />;
   }
 
-  const ship = data.data;
-
   return (
     <Panel>
       <PanelTitle>Ship Details</PanelTitle>
       {isFetching && <StatusText>Refreshing ship...</StatusText>}
 
       <div className='detail-grid'>
-        <StatCard label='Symbol' value={ship.symbol} />
-        <StatCard label='System' value={ship.nav.systemSymbol} />
-        <StatCard label='Waypoint' value={ship.nav.waypointSymbol} />
+        <StatCard label='Symbol' value={ship!.symbol} />
+        <StatCard label='System' value={ship!.nav.systemSymbol} />
+        <StatCard label='Waypoint' value={ship!.nav.waypointSymbol} />
       </div>
 
       <div className='detail-status-row'>
         <PanelTitle as='h3'>Operation Status</PanelTitle>
 
         <Row gap='md'>
-          <ShipStatusPill status={ship.nav.status} />
-          <ShipStatusPill status={ship.nav.flightMode} />
+          <ShipStatusPill status={ship!.nav.status} />
+          <ShipStatusPill status={ship!.nav.flightMode} />
         </Row>
       </div>
 
-      <div className='ship-telemetry-section'>
-        <PanelTitle as='h3'>Resource Telemetry</PanelTitle>
+      <ShipTelemetrySection ship={ship!} />
 
-        <TelemetryBar
-          label='Fuel'
-          value={ship.fuel.current}
-          max={ship.fuel.capacity}
-          warningThresholdPercent={35}
-          dangergThresholdPercent={15}
-          size='md'
-        />
+      <ShipNavigationPanel
+        ship={ship!}
+        refetchShip={refetch}
+        targets={navigationTargets}
+      />
 
-        <TelemetryBar
-          label='Cargo'
-          value={ship.cargo.units}
-          max={ship.cargo.capacity}
-          warningThresholdPercent={75}
-          dangergThresholdPercent={95}
-          invertThresholds
-          size='md'
-        />
-      </div>
+      <ShipActionsPanel ship={ship!} />
 
       <div className='ship-inventory-section'>
         <PanelTitle as='h3'>Inventory</PanelTitle>
-        <ShipInventory inventory={ship.cargo.inventory} />
+        <ShipInventory ship={ship!} />
       </div>
     </Panel>
   );

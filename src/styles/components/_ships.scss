@@ -54,6 +54,19 @@
   color: t.$color-muted;
 }
 
+.inventory-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.inventory-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .ship-meta + .telemetry {
   margin-top: 0.75rem;
 }
@@ -63,5 +76,17 @@
 }
 
 .ship-inventory-section {
+  margin-top: 1.25rem;
+}
+
+.ship-actions-section {
+  margin-top: 1.25rem;
+}
+
+.ship-navigation-section {
+  margin-top: 1.25rem;
+}
+
+.ship-mining-section {
   margin-top: 1.25rem;
 }
