@@ -10,7 +10,7 @@ import { StatusText } from '../../../components/ui/StatusText';
 import { useGetSystemWaypointsQuery } from '../../../services/spacetradersApi';
 import type { ShipCargoItem } from '../../../types/ships';
 import { useGetShipQuery } from '../shipsApi';
-import { ShipActionsPanel } from './ShipActionsPanel';
+import { ShipActionsPanel } from './ship-actions/ShipActionsPanel';
 import { ShipNavigationPanel } from './ShipNavigationPanel';
 import { ShipStatusPill } from './ShipStatusPill';
 import { ShipTelemetrySection } from './ShipTelemetrySection';
