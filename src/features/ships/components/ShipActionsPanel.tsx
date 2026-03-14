@@ -37,9 +37,6 @@ export function ShipActionsPanel({ ship }: ShipActionsPanelProps) {
   return (
     <div className='ship-actions-section'>
       <PanelTitle as='h3'>Ship Actions</PanelTitle>
-
-      <StatusText>Current status: {status}</StatusText>
-
       <div style={{ marginTop: '1rem' }}>
         {isDocked && (
           <button onClick={handleOrbit} disabled={isOrbiting}>
