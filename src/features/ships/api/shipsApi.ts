@@ -1,12 +1,12 @@
-import { spacetradersApi } from '../../services/spacetradersApi';
+import { spacetradersApi } from '../../../services/spacetradersApi';
 import {
   entityTag,
   invalidatesTags,
   listTag,
   providesEntity,
   providesEntityList,
-} from '../../services/tagHelper';
-import type { GetShipResponse, GetShipsResponse } from '../../types/ships';
+} from '../../../services/tagHelper';
+import type { GetShipResponse, GetShipsResponse } from '../../../types/ships';
 
 export const shipsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({

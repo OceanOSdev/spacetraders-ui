@@ -1,16 +1,16 @@
-import { spacetradersApi } from '../../services/spacetradersApi';
+import { spacetradersApi } from '../../../services/spacetradersApi';
 import {
   entityTag,
   listTag,
   providesEntity,
   providesList,
-} from '../../services/tagHelper';
+} from '../../../services/tagHelper';
 import type {
   AcceptContractResponse,
   GetContractResponse,
   GetContractsResponse,
   NegotiateContractResponse,
-} from '../../types/contracts';
+} from '../../../types/contracts';
 
 export const contractsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({

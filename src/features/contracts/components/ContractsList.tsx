@@ -6,8 +6,8 @@ import { LoadingState } from '../../../components/ui/LoadingState';
 import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { StatusText } from '../../../components/ui/StatusText';
-import { useGetContractsQuery } from '../contractsApi';
-import { setSelectedContractId } from '../contractsUiSlice';
+import { useGetContractsQuery } from '../api/contractsApi';
+import { setSelectedContractId } from '../store/contractsUiSlice';
 import { ContractStatusPill } from './ContractStatusPill';
 import { PayoutBadge } from './PayoutBadge';
 

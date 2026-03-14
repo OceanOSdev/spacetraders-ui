@@ -6,7 +6,7 @@ import {
   useGetSystemWaypointsQuery,
 } from '../../../services/spacetradersApi';
 import { getSystemSymbolFromWaypointSymbol } from '../../../utils/spacetraders';
-import { useGetShipsQuery, usePurchaseShipMutation } from '../shipsApi';
+import { useGetShipsQuery, usePurchaseShipMutation } from '../api/shipsApi';
 
 // For now just hard code a mining ship
 // later on add ability to pick different
