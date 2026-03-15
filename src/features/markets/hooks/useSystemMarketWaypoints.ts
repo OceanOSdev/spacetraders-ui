@@ -23,21 +23,14 @@ export function useSystemMarketWaypoints(systemSymbol?: string) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<unknown>(undefined);
 
-  const requestIdRef = useRef(0);
-
   useEffect(() => {
     if (!systemSymbol) {
-      setWaypoints([]);
-      setIsLoading(false);
-      setError(undefined);
       return;
     }
 
-    const requestId = ++requestIdRef.current;
     let isActive = true;
 
     async function loadAllMarketWaypoints() {
-      setWaypoints([]);
       setIsLoading(true);
       setError(undefined);
 
@@ -56,9 +49,7 @@ export function useSystemMarketWaypoints(systemSymbol?: string) {
             true,
           ).unwrap();
 
-          if (!isActive || requestIdRef.current !== requestId) {
-            return;
-          }
+          if (!isActive) return;
 
           const pageData = response.data ?? [];
           collected.push(...pageData);
@@ -70,28 +61,22 @@ export function useSystemMarketWaypoints(systemSymbol?: string) {
           page += 1;
         }
 
-        if (!isActive || requestIdRef.current !== requestId) {
-          return;
+        if (isActive) {
+          setWaypoints(collected);
         }
-
-        setWaypoints(collected);
       } catch (error) {
-        if (!isActive || requestIdRef.current !== requestId) {
-          return;
+        if (isActive) {
+          setError(error);
+          setWaypoints([]);
         }
-
-        setError(error);
-        setWaypoints([]);
       } finally {
-        if (!isActive || requestIdRef.current !== requestId) {
-          return;
+        if (isActive) {
+          setIsLoading(false);
         }
-
-        setIsLoading(false);
       }
     }
 
-    void loadAllMarketWaypoints();
+    loadAllMarketWaypoints();
 
     return () => {
       isActive = false;
