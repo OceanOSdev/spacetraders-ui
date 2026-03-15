@@ -6,7 +6,7 @@ import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { StatusText } from '../../../components/ui/StatusText';
 import { TelemetryBar } from '../../../components/ui/TelemetryBar';
-import type { Ship } from '../../../types/ships';
+import type { Ship } from '../../../types/ships/ships';
 import { ShipStatusPill } from './ShipStatusPill';
 import { setSelectedShipSymbol } from '../store/shipsUiSlice';
 import { cn } from '../../../utils/cn';

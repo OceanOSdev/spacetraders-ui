@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Ship } from '../../../../types/ships';
+import type { Ship } from '../../../../types/ships/ships';
 import type { Waypoint } from '../../../../types/waypoints';
 import { useNavigateShipMutation } from '../../api/shipsApi';
 import { PanelTitle } from '../../../../components/ui/PanelTitle';

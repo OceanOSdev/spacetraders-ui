@@ -1,4 +1,7 @@
 // Navigation state for a ship
+
+import type { ShipCargoItem } from "./shipCargoItem";
+
 // This is where the ship is and what it's doing.
 export type ShipNav = {
   systemSymbol: string;
@@ -16,12 +19,6 @@ export type ShipNavRoute = {
 export type ShipFuel = {
   current: number;
   capacity: number;
-};
-
-// Cargo item in ship's inventory.
-export type ShipCargoItem = {
-  symbol: string;
-  units: number;
 };
 
 // Cargo summary for a ship.

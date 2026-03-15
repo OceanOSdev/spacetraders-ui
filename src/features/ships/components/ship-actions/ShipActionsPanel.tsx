@@ -1,6 +1,6 @@
 import { PanelTitle } from '../../../../components/ui/PanelTitle';
 import { Stack } from '../../../../components/ui/Stack';
-import type { Ship } from '../../../../types/ships';
+import type { Ship } from '../../../../types/ships/ships';
 import { DockOrOrbitButton } from './DockOrOrbitButton';
 import { ShipMining } from './ShipMining';
 import { ShipRefuel } from './ShipRefuel';
