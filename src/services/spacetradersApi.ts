@@ -35,6 +35,7 @@ export const spacetradersApi = createApi({
     'Contract',
     'Waypoints',
     'Waypoint',
+    'Market',
   ] as const,
 
   endpoints: (builder) => ({

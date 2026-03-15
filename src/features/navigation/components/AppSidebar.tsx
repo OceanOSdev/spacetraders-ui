@@ -4,6 +4,7 @@ import { setActiveView, type AppView } from '../appViewSlice';
 const NAV_ITEMS: Array<{ label: string; value: AppView }> = [
   { label: 'Ships', value: 'ships' },
   { label: 'Contracts', value: 'contracts' },
+  { label: 'Markets', value: 'markets' },
 ];
 
 export function AppSidebar() {

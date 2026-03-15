@@ -1,6 +1,6 @@
 // Navigation state for a ship
 
-import type { ShipCargoItem } from "./shipCargoItem";
+import type { ShipCargoItem } from './shipCargoItem';
 
 // This is where the ship is and what it's doing.
 export type ShipNav = {
@@ -35,9 +35,16 @@ export type ShipCooldown = {
   expiration: string;
 };
 
+export type ShipRegistration = {
+  name: string;
+  factionSymbol: string;
+  role: string;
+};
+
 // Minimal ship model for UI.
 export type Ship = {
   symbol: string;
+  registration: ShipRegistration;
   nav: ShipNav;
   fuel: ShipFuel;
   cargo: ShipCargo;

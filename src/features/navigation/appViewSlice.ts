@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-export type AppView = 'ships' | 'contracts';
+export type AppView = 'ships' | 'contracts' | 'markets';
 
 type AppViewState = {
   activeView: AppView;

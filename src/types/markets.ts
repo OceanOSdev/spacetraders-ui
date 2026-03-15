@@ -1,5 +1,5 @@
-import type { ShipCargoItem } from "./ships/shipCargoItem";
-import type { Agent } from "./spacetraders";
+import type { ShipCargoItem } from './ships/shipCargoItem';
+import type { Agent } from './spacetraders';
 
 export type MarketTradeGood = {
   symbol: string;

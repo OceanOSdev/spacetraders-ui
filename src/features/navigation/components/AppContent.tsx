@@ -6,6 +6,7 @@ import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { StatCard } from '../../../components/ui/StatCard';
 import type { Agent } from '../../../types/spacetraders';
 import { Stack } from '../../../components/ui/Stack';
+import { MarketsPage } from '../../markets/MarketsPage';
 
 type OverviewHeaderProps = {
   agent: Agent;
@@ -28,6 +29,7 @@ function OverviewHeader({ agent }: OverviewHeaderProps) {
 const VIEW_COMPONENTS = {
   ships: ShipsPage,
   contracts: ContractsPage,
+  markets: MarketsPage,
 };
 
 function PageContent() {

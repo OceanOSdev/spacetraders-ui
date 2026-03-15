@@ -6,7 +6,10 @@ import {
   providesEntity,
   providesEntityList,
 } from '../../../services/tagHelper';
-import type { GetShipResponse, GetShipsResponse } from '../../../types/ships/ships';
+import type {
+  GetShipResponse,
+  GetShipsResponse,
+} from '../../../types/ships/ships';
 
 export const shipsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({

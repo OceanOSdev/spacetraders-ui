@@ -6,4 +6,3 @@ export type ShipCargoItem = {
   description: string;
   units: number;
 };
-
