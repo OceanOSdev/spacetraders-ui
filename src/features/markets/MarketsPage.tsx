@@ -7,6 +7,7 @@ import { MarketOverviewPanel } from './components/MarketOverviewPanel';
 import { MarketShipsPanel } from './components/MarketShipsPanel';
 import { MarketSellPanel } from './components/MarketSellPanel';
 import { useMarketsPageState } from './hooks/useMarketsPageState';
+import { MarketTradeGoodsPanel } from './components/MarketTradeGoodsPanel';
 
 export function MarketsPage() {
   const { data: shipsData, isLoading: isShipsLoading } = useGetShipsQuery();
@@ -56,6 +57,10 @@ export function MarketsPage() {
 
         <Stack>
           <MarketOverviewPanel
+            market={marketQuery.data}
+            isLoading={marketQuery.isLoading}
+          />
+          <MarketTradeGoodsPanel
             market={marketQuery.data}
             isLoading={marketQuery.isLoading}
           />
