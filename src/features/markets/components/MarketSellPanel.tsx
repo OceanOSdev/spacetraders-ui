@@ -7,6 +7,8 @@ import { useSellCargoMutation } from '../api/marketsApi';
 import { buildSellableCargoRows } from '../model/marketViewModels';
 import type { Market } from '../../../types/markets';
 import type { Ship } from '../../../types/ships/ships';
+import { DockOrOrbitButton } from '../../ships/components/ship-actions/DockOrOrbitButton';
+import { StatusText } from '../../../components/ui/StatusText';
 
 type MarketSellPanelProps = {
   ship?: Ship;
@@ -45,6 +47,18 @@ export function MarketSellPanel({ ship, market }: MarketSellPanelProps) {
       delete next[symbol];
       return next;
     });
+  }
+
+  if (ship && ship.nav.status !== 'DOCKED') {
+    return (
+      <Panel>
+        <Stack gap='md'>
+          <PanelTitle>Sell Cargo</PanelTitle>
+          <StatusText>Ship must be docked to buy and sell.</StatusText>
+          <DockOrOrbitButton ship={ship} />
+        </Stack>
+      </Panel>
+    );
   }
 
   return (
