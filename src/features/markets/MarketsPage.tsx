@@ -97,9 +97,9 @@ export function MarketsPage() {
   const marketQuery = useGetMarketQuery(
     selectedWaypoint
       ? {
-        systemSymbol: selectedWaypoint.systemSymbol,
-        waypointSymbol: selectedWaypoint.waypointSymbol,
-      }
+          systemSymbol: selectedWaypoint.systemSymbol,
+          waypointSymbol: selectedWaypoint.waypointSymbol,
+        }
       : (undefined as never),
     {
       skip: !selectedWaypoint,
