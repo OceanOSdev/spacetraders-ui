@@ -30,7 +30,11 @@ export function ShipDetails() {
   const ship = data?.data;
   const systemSymbol = ship?.nav.systemSymbol;
 
-  const { waypoints, isLoading: isLoadingWaypoints, error: waypointsError } = useSystemWaypoints({ systemSymbol });
+  const {
+    waypoints,
+    isLoading: isLoadingWaypoints,
+    error: waypointsError,
+  } = useSystemWaypoints({ systemSymbol });
 
   // const { data: waypointsData } = useGetSystemWaypointsQuery(
   //   {
