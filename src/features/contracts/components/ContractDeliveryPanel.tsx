@@ -44,7 +44,7 @@ export function ContractDeliveryPanel({
 
   const rows = useMemo(() => {
     if (!contract || !ship) return [];
-    return buildContractDeliveryRows(contract!, ship);
+    return buildContractDeliveryRows(contract, ship);
   }, [contract, ship]);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [deliverCargo, deliverState] = useDeliverContractCargoMutation();
