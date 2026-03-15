@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { CountdownText } from '../../../../components/ui/CountdownText';
 import { PanelTitle } from '../../../../components/ui/PanelTitle';
 import { StatusText } from '../../../../components/ui/StatusText';
-import type { Ship } from '../../../../types/ships';
+import type { Ship } from '../../../../types/ships/ships';
 import { useExtractResourcesMutation } from '../../api/shipsApi';
 
 type ShipMiningProps = {

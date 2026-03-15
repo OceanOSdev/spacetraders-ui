@@ -1,5 +1,5 @@
 import { StatusText } from '../../../../components/ui/StatusText';
-import type { Ship } from '../../../../types/ships';
+import type { Ship } from '../../../../types/ships/ships';
 import { useRefuelShipMutation } from '../../api/shipsApi';
 
 type ShipRefuelProps = {

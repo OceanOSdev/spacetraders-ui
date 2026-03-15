@@ -35,6 +35,7 @@ export const spacetradersApi = createApi({
     'Contract',
     'Waypoints',
     'Waypoint',
+    'Market',
   ] as const,
 
   endpoints: (builder) => ({
@@ -54,11 +55,22 @@ export const spacetradersApi = createApi({
 
     getSystemWaypoints: builder.query<
       { data: Waypoint[] },
-      { systemSymbol: string; traits?: string }
+      {
+        systemSymbol: string;
+        page?: number;
+        limit?: number;
+        type?: string;
+        traits?: string;
+      }
     >({
-      query: ({ systemSymbol, traits }) => ({
+      query: ({ systemSymbol, page, limit, type, traits }) => ({
         url: `systems/${systemSymbol}/waypoints`,
-        params: traits ? { traits } : undefined,
+        params: {
+          ...(page != null ? { page } : {}),
+          ...(limit != null ? { limit } : {}),
+          ...(type != null ? { type } : {}),
+          ...(traits != null ? { traits } : {}),
+        },
       }),
     }),
   }),
@@ -68,4 +80,5 @@ export const {
   useGetAgentQuery,
   useGetWaypointQuery,
   useGetSystemWaypointsQuery,
+  useLazyGetSystemWaypointsQuery,
 } = spacetradersApi;

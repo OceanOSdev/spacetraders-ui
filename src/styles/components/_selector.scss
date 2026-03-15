@@ -35,7 +35,7 @@
   border-color: t.$color-border-strong;
 }
 
-.selector.is-open .ship-selector-trigger {
+.selector.is-open .selector-trigger {
   border-color: t.$color-border-strong;
   box-shadow:
     0 0 0 1px rgba(89, 216, 255, 0.16),
@@ -59,7 +59,7 @@
   transition: transform t.$transition-med;
 }
 
-.selector.is-open .ship-selector-chevron {
+.selector.is-open .selector-chevron {
   transform: rotate(180deg);
 }
 

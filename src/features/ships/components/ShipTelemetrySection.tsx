@@ -1,6 +1,6 @@
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { TelemetryBar } from '../../../components/ui/TelemetryBar';
-import type { Ship } from '../../../types/ships';
+import type { Ship } from '../../../types/ships/ships';
 
 type ShipTelemetrySectionProps = {
   ship: Ship;
