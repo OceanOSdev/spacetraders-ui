@@ -10,17 +10,21 @@ import { CountdownText } from '../../../../components/ui/CountdownText';
 
 type ShipNavigationPanelProps = {
   ship: Ship;
-  refetchShip: () => void;
   targets: Waypoint[];
+  refetchShip: () => void;
+  isLoading: boolean;
+  error?: unknown;
 };
 
 export function ShipNavigationPanel({
   ship,
   targets,
   refetchShip,
+  isLoading,
+  error,
 }: ShipNavigationPanelProps) {
   const [selectedTargetSymbol, setSelectedTargetSymbol] = useState('');
-  const [navigateShip, { isLoading, error }] = useNavigateShipMutation();
+  const [navigateShip, { isLoading: isNavigateLoading, error: navigationError }] = useNavigateShipMutation();
   const [now, setNow] = useState(() => Date.now());
   const hasRefetchedArrival = useRef(false);
 
@@ -84,55 +88,60 @@ export function ShipNavigationPanel({
       <PanelTitle as='h3'>Navigation</PanelTitle>
 
       <Stack gap='sm'>
-        {targets.length === 0 ? (
-          <StatusText>No destinations available.</StatusText>
-        ) : (
-          <>
-            <label>
-              <div style={{ marginBottom: '0.5rem' }}>Destination</div>
-              <WaypointSelector
-                value={selectedTargetSymbol}
-                onChange={setSelectedTargetSymbol}
-                disabled={isInTransit || isLoading}
-                targets={targets}
-              />
-            </label>
-
-            {isAlreadyAtTarget && (
-              <StatusText>
-                Ship is already at the selected destination.
-              </StatusText>
-            )}
-
-            {isInTransit && ship.nav.route?.arrival && (
-              <>
-                <StatusText>
-                  Ship is currently in transit and cannot navigate again yet.
-                </StatusText>
-                <CountdownText
-                  isoDate={ship.nav.route.arrival}
-                  prefix='Arrival:'
+        {isLoading ? (
+          <StatusText>Loading waypoints...</StatusText>
+        ) : error != null ? (
+          <StatusText>Error: Could not fetch waypoints</StatusText>
+        ) :
+          targets.length === 0 ? (
+            <StatusText>No destinations available.</StatusText>
+          ) : (
+            <>
+              <label>
+                <div style={{ marginBottom: '0.5rem' }}>Destination</div>
+                <WaypointSelector
+                  value={selectedTargetSymbol}
+                  onChange={setSelectedTargetSymbol}
+                  disabled={isInTransit || isNavigateLoading}
+                  targets={targets}
                 />
-              </>
-            )}
+              </label>
 
-            <div>
-              <button
-                onClick={handleNavigate}
-                disabled={
-                  !selectedTargetSymbol ||
-                  isInTransit ||
-                  isAlreadyAtTarget ||
-                  isLoading
-                }
-              >
-                {isLoading ? 'Navigating...' : 'Navigate'}
-              </button>
-            </div>
-          </>
-        )}
+              {isAlreadyAtTarget && (
+                <StatusText>
+                  Ship is already at the selected destination.
+                </StatusText>
+              )}
 
-        {error && <StatusText>Could not navigate ship.</StatusText>}
+              {isInTransit && ship.nav.route?.arrival && (
+                <>
+                  <StatusText>
+                    Ship is currently in transit and cannot navigate again yet.
+                  </StatusText>
+                  <CountdownText
+                    isoDate={ship.nav.route.arrival}
+                    prefix='Arrival:'
+                  />
+                </>
+              )}
+
+              <div>
+                <button
+                  onClick={handleNavigate}
+                  disabled={
+                    !selectedTargetSymbol ||
+                    isInTransit ||
+                    isAlreadyAtTarget ||
+                    isNavigateLoading
+                  }
+                >
+                  {isNavigateLoading ? 'Navigating...' : 'Navigate'}
+                </button>
+              </div>
+            </>
+          )}
+
+        {navigationError && <StatusText>Could not navigate ship.</StatusText>}
       </Stack>
     </div>
   );
