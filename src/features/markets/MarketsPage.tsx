@@ -8,8 +8,6 @@ import { MarketShipsPanel } from './components/MarketShipsPanel';
 import { MarketSellPanel } from './components/MarketSellPanel';
 import { useMarketsPageState } from './hooks/useMarketsPageState';
 import { MarketTradeGoodsPanel } from './components/MarketTradeGoodsPanel';
-import { useGetSystemWaypointsQuery } from '../../services/spacetradersApi';
-import { useMemo } from 'react';
 import { StatusText } from '../../components/ui/StatusText';
 import { useSystemMarketWaypoints } from './hooks/useSystemMarketWaypoints';
 
@@ -38,9 +36,9 @@ export function MarketsPage() {
   const marketQuery = useGetMarketQuery(
     selectedWaypoint
       ? {
-          systemSymbol: selectedWaypoint.systemSymbol,
-          waypointSymbol: selectedWaypoint.waypointSymbol,
-        }
+        systemSymbol: selectedWaypoint.systemSymbol,
+        waypointSymbol: selectedWaypoint.waypointSymbol,
+      }
       : (undefined as never),
     {
       skip: !selectedWaypoint,
