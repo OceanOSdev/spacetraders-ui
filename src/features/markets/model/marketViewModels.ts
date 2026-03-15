@@ -1,5 +1,6 @@
 import type { Market } from '../../../types/markets';
 import type { Ship } from '../../../types/ships/ships';
+import type { Waypoint } from '../../../types/waypoints';
 
 export type MarketShipOption = {
   shipSymbol: string;
@@ -23,11 +24,30 @@ export type SellableCargoRow = {
   disabledReason?: string;
 };
 
+export type MarketWaypointOption = {
+  waypointSymbol: string;
+  systemSymbol: string;
+};
+
 export function getShipsAtWaypoint(
   ships: Ship[],
   waypointSymbol: string,
 ): Ship[] {
   return ships.filter((ship) => ship.nav.waypointSymbol === waypointSymbol);
+}
+
+export function getMarketplaceWaypointOptions(
+  waypoints: Waypoint[],
+): MarketWaypointOption[] {
+  return waypoints
+    .filter((waypoint) =>
+      waypoint.traits?.some((trait) => trait.symbol === 'MARKETPLACE'),
+    )
+    .map((waypoint) => ({
+      waypointSymbol: waypoint.symbol,
+      systemSymbol: waypoint.systemSymbol,
+    }))
+    .sort((a, b) => a.waypointSymbol.localeCompare(b.waypointSymbol));
 }
 
 export function toMarketShipOptions(ships: Ship[]): MarketShipOption[] {

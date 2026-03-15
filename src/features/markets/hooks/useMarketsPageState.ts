@@ -6,32 +6,15 @@ import {
   toMarketShipOptions,
 } from '../model/marketViewModels';
 
-type WaypointOption = {
+export type WaypointOption = {
   waypointSymbol: string;
   systemSymbol: string;
 };
 
-function deriveWaypointOptionsFromShips(ships: Ship[]) {
-  const byWaypoint = new Map<string, WaypointOption>();
-
-  for (const ship of ships) {
-    byWaypoint.set(ship.nav.waypointSymbol, {
-      waypointSymbol: ship.nav.waypointSymbol,
-      systemSymbol: ship.nav.systemSymbol,
-    });
-  }
-
-  return [...byWaypoint.values()].sort((a, b) =>
-    a.waypointSymbol.localeCompare(b.waypointSymbol),
-  );
-}
-
-export function useMarketsPageState(ships: Ship[]) {
-  const waypointOptions = useMemo(
-    () => deriveWaypointOptionsFromShips(ships),
-    [ships],
-  );
-
+export function useMarketsPageState(
+  ships: Ship[],
+  waypointOptions: WaypointOption[],
+) {
   const [selectedWaypointSymbol, setSelectedWaypointSymbol] =
     useState<string>();
   const [selectedShipSymbol, setSelectedShipSymbol] = useState<string>();

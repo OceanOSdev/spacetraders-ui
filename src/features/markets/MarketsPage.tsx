@@ -8,13 +8,24 @@ import { MarketShipsPanel } from './components/MarketShipsPanel';
 import { MarketSellPanel } from './components/MarketSellPanel';
 import { useMarketsPageState } from './hooks/useMarketsPageState';
 import { MarketTradeGoodsPanel } from './components/MarketTradeGoodsPanel';
+import { useGetSystemWaypointsQuery } from '../../services/spacetradersApi';
+import { useMemo } from 'react';
+import { StatusText } from '../../components/ui/StatusText';
+import { useSystemMarketWaypoints } from './hooks/useSystemMarketWaypoints';
 
 export function MarketsPage() {
   const { data: shipsData, isLoading: isShipsLoading } = useGetShipsQuery();
   const ships = shipsData?.data ?? [];
 
+  const currentSystemSymbol = ships[0]?.nav.systemSymbol;
+
   const {
     waypointOptions,
+    isLoading: isWaypointsLoading,
+    error: waypointsError,
+  } = useSystemMarketWaypoints(currentSystemSymbol);
+
+  const {
     selectedWaypointSymbol,
     setSelectedWaypointSymbol,
     selectedWaypoint,
@@ -22,7 +33,7 @@ export function MarketsPage() {
     selectedShipSymbol,
     setSelectedShipSymbol,
     selectedShip,
-  } = useMarketsPageState(ships);
+  } = useMarketsPageState(ships, waypointOptions);
 
   const marketQuery = useGetMarketQuery(
     selectedWaypoint
@@ -42,10 +53,7 @@ export function MarketsPage() {
       <MarketLocationPanel
         waypointOptions={waypointOptions}
         selectedWaypointSymbol={selectedWaypointSymbol}
-        onSelectWaypoint={(waypointSymbol) => {
-          setSelectedWaypointSymbol(waypointSymbol);
-          setSelectedShipSymbol(undefined);
-        }}
+        onSelectWaypoint={setSelectedWaypointSymbol}
       />
 
       <DashboardGrid>
@@ -68,7 +76,11 @@ export function MarketsPage() {
         </Stack>
       </DashboardGrid>
 
-      {isShipsLoading && <div>Loading ships…</div>}
+      {isShipsLoading && <StatusText>Loading ships...</StatusText>}
+      {isWaypointsLoading && <StatusText>Loading waypoints...</StatusText>}
+      {waypointsError != null && (
+        <StatusText>Failed to load waypoints</StatusText>
+      )}
     </Stack>
   );
 }
