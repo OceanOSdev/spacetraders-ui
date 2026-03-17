@@ -11,8 +11,18 @@ export type ShipNav = {
   route: ShipNavRoute;
 };
 
+export type ShipNavRouteWaypoint = {
+  symbol: string;
+  type: string;
+  systemSymbol: string;
+  x: number;
+  y: number;
+};
+
 export type ShipNavRoute = {
   arrival: string;
+  origin: ShipNavRouteWaypoint;
+  destination: ShipNavRouteWaypoint;
 };
 
 // Fuel info for a ship.
