@@ -68,20 +68,23 @@ export function Selector({
   }, [highlightedIndex, isOpen]);
 
   // Reset highlightedIndex when menu closes
-  useEffect(() => {
-    if (!isOpen) {
-      setHighlightedIndex(-1);
-    }
-  }, [isOpen]);
+  function closeMenu() {
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+  }
 
   function handleToggle() {
     if (disabled) return;
-    setIsOpen((open) => !open);
+    if (isOpen) {
+      closeMenu();
+    } else {
+      setIsOpen(true);
+    }
   }
 
   function handleSelect(nextValue: string) {
     onChange(nextValue);
-    setIsOpen(false);
+    closeMenu();
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
@@ -124,9 +127,8 @@ export function Selector({
 
   return (
     <div
-      className={`selector${disabled ? ' is-disabled' : ''}${isOpen ? ' is-open' : ''}${
-        className ? `${className}` : ''
-      }`}
+      className={`selector${disabled ? ' is-disabled' : ''}${isOpen ? ' is-open' : ''}${className ? `${className}` : ''
+        }`}
       ref={containerRef}
     >
       <button
