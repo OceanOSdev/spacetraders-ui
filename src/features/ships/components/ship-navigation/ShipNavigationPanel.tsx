@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Ship } from '../../../../types/ships';
+import type { Ship } from '../../../../types/ships/ships';
 import type { Waypoint } from '../../../../types/waypoints';
 import { useNavigateShipMutation } from '../../api/shipsApi';
 import { PanelTitle } from '../../../../components/ui/PanelTitle';
@@ -10,17 +10,24 @@ import { CountdownText } from '../../../../components/ui/CountdownText';
 
 type ShipNavigationPanelProps = {
   ship: Ship;
-  refetchShip: () => void;
   targets: Waypoint[];
+  refetchShip: () => void;
+  isLoading: boolean;
+  error?: unknown;
 };
 
 export function ShipNavigationPanel({
   ship,
   targets,
   refetchShip,
+  isLoading,
+  error,
 }: ShipNavigationPanelProps) {
   const [selectedTargetSymbol, setSelectedTargetSymbol] = useState('');
-  const [navigateShip, { isLoading, error }] = useNavigateShipMutation();
+  const [
+    navigateShip,
+    { isLoading: isNavigateLoading, error: navigationError },
+  ] = useNavigateShipMutation();
   const [now, setNow] = useState(() => Date.now());
   const hasRefetchedArrival = useRef(false);
 
@@ -84,7 +91,11 @@ export function ShipNavigationPanel({
       <PanelTitle as='h3'>Navigation</PanelTitle>
 
       <Stack gap='sm'>
-        {targets.length === 0 ? (
+        {isLoading ? (
+          <StatusText>Loading waypoints...</StatusText>
+        ) : error != null ? (
+          <StatusText>Error: Could not fetch waypoints</StatusText>
+        ) : targets.length === 0 ? (
           <StatusText>No destinations available.</StatusText>
         ) : (
           <>
@@ -93,7 +104,7 @@ export function ShipNavigationPanel({
               <WaypointSelector
                 value={selectedTargetSymbol}
                 onChange={setSelectedTargetSymbol}
-                disabled={isInTransit || isLoading}
+                disabled={isInTransit || isNavigateLoading}
                 targets={targets}
               />
             </label>
@@ -123,16 +134,16 @@ export function ShipNavigationPanel({
                   !selectedTargetSymbol ||
                   isInTransit ||
                   isAlreadyAtTarget ||
-                  isLoading
+                  isNavigateLoading
                 }
               >
-                {isLoading ? 'Navigating...' : 'Navigate'}
+                {isNavigateLoading ? 'Navigating...' : 'Navigate'}
               </button>
             </div>
           </>
         )}
 
-        {error && <StatusText>Could not navigate ship.</StatusText>}
+        {navigationError && <StatusText>Could not navigate ship.</StatusText>}
       </Stack>
     </div>
   );

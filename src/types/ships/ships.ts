@@ -1,4 +1,7 @@
 // Navigation state for a ship
+
+import type { ShipCargoItem } from './shipCargoItem';
+
 // This is where the ship is and what it's doing.
 export type ShipNav = {
   systemSymbol: string;
@@ -8,20 +11,24 @@ export type ShipNav = {
   route: ShipNavRoute;
 };
 
+export type ShipNavRouteWaypoint = {
+  symbol: string;
+  type: string;
+  systemSymbol: string;
+  x: number;
+  y: number;
+};
+
 export type ShipNavRoute = {
   arrival: string;
+  origin: ShipNavRouteWaypoint;
+  destination: ShipNavRouteWaypoint;
 };
 
 // Fuel info for a ship.
 export type ShipFuel = {
   current: number;
   capacity: number;
-};
-
-// Cargo item in ship's inventory.
-export type ShipCargoItem = {
-  symbol: string;
-  units: number;
 };
 
 // Cargo summary for a ship.
@@ -38,9 +45,16 @@ export type ShipCooldown = {
   expiration: string;
 };
 
+export type ShipRegistration = {
+  name: string;
+  factionSymbol: string;
+  role: string;
+};
+
 // Minimal ship model for UI.
 export type Ship = {
   symbol: string;
+  registration: ShipRegistration;
   nav: ShipNav;
   fuel: ShipFuel;
   cargo: ShipCargo;

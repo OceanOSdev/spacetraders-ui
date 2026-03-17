@@ -5,7 +5,8 @@ type TagType =
   | 'Contracts'
   | 'Contract'
   | 'Waypoints'
-  | 'Waypoint';
+  | 'Waypoint'
+  | 'Market';
 
 export type TagDescriptor<T extends TagType = TagType> = {
   type: T;

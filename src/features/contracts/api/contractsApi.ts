@@ -7,10 +7,17 @@ import {
 } from '../../../services/tagHelper';
 import type {
   AcceptContractResponse,
+  Contract,
   GetContractResponse,
   GetContractsResponse,
   NegotiateContractResponse,
 } from '../../../types/contracts';
+import type { ShipCargo } from '../../../types/ships/ships';
+
+export type DeliverContractCargoResponse = {
+  contract: Contract;
+  cargo: ShipCargo;
+};
 
 export const contractsApi = spacetradersApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -46,6 +53,33 @@ export const contractsApi = spacetradersApi.injectEndpoints({
       }),
       invalidatesTags: [listTag('Contracts'), listTag('Agent')],
     }),
+
+    deliverContractCargo: builder.mutation<
+      unknown,
+      {
+        contractId: string;
+        shipSymbol: string;
+        tradeSymbol: string;
+        units: number;
+      }
+    >({
+      query: ({ contractId, shipSymbol, tradeSymbol, units }) => ({
+        url: `my/contracts/${contractId}/deliver`,
+        method: 'POST',
+        body: {
+          shipSymbol,
+          tradeSymbol,
+          units,
+        },
+      }),
+      transformResponse: (response: { data: DeliverContractCargoResponse }) =>
+        response.data,
+      invalidatesTags: (_result, _error, arg) => [
+        entityTag('Contract', arg.contractId),
+        entityTag('Ship', arg.shipSymbol),
+        listTag('Agent'),
+      ],
+    }),
   }),
 });
 
@@ -54,4 +88,5 @@ export const {
   useGetContractQuery,
   useAcceptContractMutation,
   useNegotiateContractMutation,
+  useDeliverContractCargoMutation,
 } = contractsApi;

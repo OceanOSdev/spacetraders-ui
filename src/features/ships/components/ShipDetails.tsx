@@ -7,7 +7,7 @@ import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { Row } from '../../../components/ui/Row';
 import { StatCard } from '../../../components/ui/StatCard';
 import { StatusText } from '../../../components/ui/StatusText';
-import { useGetSystemWaypointsQuery } from '../../../services/spacetradersApi';
+import { useSystemWaypoints } from '../../systems/hooks/useSystemWaypoints';
 import { useGetShipQuery } from '../api/shipsApi';
 import { ShipActionsPanel } from './ship-actions/ShipActionsPanel';
 import { ShipNavigationPanel } from './ship-navigation/ShipNavigationPanel';
@@ -30,16 +30,22 @@ export function ShipDetails() {
   const ship = data?.data;
   const systemSymbol = ship?.nav.systemSymbol;
 
-  const { data: waypointsData } = useGetSystemWaypointsQuery(
-    {
-      systemSymbol: systemSymbol ?? '',
-    },
-    {
-      skip: !systemSymbol,
-    },
-  );
+  const {
+    waypoints,
+    isLoading: isLoadingWaypoints,
+    error: waypointsError,
+  } = useSystemWaypoints({ systemSymbol });
 
-  const navigationTargets = waypointsData?.data ?? [];
+  // const { data: waypointsData } = useGetSystemWaypointsQuery(
+  //   {
+  //     systemSymbol: systemSymbol ?? '',
+  //   },
+  //   {
+  //     skip: !systemSymbol,
+  //   },
+  // );
+
+  const navigationTargets = waypoints ?? [];
   if (!selectedShipSymbol) {
     return (
       <EmptyState
@@ -91,6 +97,8 @@ export function ShipDetails() {
         ship={ship!}
         refetchShip={refetch}
         targets={navigationTargets}
+        isLoading={isLoadingWaypoints}
+        error={waypointsError}
       />
 
       <ShipActionsPanel ship={ship!} />
