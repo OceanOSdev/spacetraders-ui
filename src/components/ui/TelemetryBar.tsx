@@ -4,7 +4,7 @@ type TelemetryBarProps = {
   max: number;
   color?: 'cyan' | 'green' | 'amber';
   warningThresholdPercent?: number;
-  dangergThresholdPercent?: number;
+  dangerThresholdPercent?: number;
   invertThresholds?: boolean;
   size?: 'sm' | 'md';
 };
@@ -15,7 +15,7 @@ export function TelemetryBar({
   max,
   color = 'cyan',
   warningThresholdPercent,
-  dangergThresholdPercent,
+  dangerThresholdPercent,
   invertThresholds = false,
   size = 'sm',
 }: TelemetryBarProps) {
@@ -31,8 +31,8 @@ export function TelemetryBar({
   };
 
   if (
-    dangergThresholdPercent !== undefined &&
-    exceedsThreshold(dangergThresholdPercent)
+    dangerThresholdPercent !== undefined &&
+    exceedsThreshold(dangerThresholdPercent)
   ) {
     stateClass = ' telemetry-danger';
   } else if (
