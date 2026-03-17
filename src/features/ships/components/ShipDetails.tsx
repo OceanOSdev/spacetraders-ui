@@ -36,15 +36,6 @@ export function ShipDetails() {
     error: waypointsError,
   } = useSystemWaypoints({ systemSymbol });
 
-  // const { data: waypointsData } = useGetSystemWaypointsQuery(
-  //   {
-  //     systemSymbol: systemSymbol ?? '',
-  //   },
-  //   {
-  //     skip: !systemSymbol,
-  //   },
-  // );
-
   const navigationTargets = waypoints ?? [];
   if (!selectedShipSymbol) {
     return (
