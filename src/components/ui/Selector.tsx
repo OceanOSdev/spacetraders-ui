@@ -127,8 +127,9 @@ export function Selector({
 
   return (
     <div
-      className={`selector${disabled ? ' is-disabled' : ''}${isOpen ? ' is-open' : ''}${className ? `${className}` : ''
-        }`}
+      className={`selector${disabled ? ' is-disabled' : ''}${isOpen ? ' is-open' : ''}${
+        className ? `${className}` : ''
+      }`}
       ref={containerRef}
     >
       <button
