@@ -14,7 +14,7 @@ body:
       label: Summary
       description: What went wrong?
       placeholder: A short description of the bug
-    validation:
+    validations:
       required: true
 
   - type: textarea
