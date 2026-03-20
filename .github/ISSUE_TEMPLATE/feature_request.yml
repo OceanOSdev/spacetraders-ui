@@ -23,8 +23,8 @@ body:
       label: Proposed solution
       description: Describe the feature or improvement you want
       placeholder: We should add ...
-      validations:
-        required: true
+    validations:
+      required: true
 
   - type: dropdown
     id: area
@@ -40,8 +40,8 @@ body:
         - API integration
         - Developer experience
         - Other
-      validations:
-        required: true
+    validations:
+      required: true
         
   - type: textarea
     id: mockups
