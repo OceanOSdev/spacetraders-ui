@@ -14,7 +14,7 @@ body:
       label: Problem or motivation
       description: What user problem does this solve?
       placeholder: I'm frustrated when ...
-    validation:
+    validations:
       required: true
 
   - type: textarea
