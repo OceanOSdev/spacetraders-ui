@@ -13,19 +13,19 @@ export function ShipTelemetrySection({ ship }: ShipTelemetrySectionProps) {
 
       <TelemetryBar
         label='Fuel'
-        value={ship!.fuel.current}
-        max={ship!.fuel.capacity}
+        value={ship.fuel.current}
+        max={ship.fuel.capacity}
         warningThresholdPercent={35}
-        dangergThresholdPercent={15}
+        dangerThresholdPercent={15}
         size='md'
       />
 
       <TelemetryBar
         label='Cargo'
-        value={ship!.cargo.units}
-        max={ship!.cargo.capacity}
+        value={ship.cargo.units}
+        max={ship.cargo.capacity}
         warningThresholdPercent={75}
-        dangergThresholdPercent={95}
+        dangerThresholdPercent={95}
         invertThresholds
         size='md'
       />

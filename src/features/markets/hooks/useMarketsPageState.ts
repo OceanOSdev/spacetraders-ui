@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { Ship } from '../../../types/ships/ships';
 import {
-  getDefaultSelectedShipSymbol,
   getShipsAtWaypoint,
   toMarketShipOptions,
 } from '../model/marketViewModels';
@@ -47,24 +46,6 @@ export function useMarketsPageState(
       ),
     [shipsAtSelectedWaypoint, selectedShipSymbol],
   );
-
-  // Auto select first waypoint
-  useEffect(() => {
-    if (!selectedWaypointSymbol && waypointOptions.length > 0) {
-      setSelectedWaypointSymbol(waypointOptions[0].waypointSymbol);
-    }
-  }, [selectedWaypointSymbol, waypointOptions]);
-
-  // Auto select a valid ship when ship options change
-  useEffect(() => {
-    const selectedShipStillExists = shipOptions.some(
-      (ship) => ship.shipSymbol === selectedShipSymbol,
-    );
-
-    if (selectedShipStillExists) return;
-
-    setSelectedShipSymbol(getDefaultSelectedShipSymbol(shipOptions));
-  }, [shipOptions, selectedShipSymbol]);
 
   function handleSelectWaypoint(waypointSymbol: string) {
     setSelectedWaypointSymbol(waypointSymbol);

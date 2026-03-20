@@ -1,0 +1,55 @@
+name: Feature request
+description: Suggest an improvementor new feature for the SpaceTraders UI
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Please describe the problem the feature solves, not just the implementation.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What user problem does this solve?
+      placeholder: I'm frustrated when ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the feature or improvement you want
+      placeholder: We should add ...
+      validations:
+        required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Navigation
+        - Ships
+        - Markets
+        - Contracts
+        - Global UI / Layout
+        - State management / Redux
+        - API integration
+        - Developer experience
+        - Other
+      validations:
+        required: true
+        
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups or examples
+      description: Reference screenshots, sketches, or examples from similar apps
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context

@@ -40,11 +40,17 @@ export function Selector({
     [options, value],
   );
 
+  // Reset highlightedIndex when menu closes
+  function closeMenu() {
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+  }
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (!containerRef.current) return;
       if (!containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        closeMenu();
       }
     }
 
@@ -67,21 +73,18 @@ export function Selector({
     activeItem?.scrollIntoView({ block: 'nearest' });
   }, [highlightedIndex, isOpen]);
 
-  // Reset highlightedIndex when menu closes
-  useEffect(() => {
-    if (!isOpen) {
-      setHighlightedIndex(-1);
-    }
-  }, [isOpen]);
-
   function handleToggle() {
     if (disabled) return;
-    setIsOpen((open) => !open);
+    if (isOpen) {
+      closeMenu();
+    } else {
+      setIsOpen(true);
+    }
   }
 
   function handleSelect(nextValue: string) {
     onChange(nextValue);
-    setIsOpen(false);
+    closeMenu();
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
@@ -117,7 +120,7 @@ export function Selector({
         break;
       case 'Escape':
         event.preventDefault();
-        setIsOpen(false);
+        closeMenu();
         break;
     }
   }

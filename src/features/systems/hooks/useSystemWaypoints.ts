@@ -80,7 +80,7 @@ export function useSystemWaypoints({
     return () => {
       isActive = false;
     };
-  }, [systemSymbol, trigger]);
+  }, [systemSymbol, trigger, traits, type]);
 
   return {
     waypoints,

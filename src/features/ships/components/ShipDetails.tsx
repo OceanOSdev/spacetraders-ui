@@ -27,23 +27,14 @@ export function ShipDetails() {
       skip: !selectedShipSymbol,
     },
   );
-  const ship = data?.data;
-  const systemSymbol = ship?.nav.systemSymbol;
+
+  const systemSymbol = data?.data.nav.systemSymbol;
 
   const {
     waypoints,
     isLoading: isLoadingWaypoints,
     error: waypointsError,
   } = useSystemWaypoints({ systemSymbol });
-
-  // const { data: waypointsData } = useGetSystemWaypointsQuery(
-  //   {
-  //     systemSymbol: systemSymbol ?? '',
-  //   },
-  //   {
-  //     skip: !systemSymbol,
-  //   },
-  // );
 
   const navigationTargets = waypoints ?? [];
   if (!selectedShipSymbol) {
@@ -71,41 +62,42 @@ export function ShipDetails() {
     return <EmptyState title='Ship Details' message='No ship details found.' />;
   }
 
+  const ship = data.data;
   return (
     <Panel>
       <PanelTitle>Ship Details</PanelTitle>
       {isFetching && <StatusText>Refreshing ship...</StatusText>}
 
       <div className='detail-grid'>
-        <StatCard label='Symbol' value={ship!.symbol} />
-        <StatCard label='System' value={ship!.nav.systemSymbol} />
-        <StatCard label='Waypoint' value={ship!.nav.waypointSymbol} />
+        <StatCard label='Symbol' value={ship.symbol} />
+        <StatCard label='System' value={ship.nav.systemSymbol} />
+        <StatCard label='Waypoint' value={ship.nav.waypointSymbol} />
       </div>
 
       <div className='detail-status-row'>
         <PanelTitle as='h3'>Operation Status</PanelTitle>
 
         <Row gap='md'>
-          <ShipStatusPill status={ship!.nav.status} />
-          <ShipStatusPill status={ship!.nav.flightMode} />
+          <ShipStatusPill status={ship.nav.status} />
+          <ShipStatusPill status={ship.nav.flightMode} />
         </Row>
       </div>
 
-      <ShipTelemetrySection ship={ship!} />
+      <ShipTelemetrySection ship={ship} />
 
       <ShipNavigationPanel
-        ship={ship!}
+        ship={ship}
         refetchShip={refetch}
         targets={navigationTargets}
         isLoading={isLoadingWaypoints}
         error={waypointsError}
       />
 
-      <ShipActionsPanel ship={ship!} />
+      <ShipActionsPanel ship={ship} />
 
       <div className='ship-inventory-section'>
         <PanelTitle as='h3'>Inventory</PanelTitle>
-        <ShipInventory ship={ship!} />
+        <ShipInventory ship={ship} />
       </div>
     </Panel>
   );
