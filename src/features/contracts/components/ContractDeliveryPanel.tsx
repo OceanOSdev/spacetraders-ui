@@ -13,14 +13,10 @@ import { EmptyState } from '../../../components/ui/EmptyState';
 import { LoadingState } from '../../../components/ui/LoadingState';
 import { ErrorState } from '../../../components/ui/ErrorState';
 import { useGetShipQuery } from '../../ships/api/shipsApi';
+import { selectSelectedContractShipSymbol } from '../store/contractsSelectors';
 
-type ContractDeliveryPanelProps = {
-  shipSymbol?: string;
-};
-
-export function ContractDeliveryPanel({
-  shipSymbol,
-}: ContractDeliveryPanelProps) {
+export function ContractDeliveryPanel() {
+  const shipSymbol = useAppSelector(selectSelectedContractShipSymbol);
   const selectedContractId = useAppSelector(
     (s) => s.contractsUi.selectedContractId,
   );
