@@ -70,7 +70,7 @@ export function ContractDetails() {
   const contract = data.data;
 
   async function handleAccept() {
-    await acceptContract(contract.id);
+    await acceptContract(contract.id).unwrap();
   }
 
   return (
