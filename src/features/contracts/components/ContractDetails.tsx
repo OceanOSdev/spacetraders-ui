@@ -16,11 +16,10 @@ import {
   useGetContractQuery,
   useAcceptContractMutation,
 } from '../api/contractsApi';
+import { selectSelectedContractId } from '../store/contractsSelectors';
 
 export function ContractDetails() {
-  const selectedContractId = useAppSelector(
-    (s) => s.contractsUi.selectedContractId,
-  );
+  const selectedContractId = useAppSelector(selectSelectedContractId);
 
   const { data, error, isLoading, isFetching } = useGetContractQuery(
     selectedContractId ?? '',
