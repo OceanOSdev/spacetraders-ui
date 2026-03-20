@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a reproducible problem in the SpaceTraders UI
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please provide enough details for someone else to reproduce it.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What went wrong?
+      placeholder: A short description of the bug
+    validation:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact steps needed to reproduce the issue
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. Observe ...
+      validations:
+        required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: What should have happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Navigation
+        - Ships
+        - Markets
+        - Contracts
+        - Global UI / Layout
+        - State management / Redux
+        - API integration
+        - Other
+      validations:
+        required: true
+        
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recordings
+      description: Paste screenshots, GIFs, or short videos if relevant
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Errors, logs, console output, or anything else that may help
