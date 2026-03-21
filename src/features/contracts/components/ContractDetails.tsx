@@ -1,4 +1,3 @@
-import { useAppSelector } from '../../../app/hooks';
 import { EmptyState } from '../../../components/ui/EmptyState';
 import { LoadingState } from '../../../components/ui/LoadingState';
 import { ErrorState } from '../../../components/ui/ErrorState';
@@ -12,154 +11,141 @@ import { formatLocalDateTime } from '../../../utils/time';
 import { PayoutBadge } from './PayoutBadge';
 import { ProgressBar } from '../../../components/ui/ProgressBar';
 import { Stack } from '../../../components/ui/Stack';
-import {
-  useGetContractQuery,
-  useAcceptContractMutation,
-} from '../api/contractsApi';
-import { selectSelectedContractId } from '../store/contractsSelectors';
+import { useAcceptContractMutation } from '../api/contractsApi';
+import { useContractDetailsViewModel } from '../hooks/useContractDetailsViewModel';
 
 export function ContractDetails() {
-  const selectedContractId = useAppSelector(selectSelectedContractId);
-
-  const { data, error, isLoading, isFetching } = useGetContractQuery(
-    selectedContractId ?? '',
-    {
-      skip: !selectedContractId,
-    },
-  );
-
+  const viewModel = useContractDetailsViewModel();
   const [acceptContract, { isLoading: isAccepting }] =
     useAcceptContractMutation();
 
-  if (!selectedContractId) {
-    return (
-      <EmptyState
-        title='Contract Details'
-        message='Select a contract to see details.'
-      />
-    );
+  async function handleAccept(contractId: string) {
+    await acceptContract(contractId).unwrap();
   }
 
-  if (isLoading) {
-    return (
-      <LoadingState
-        title='Contract Details'
-        message='Loading contract terms...'
-      />
-    );
-  }
+  function renderContent() {
+    switch (viewModel.kind) {
+      case 'empty':
+        return (
+          <EmptyState title={viewModel.title} message={viewModel.message} />
+        );
 
-  if (error) {
-    return (
-      <ErrorState
-        title='Contract Details'
-        message='Could not load contract details.'
-      />
-    );
-  }
+      case 'loading':
+        return (
+          <LoadingState title={viewModel.title} message={viewModel.message} />
+        );
 
-  if (!data) {
-    return (
-      <EmptyState
-        title='Contract Details'
-        message='No contract details found.'
-      />
-    );
-  }
+      case 'error':
+        return (
+          <ErrorState title={viewModel.title} message={viewModel.message} />
+        );
 
-  const contract = data.data;
+      case 'ready':
+        const { contract } = viewModel;
 
-  async function handleAccept() {
-    await acceptContract(contract.id).unwrap();
+        return (
+          <>
+            {viewModel.isRefreshing && (
+              <StatusText>Refreshing contract...</StatusText>
+            )}
+
+            <div className='contract-inline-pill-row'>
+              <ContractStatusPill
+                accepted={contract.accepted}
+                fulfilled={contract.fulfilled}
+              />
+              <CountdownText
+                isoDate={contract.terms.deadline}
+                prefix='Deadline:'
+              />
+            </div>
+
+            <div className='detail-grid' style={{ marginTop: '1rem' }}>
+              <StatCard label='Type' value={contract.type} />
+              <StatCard
+                label='Expires'
+                value={formatLocalDateTime(contract.expiration)}
+              />
+              <StatCard
+                label='Deliveries'
+                value={contract.terms.deliver.length}
+              />
+            </div>
+
+            <div className='payout-row'>
+              <PayoutBadge
+                label='Accept Payout'
+                amount={contract.terms.payment.onAccepted}
+              />
+              <PayoutBadge
+                label='Fulfill Payout'
+                amount={contract.terms.payment.onFulfilled}
+              />
+            </div>
+
+            <div className='contract-section'>
+              <PanelTitle as='h3'>Delivery Terms</PanelTitle>
+
+              {contract.terms.deliver.length === 0 ? (
+                <p>No delivery terms listed.</p>
+              ) : (
+                <Stack style={{ marginTop: '0.85rem' }}>
+                  {contract.terms.deliver.map((item) => (
+                    <div
+                      className='contract-delivery-panel'
+                      key={`${item.tradeSymbol}-${item.destinationSymbol}`}
+                    >
+                      <div className='contract-delivery-header'>
+                        <div className='contract-delivery-title'>
+                          {item.tradeSymbol}
+                        </div>
+                        <div className='contract-delivery-destination'>
+                          &rarr; {item.destinationSymbol}
+                        </div>
+                      </div>
+
+                      <ProgressBar
+                        label='Fulfillment'
+                        value={item.unitsFulfilled}
+                        max={item.unitsRequired}
+                        color='amber'
+                        size='md'
+                      />
+                    </div>
+                  ))}
+                </Stack>
+              )}
+            </div>
+
+            <div className='contract-section'>
+              <PanelTitle as='h3'>Actions</PanelTitle>
+
+              <div className='contract-actions'>
+                {!contract.accepted && (
+                  <div className='contract-action-group'>
+                    <div className='contract-action-label'>
+                      Accept current contract
+                    </div>
+                    <button
+                      className='contract-button contract-button-primary'
+                      onClick={() => handleAccept(contract.id)}
+                      disabled={isAccepting}
+                    >
+                      {isAccepting ? 'Accepting...' : 'Accept Contract'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        );
+    }
   }
 
   return (
     <Panel>
       <PanelTitle>Contract Briefing</PanelTitle>
-      {isFetching && <StatusText>Refreshing contract...</StatusText>}
-
-      <div className='contract-inline-pill-row'>
-        <ContractStatusPill
-          accepted={contract.accepted}
-          fulfilled={contract.fulfilled}
-        />
-        <CountdownText isoDate={contract.terms.deadline} prefix='Deadline:' />
-      </div>
-
-      <div className='detail-grid' style={{ marginTop: '1rem' }}>
-        <StatCard label='Type' value={contract.type} />
-        <StatCard
-          label='Expires'
-          value={formatLocalDateTime(contract.expiration)}
-        />
-        <StatCard label='Deliveries' value={contract.terms.deliver.length} />
-      </div>
-
-      <div className='payout-row'>
-        <PayoutBadge
-          label='Accept Payout'
-          amount={contract.terms.payment.onAccepted}
-        />
-        <PayoutBadge
-          label='Fulfill Payout'
-          amount={contract.terms.payment.onFulfilled}
-        />
-      </div>
-
-      <div className='contract-section'>
-        <PanelTitle as='h3'>Delivery Terms</PanelTitle>
-
-        {contract.terms.deliver.length === 0 ? (
-          <p>No delivery terms listed.</p>
-        ) : (
-          <Stack style={{ marginTop: '0.85rem' }}>
-            {contract.terms.deliver.map((item) => (
-              <div
-                className='contract-delivery-panel'
-                key={`${item.tradeSymbol}-${item.destinationSymbol}`}
-              >
-                <div className='contract-delivery-header'>
-                  <div className='contract-delivery-title'>
-                    {item.tradeSymbol}
-                  </div>
-                  <div className='contract-delivery-destination'>
-                    &rarr; {item.destinationSymbol}
-                  </div>
-                </div>
-
-                <ProgressBar
-                  label='Fulfillment'
-                  value={item.unitsFulfilled}
-                  max={item.unitsRequired}
-                  color='amber'
-                  size='md'
-                />
-              </div>
-            ))}
-          </Stack>
-        )}
-      </div>
-
-      <div className='contract-section'>
-        <PanelTitle as='h3'>Actions</PanelTitle>
-
-        <div className='contract-actions'>
-          {!contract.accepted && (
-            <div className='contract-action-group'>
-              <div className='contract-action-label'>
-                Accept current contract
-              </div>
-              <button
-                className='contract-button contract-button-primary'
-                onClick={handleAccept}
-                disabled={isAccepting}
-              >
-                {isAccepting ? 'Accepting...' : 'Accept Contract'}
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      {renderContent()}
     </Panel>
   );
 }
