@@ -13,13 +13,15 @@ import { EmptyState } from '../../../components/ui/EmptyState';
 import { LoadingState } from '../../../components/ui/LoadingState';
 import { ErrorState } from '../../../components/ui/ErrorState';
 import { useGetShipQuery } from '../../ships/api/shipsApi';
-import { selectSelectedContractShipSymbol } from '../store/contractsSelectors';
+import {
+  selectSelectedContractId,
+  selectSelectedContractShipSymbol,
+} from '../store/contractsSelectors';
+import { StatusText } from '../../../components/ui/StatusText';
 
 export function ContractDeliveryPanel() {
   const shipSymbol = useAppSelector(selectSelectedContractShipSymbol);
-  const selectedContractId = useAppSelector(
-    (s) => s.contractsUi.selectedContractId,
-  );
+  const selectedContractId = useAppSelector(selectSelectedContractId);
 
   const {
     data: contractData,
@@ -187,7 +189,7 @@ export function ContractDeliveryPanel() {
                     </button>
                   </Row>
                 ) : (
-                  <div>{row.disabledReason}</div>
+                  <StatusText>{row.disabledReason}</StatusText>
                 )}
               </Stack>
             </div>
