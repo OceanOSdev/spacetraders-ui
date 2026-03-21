@@ -94,12 +94,11 @@ export const shipsApi = spacetradersApi.injectEndpoints({
         method: 'POST',
         body: fromCargo ? { fromCargo: true } : {},
       }),
-      invalidatesTags: (_result, _error, { shipSymbol }) =>
-        invalidatesTags(
-          entityTag('Ship', shipSymbol),
-          listTag('Ships'),
-          listTag('Agent'),
-        ),
+      invalidatesTags: (_result, _error, { shipSymbol }) => [
+        entityTag('Ship', shipSymbol),
+        listTag('Ships'),
+        'Agent',
+      ],
     }),
 
     extractResources: builder.mutation<unknown, string>({

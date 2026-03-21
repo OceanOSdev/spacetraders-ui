@@ -1,15 +1,12 @@
+import { useAppSelector } from '../../../app/hooks';
 import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { StatusText } from '../../../components/ui/StatusText';
 import { useNegotiateContractMutation } from '../api/contractsApi';
+import { selectSelectedContractShipSymbol } from '../store/contractsSelectors';
 
-type ContractActionsPanelProps = {
-  shipSymbol: string | undefined;
-};
-
-export function ContractActionsPanel({
-  shipSymbol,
-}: ContractActionsPanelProps) {
+export function ContractActionsPanel() {
+  const shipSymbol = useAppSelector(selectSelectedContractShipSymbol);
   const [negotiateContract, { isLoading: isNegotiating, error }] =
     useNegotiateContractMutation();
 
@@ -38,6 +35,9 @@ export function ContractActionsPanel({
           </button>
         </div>
 
+        {!shipSymbol && (
+          <StatusText>Select a ship to negotiate a contract.</StatusText>
+        )}
         {error && <StatusText>Could not negotiate a new contract.</StatusText>}
       </div>
     </Panel>

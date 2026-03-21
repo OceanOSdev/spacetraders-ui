@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { DashboardGrid } from '../../components/ui/DashboardGrid';
 import { Stack } from '../../components/ui/Stack';
 import { useGetShipsQuery } from '../ships/api/shipsApi';
@@ -9,9 +8,13 @@ import { Panel } from '../../components/ui/Panel';
 import { PanelTitle } from '../../components/ui/PanelTitle';
 import { ShipSelector } from '../ships/components/ShipSelector';
 import { ContractDeliveryPanel } from './components/ContractDeliveryPanel';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { selectSelectedContractShipSymbol } from './store/contractsSelectors';
+import { setSelectedShipSymbol } from './store/contractsUiSlice';
 
 export function ContractsPage() {
-  const [selectedShip, setSelectedShip] = useState('');
+  const dispatch = useAppDispatch();
+  const selectedShip = useAppSelector(selectSelectedContractShipSymbol);
   const { data: shipsData, isFetching: isFetchingShips } = useGetShipsQuery();
 
   return (
@@ -19,8 +22,8 @@ export function ContractsPage() {
       <Panel className='contract-actions-panel'>
         <PanelTitle>Ship Selector</PanelTitle>
         <ShipSelector
-          value={selectedShip}
-          onChange={setSelectedShip}
+          value={selectedShip ?? ''}
+          onChange={(value) => dispatch(setSelectedShipSymbol(value || null))}
           options={
             shipsData?.data.map((ship) => ({
               value: ship.symbol,
@@ -32,12 +35,12 @@ export function ContractsPage() {
       </Panel>
       <DashboardGrid>
         <Stack>
-          <ContractActionsPanel shipSymbol={selectedShip} />
+          <ContractActionsPanel />
           <ContractsList />
         </Stack>
         <Stack>
           <ContractDetails />
-          <ContractDeliveryPanel shipSymbol={selectedShip} />
+          <ContractDeliveryPanel />
         </Stack>
       </DashboardGrid>
     </Stack>

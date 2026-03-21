@@ -1,14 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Panel } from '../../../components/ui/Panel';
 import { PanelTitle } from '../../../components/ui/PanelTitle';
 import { Row } from '../../../components/ui/Row';
 import { Stack } from '../../../components/ui/Stack';
 import { useSellCargoMutation } from '../api/marketsApi';
-import { buildSellableCargoRows } from '../model/marketViewModels';
+import { type SellableCargoRow } from '../model/marketViewModels';
 import type { Market } from '../../../types/markets';
 import type { Ship } from '../../../types/ships/ships';
 import { DockOrOrbitButton } from '../../ships/components/ship-actions/DockOrOrbitButton';
 import { StatusText } from '../../../components/ui/StatusText';
+import { useMarketSellViewModel } from '../hooks/useMarketSellViewModel';
+import { EmptyState } from '../../../components/ui/EmptyState';
 
 type MarketSellPanelProps = {
   ship?: Ship;
@@ -16,13 +18,10 @@ type MarketSellPanelProps = {
 };
 
 export function MarketSellPanel({ ship, market }: MarketSellPanelProps) {
+  const viewModel = useMarketSellViewModel({ ship, market });
+
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [sellCargo, sellState] = useSellCargoMutation();
-
-  const rows = useMemo(
-    () => buildSellableCargoRows(ship, market),
-    [ship, market],
-  );
 
   function getQuantity(symbol: string, max: number) {
     const quantity = quantities[symbol];
@@ -30,18 +29,14 @@ export function MarketSellPanel({ ship, market }: MarketSellPanelProps) {
     return Math.max(1, Math.min(max, quantity));
   }
 
-  async function handleSell(symbol: string, maxUnits: number) {
-    if (!ship) return;
+  function setQuantity(symbol: string, quantity: number) {
+    setQuantities((current) => ({
+      ...current,
+      [symbol]: quantity,
+    }));
+  }
 
-    const units = getQuantity(symbol, maxUnits);
-
-    await sellCargo({
-      shipSymbol: ship.symbol,
-      waypointSymbol: ship.nav.waypointSymbol,
-      symbol,
-      units,
-    }).unwrap();
-
+  function clearQuantity(symbol: string) {
     setQuantities((current) => {
       const next = { ...current };
       delete next[symbol];
@@ -49,110 +44,136 @@ export function MarketSellPanel({ ship, market }: MarketSellPanelProps) {
     });
   }
 
-  if (ship && ship.nav.status !== 'DOCKED') {
-    return (
-      <Panel>
-        <Stack gap='md'>
-          <PanelTitle>Sell Cargo</PanelTitle>
-          <StatusText>Ship must be docked to buy and sell.</StatusText>
-          <DockOrOrbitButton ship={ship} />
-        </Stack>
-      </Panel>
-    );
+  async function handleSell(row: SellableCargoRow) {
+    if (viewModel.kind !== 'ready') return;
+
+    const units = getQuantity(row.tradeSymbol, row.unitsInCargo);
+
+    await sellCargo({
+      shipSymbol: viewModel.ship.symbol,
+      waypointSymbol: viewModel.ship.nav.waypointSymbol,
+      symbol: row.tradeSymbol,
+      units,
+    }).unwrap();
+
+    clearQuantity(row.tradeSymbol);
   }
 
-  return (
-    <Panel>
-      <Stack gap='md'>
-        <PanelTitle>Sell Cargo</PanelTitle>
+  function renderContent() {
+    switch (viewModel.kind) {
+      case 'missing-ship':
+      case 'empty':
+        return (
+          <EmptyState title={viewModel.title} message={viewModel.message} />
+        );
 
-        {!ship ? (
-          <div>Select a ship to trade.</div>
-        ) : rows.length === 0 ? (
-          <div>This ship has no cargo.</div>
-        ) : (
-          <Stack gap='sm'>
-            {rows.map((row) => {
-              const quantity = getQuantity(row.tradeSymbol, row.unitsInCargo);
-              const expected =
-                row.sellPrice != null ? row.sellPrice * quantity : undefined;
+      case 'docking-required':
+        return (
+          <Panel>
+            <Stack gap='md'>
+              <PanelTitle>{viewModel.title}</PanelTitle>
+              <StatusText>{viewModel.message}</StatusText>
+              <DockOrOrbitButton ship={viewModel.ship} />
+            </Stack>
+          </Panel>
+        );
 
-              return (
-                <div
+      case 'ready':
+        return (
+          <Panel>
+            <Stack gap='md'>
+              <PanelTitle>Sell Cargo</PanelTitle>
+              {viewModel.rows.map((row) => (
+                <MarketSellRowCard
                   key={row.tradeSymbol}
-                  style={{
-                    padding: 12,
-                    border: '1px solid currentColor',
-                    borderRadius: 8,
-                  }}
-                >
-                  <Stack gap='sm'>
-                    <Row justify='between'>
-                      <strong>{row.tradeSymbol}</strong>
-                      <span>{row.unitsInCargo} in cargo</span>
-                    </Row>
+                  row={row}
+                  quantity={getQuantity(row.tradeSymbol, row.unitsInCargo)}
+                  isSelling={sellState.isLoading}
+                  onQuantityChange={setQuantity}
+                  onMax={() => setQuantity(row.tradeSymbol, row.unitsInCargo)}
+                  onSell={() => handleSell(row)}
+                />
+              ))}
 
-                    <div>
-                      Sell price: {row.sellPrice != null ? row.sellPrice : '—'}
-                    </div>
+              {sellState.isError && (
+                <StatusText>Failed to sell cargo.</StatusText>
+              )}
+            </Stack>
+          </Panel>
+        );
+    }
+  }
 
-                    {row.isSellable ? (
-                      <>
-                        <Row gap='sm' align='center'>
-                          <input
-                            type='number'
-                            min={1}
-                            max={row.unitsInCargo}
-                            value={quantity}
-                            onChange={(event) =>
-                              setQuantities((current) => ({
-                                ...current,
-                                [row.tradeSymbol]:
-                                  Number(event.target.value) || 1,
-                              }))
-                            }
-                            style={{ width: 80 }}
-                          />
+  return renderContent();
+}
 
-                          <button
-                            type='button'
-                            onClick={() =>
-                              setQuantities((current) => ({
-                                ...current,
-                                [row.tradeSymbol]: row.unitsInCargo,
-                              }))
-                            }
-                          >
-                            Max
-                          </button>
+type MarketSellRowCardProps = {
+  row: SellableCargoRow;
+  quantity: number;
+  isSelling: boolean;
+  onQuantityChange: (symbol: string, quantity: number) => void;
+  onMax: () => void;
+  onSell: () => void;
+};
 
-                          <button
-                            type='button'
-                            disabled={sellState.isLoading}
-                            onClick={() =>
-                              void handleSell(row.tradeSymbol, row.unitsInCargo)
-                            }
-                          >
-                            Sell
-                          </button>
-                        </Row>
+function MarketSellRowCard({
+  row,
+  quantity,
+  isSelling,
+  onQuantityChange,
+  onMax,
+  onSell,
+}: MarketSellRowCardProps) {
+  const expected = row.sellPrice != null ? row.sellPrice * quantity : undefined;
 
-                        <div>
-                          Expected proceeds: {expected != null ? expected : '—'}
-                        </div>
-                      </>
-                    ) : (
-                      <div>{row.disabledReason ?? 'Cannot sell'}</div>
-                    )}
-                  </Stack>
-                </div>
-              );
-            })}
-          </Stack>
+  return (
+    <div
+      style={{
+        padding: 12,
+        border: '1px solid currentColor',
+        borderRadius: 8,
+      }}
+    >
+      <Stack gap='sm'>
+        <Row justify='between'>
+          <strong>{row.tradeSymbol}</strong>
+          <span>{row.unitsInCargo} in cargo</span>
+        </Row>
+
+        <div>Sell price: {row.sellPrice != null ? row.sellPrice : '—'}</div>
+
+        {row.isSellable ? (
+          <>
+            <Row gap='sm' align='center'>
+              <input
+                type='number'
+                min={1}
+                max={row.unitsInCargo}
+                value={quantity}
+                onChange={(event) =>
+                  onQuantityChange(
+                    row.tradeSymbol,
+                    Number(event.target.value) || 1,
+                  )
+                }
+                style={{ width: 80 }}
+              />
+
+              <button type='button' onClick={onMax}>
+                Max
+              </button>
+
+              <button type='button' disabled={isSelling} onClick={onSell}>
+                Sell
+              </button>
+            </Row>
+
+            <div>Expected proceeds: {expected != null ? expected : '—'}</div>
+          </>
+        ) : (
+          <div>{row.disabledReason ?? 'Cannot sell'}</div>
         )}
-
-        {sellState.isError && <div>Failed to sell cargo.</div>}
       </Stack>
-    </Panel>
+    </div>
   );
 }
