@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { DashboardGrid } from '../../components/ui/DashboardGrid';
 import { Stack } from '../../components/ui/Stack';
 import { useGetShipsQuery } from '../ships/api/shipsApi';
@@ -11,7 +10,7 @@ import { ShipSelector } from '../ships/components/ShipSelector';
 import { ContractDeliveryPanel } from './components/ContractDeliveryPanel';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectSelectedContractShipSymbol } from './store/contractsSelectors';
-import { setSelectedShipSymbol } from '../ships/store/shipsUiSlice';
+import { setSelectedShipSymbol } from './store/contractsUiSlice';
 
 export function ContractsPage() {
   const dispatch = useAppDispatch();

@@ -23,5 +23,6 @@ const contractsUiSlice = createSlice({
   },
 });
 
-export const { setSelectedContractId } = contractsUiSlice.actions;
+export const { setSelectedContractId, setSelectedShipSymbol } =
+  contractsUiSlice.actions;
 export default contractsUiSlice.reducer;
